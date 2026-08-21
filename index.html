@@ -3,81 +3,302 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yomna | Main Character Energy</title>
+  <title>Yomna | My World 🎀</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0d1117; }
     h1, h2, h3 { font-family: 'Syne', sans-serif; }
+
+    /* Strawberry Girl Walking Animation */
+    @keyframes walkAcross {
+      0% { left: -50px; transform: scaleX(1); }
+      49% { transform: scaleX(1); }
+      50% { left: calc(100% + 50px); transform: scaleX(-1); }
+      99% { transform: scaleX(-1); }
+      100% { left: -50px; transform: scaleX(1); }
+    }
+    .walking-girl {
+      position: absolute;
+      bottom: 2px;
+      animation: walkAcross 18s linear infinite;
+      will-change: left;
+    }
+
+    /* Floating animation for cards */
+    .float-card { transition: transform 0.3s ease, border-color 0.3s ease; }
+    .float-card:hover { transform: translateY(-6px); }
   </style>
 </head>
-<body class="bg-[#0f172a] text-slate-100 min-h-screen p-6 md:p-12">
+<body class="text-slate-100 min-h-screen pb-20 overflow-x-hidden">
 
-  <main class="max-w-4xl mx-auto space-y-16">
+  <!-- Header Section -->
+  <header class="max-w-4xl mx-auto pt-16 pb-10 px-6 text-center space-y-4">
+    <span class="inline-block px-4 py-1.5 bg-pink-500/10 border border-pink-500/30 rounded-full text-pink-400 text-xs font-semibold tracking-widest uppercase">
+      🎀 welcome to my small universe
+    </span>
+    <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-300 to-cyan-300">
+      hey, i'm yomna.
+    </h1>
+    <p class="text-slate-400 text-lg md:text-xl max-w-xl mx-auto font-normal">
+      just a soul collecting aesthetic moments, soft waves, sweet treats, and good music.
+    </p>
+  </header>
 
-    <!-- Hero / Intro Section -->
-    <section class="space-y-4">
-      <div class="inline-block px-4 py-1.5 bg-pink-500/10 border border-pink-500/30 rounded-full text-pink-400 text-xs font-semibold uppercase tracking-widest">
-        ✨ Powered by caffeine & HTML
+  <main class="max-w-4xl mx-auto px-6 space-y-16">
+
+    <!-- The Things I Love Section -->
+    <section class="space-y-8">
+      <div class="text-center space-y-2">
+        <h2 class="text-3xl font-bold text-slate-200">the little things ✨</h2>
+        <p class="text-slate-500 text-sm">everything that makes my heart feel full</p>
       </div>
-      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-cyan-300 to-purple-400">
-        hey, i'm yomna.
-      </h1>
-      <p class="text-xl md:text-2xl text-slate-400 max-w-2xl font-normal leading-relaxed">
-        frontend dev, sea whisperer, and lowkey candy addict. i turn messy ideas into pretty digital stuff.
-      </p>
-    </section>
-
-    <!-- The Vibe Scrapbook (Your Interests) -->
-    <section class="space-y-6">
-      <h2 class="text-2xl font-bold text-slate-300 flex items-center gap-2">
-        the lore <span class="text-xs text-slate-500 font-normal">(aka things i love)</span>
-      </h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        <!-- Sea Card -->
-        <div class="group relative bg-slate-800/40 border border-slate-700/60 p-6 rounded-3xl hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-1">
-          <div class="flex items-start justify-between mb-4">
-            <span class="text-4xl">🌊</span>
-            <span class="text-xs bg-cyan-950 text-cyan-300 px-3 py-1 rounded-full font-mono">01 / VIBE</span>
+        <!-- 1. The Sea -->
+        <div class="float-card bg-slate-900/60 border border-slate-800 p-5 rounded-3xl hover:border-cyan-400/50 flex flex-col justify-between">
+          <div class="space-y-2 mb-4">
+            <h3 class="text-xl font-bold text-cyan-300">🌊 The Sea</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              My ultimate peace. The rhythmic sound of waves instantly reassures me, and when night falls over the water with my favorite songs playing? Pure magic.
+            </p>
           </div>
-          <h3 class="text-xl font-bold text-cyan-300 mb-2">The Sea</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            My absolute happy place. If my code isn't working, I probably just need to sit by the ocean and stare into the void for 10 minutes.
-          </p>
-          <!-- حطي صورتك البحر هنا -->
-          <div class="mt-4 h-48 rounded-2xl bg-slate-700/50 overflow-hidden border border-slate-600/30">
-            <img src="YOUR_SEA_IMAGE.jpg" alt="Sea" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="h-52 w-full rounded-2xl bg-slate-800 border border-slate-700/50 overflow-hidden">
+            <img src="YOUR_SEA_IMAGE.jpg" alt="Sea" class="w-full h-full object-cover">
           </div>
         </div>
 
-        <!-- Candy Card -->
-        <div class="group relative bg-slate-800/40 border border-slate-700/60 p-6 rounded-3xl hover:border-pink-400/50 transition-all duration-300 hover:-translate-y-1">
-          <div class="flex items-start justify-between mb-4">
-            <span class="text-4xl">🍬</span>
-            <span class="text-xs bg-pink-950 text-pink-300 px-3 py-1 rounded-full font-mono">02 / FUEL</span>
+        <!-- 2. Candy -->
+        <div class="float-card bg-slate-900/60 border border-slate-800 p-5 rounded-3xl hover:border-pink-400/50 flex flex-col justify-between">
+          <div class="space-y-2 mb-4">
+            <h3 class="text-xl font-bold text-pink-300">🍬 Candy</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              My instant happiness cheat code. I swear nothing turns a bad day into a good one faster than a pouch of sweet candies!
+            </p>
           </div>
-          <h3 class="text-xl font-bold text-pink-300 mb-2">Candy & Sweets</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            Literally what fuels my debugging sessions. No sugar = no code. It's basic science at this point.
-          </p>
-          <!-- حطي صور الكاندي هنا -->
-          <div class="mt-4 h-48 rounded-2xl bg-slate-700/50 overflow-hidden border border-slate-600/30">
-            <img src="YOUR_CANDY_IMAGE.jpg" alt="Candy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="h-52 w-full rounded-2xl bg-slate-800 border border-slate-700/50 overflow-hidden">
+            <img src="YOUR_CANDY_IMAGE.jpg" alt="Candy" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <!-- 3. The Sky -->
+        <div class="float-card bg-slate-900/60 border border-slate-800 p-5 rounded-3xl hover:border-indigo-400/50 flex flex-col justify-between">
+          <div class="space-y-2 mb-4">
+            <h3 class="text-xl font-bold text-indigo-300">☁️ The Sky</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Always daydreaming looking up. Cotton candy clouds in the afternoon and golden sunrises are my favorite art pieces.
+            </p>
+          </div>
+          <div class="h-52 w-full rounded-2xl bg-slate-800 border border-slate-700/50 overflow-hidden">
+            <img src="YOUR_SKY_IMAGE.jpg" alt="Sky" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <!-- 4. Music -->
+        <div class="float-card bg-slate-900/60 border border-slate-800 p-5 rounded-3xl hover:border-purple-400/50 flex flex-col justify-between">
+          <div class="space-y-2 mb-4">
+            <h3 class="text-xl font-bold text-purple-300">🎧 Music</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              The soundtrack to everything I do. Life without a playlist running in the background just feels muted.
+            </p>
+          </div>
+          <div class="h-52 w-full rounded-2xl bg-slate-800 border border-slate-700/50 overflow-hidden">
+            <img src="YOUR_MUSIC_IMAGE.jpg" alt="Music" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <!-- 5. Making Websites for Loved Ones -->
+        <div class="float-card bg-slate-900/60 border border-slate-800 p-5 rounded-3xl hover:border-rose-400/50 flex flex-col justify-between">
+          <div class="space-y-2 mb-4">
+            <h3 class="text-xl font-bold text-rose-300">💻 Creating Digital Gifts</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Building personalized websites for the people I adore. Crafting little secret digital corners just for them is my love language.
+            </p>
+          </div>
+          <div class="h-52 w-full rounded-2xl bg-slate-800 border border-slate-700/50 overflow-hidden">
+            <img src="YOUR_GIFTS_IMAGE.jpg" alt="Digital Gifts" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <!-- 6. Going Out & Exploring -->
+        <div class="float-card bg-slate-900/60 border border-slate-800 p-5 rounded-3xl hover:border-amber-400/50 flex flex-col justify-between">
+          <div class="space-y-2 mb-4">
+            <h3 class="text-xl font-bold text-amber-300">🌷 Outings & Flowers</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Unplanned walks, aesthetic cozy places, fresh flowers, and capturing pretty frames along the way with my camera.
+            </p>
+          </div>
+          <div class="h-52 w-full rounded-2xl bg-slate-800 border border-slate-700/50 overflow-hidden">
+            <img src="YOUR_OUTINGS_IMAGE.jpg" alt="Outings" class="w-full h-full object-cover">
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- Quick Tech Flex -->
-    <section class="bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-purple-500/20 p-8 rounded-3xl space-y-4">
-      <h3 class="text-lg font-bold text-purple-300">the dev stack 💻</h3>
-      <p class="text-slate-400 text-sm">HTML5, CSS3, JS, UI Design, and making sure everything looks aesthetic AF.</p>
+    <!-- Walking Girl Divider Section -->
+    <div class="relative w-full h-24 border-b-2 border-emerald-600/40 overflow-hidden my-12 bg-emerald-950/20 rounded-b-xl">
+      <!-- Grass & Flowers Background Strip -->
+      <div class="absolute bottom-0 w-full text-xs opacity-80 select-none">
+        🌸 🌿 🌼 🌸 🌿 🌷 🌸 🌿 🌼 🌸 🌿 🌷 🌸 🌿 🌼 🌸 🌿 🌷 🌸 🌿 🌼 🌸 🌿 🌷 🌸 🌿 🌼
+      </div>
+      
+      <!-- Cute Strawberry Girl Icon Walking -->
+      <div class="walking-girl flex flex-col items-center">
+        <!-- Cute Girl Vector/SVG Avatar -->
+        <svg width="36" height="42" viewBox="0 0 36 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Strawberry Hat -->
+          <path d="M8 14C8 6 28 6 28 14Z" fill="#ff4d6d"/>
+          <circle cx="18" cy="6" r="2" fill="#38b000"/>
+          <circle cx="13" cy="10" r="1" fill="#fff"/>
+          <circle cx="23" cy="10" r="1" fill="#fff"/>
+          <!-- Face -->
+          <circle cx="18" cy="18" r="7" fill="#ffe0bd"/>
+          <circle cx="15" cy="17" r="1" fill="#2b2b2b"/>
+          <circle cx="21" cy="17" r="1" fill="#2b2b2b"/>
+          <!-- Dress -->
+          <path d="M11 25L25 25L28 35L8 35Z" fill="#ff758f"/>
+          <!-- Legs -->
+          <rect x="13" y="35" width="3" height="6" fill="#ffe0bd"/>
+          <rect x="20" y="35" width="3" height="6" fill="#ffe0bd"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 3D Candy Catch Game Section -->
+    <section class="bg-slate-900/80 border border-pink-500/20 rounded-3xl p-6 text-center space-y-4">
+      <div>
+        <h3 class="text-2xl font-bold text-pink-300">Candy Catcher 🍬</h3>
+        <p class="text-slate-400 text-xs">Catch 10 candies in the basket to receive a gift!</p>
+      </div>
+
+      <div class="relative w-full max-w-lg mx-auto h-72 bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden flex flex-col items-center justify-center">
+        <canvas id="gameCanvas" width="450" height="280" class="w-full h-full cursor-none"></canvas>
+        
+        <!-- Win Modal Overlay -->
+        <div id="winModal" class="hidden absolute inset-0 bg-slate-950/95 flex flex-col items-center justify-center p-6 space-y-3 z-10">
+          <div class="text-4xl animate-bounce">🎒🍬</div>
+          <h4 class="text-xl font-bold text-pink-300">You Won!</h4>
+          <p class="text-slate-300 text-xs max-w-xs leading-relaxed">
+            Here's a full pouch of sweet candies for you! Thanks for visiting Yomna's world ✨
+          </p>
+          <button onclick="restartGame()" class="bg-pink-500 hover:bg-pink-600 text-slate-950 font-bold text-xs px-5 py-2 rounded-full transition">
+            Play Again
+          </button>
+        </div>
+      </div>
     </section>
 
   </main>
 
+  <!-- Game Logic -->
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const winModal = document.getElementById('winModal');
+
+    let score = 0;
+    let basket = { x: canvas.width / 2 - 30, y: canvas.height - 30, width: 60, height: 20 };
+    let candies = [];
+    let gameRunning = true;
+
+    // Track Mouse / Touch
+    canvas.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      basket.x = (e.clientX - rect.left) * (canvas.width / rect.width) - basket.width / 2;
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      basket.x = (e.touches[0].clientX - rect.left) * (canvas.width / rect.width) - basket.width / 2;
+    });
+
+    function spawnCandy() {
+      if (!gameRunning) return;
+      const types = ['#ff4d6d', '#4cc9f0', '#7209b7', '#ffb703'];
+      candies.push({
+        x: Math.random() * (canvas.width - 20) + 10,
+        y: -20,
+        radius: 10,
+        color: types[Math.floor(Math.random() * types.length)],
+        speed: 2 + Math.random() * 2
+      });
+    }
+
+    setInterval(spawnCandy, 900);
+
+    function drawBasket() {
+      // Basket
+      ctx.fillStyle = '#b5838d';
+      ctx.beginPath();
+      ctx.roundRect(basket.x, basket.y, basket.width, basket.height, [0, 0, 10, 10]);
+      ctx.fill();
+      ctx.strokeStyle = '#6d597a';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    function drawCandies() {
+      candies.forEach((c, index) => {
+        c.y += c.speed;
+
+        // Draw 3D Shaded Candy Globe
+        let gradient = ctx.createRadialGradient(c.x - 3, c.y - 3, 2, c.x, c.y, c.radius);
+        gradient.addColorStop(0, '#ffffff');
+        gradient.addColorStop(0.4, c.color);
+        gradient.addColorStop(1, '#000000');
+
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+
+        // Catch Collision Detection
+        if (
+          c.y + c.radius >= basket.y &&
+          c.x >= basket.x &&
+          c.x <= basket.x + basket.width
+        ) {
+          score++;
+          candies.splice(index, 1);
+          if (score >= 10) winGame();
+        }
+
+        // Remove out-of-screen candies
+        if (c.y > canvas.height + 20) candies.splice(index, 1);
+      });
+    }
+
+    function drawScore() {
+      ctx.fillStyle = '#f472b6';
+      ctx.font = 'bold 14px Plus Jakarta Sans';
+      ctx.fillText(`Candies Caught: ${score} / 10`, 15, 25);
+    }
+
+    function gameLoop() {
+      if (!gameRunning) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawBasket();
+      drawCandies();
+      drawScore();
+      requestAnimationFrame(gameLoop);
+    }
+
+    function winGame() {
+      gameRunning = false;
+      winModal.classList.remove('hidden');
+    }
+
+    function restartGame() {
+      score = 0;
+      candies = [];
+      gameRunning = true;
+      winModal.classList.add('hidden');
+      gameLoop();
+    }
+
+    gameLoop();
+  </script>
 </body>
 </html>
