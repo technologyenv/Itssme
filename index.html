@@ -1,36 +1,83 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yomna Essam | Portfolio</title>
+  <title>Yomna | Main Character Energy</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-  <style> body { font-family: 'Tajawal', sans-serif; } </style>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    h1, h2, h3 { font-family: 'Syne', sans-serif; }
+  </style>
 </head>
-<body class="bg-slate-900 text-slate-100 leading-relaxed">
+<body class="bg-[#0f172a] text-slate-100 min-h-screen p-6 md:p-12">
 
-  <!-- Navbar -->
-  <nav class="flex justify-between items-center px-8 py-5 border-b border-slate-800">
-    <h1 class="text-xl font-bold text-teal-400">Yomna Essam</h1>
-    <div class="space-x-6 space-x-reverse text-sm">
-      <a href="#about" class="hover:text-teal-400 transition">عني</a>
-      <a href="#skills" class="hover:text-teal-400 transition">المهارات</a>
-      <a href="#projects" class="hover:text-teal-400 transition">المشاريع</a>
-      <a href="#contact" class="hover:text-teal-400 transition">تواصل معي</a>
-    </div>
-  </nav>
+  <main class="max-w-4xl mx-auto space-y-16">
 
-  <!-- Hero Section -->
-  <section class="max-w-4xl mx-auto text-center py-24 px-4">
-    <span class="text-teal-400 text-sm font-semibold tracking-wide uppercase">Front-End Developer & EdTech Specialist</span>
-    <h2 class="text-4xl md:text-5xl font-bold my-4">أصمم وأطور تجارب رقمية وتفاعلية عصرية</h2>
-    <p class="text-slate-400 max-w-xl mx-auto mb-8">أدمج بين برمجة الواجهات الأمامية، وتصميم الجرافيك، وتطوير المحتوى التعليمي التفاعلي لإنشاء مواقع وبيئات رقمية متميزة.</p>
-    <div class="flex justify-center gap-4">
-      <a href="#projects" class="bg-teal-500 hover:bg-teal-600 text-slate-950 font-bold px-6 py-3 rounded-lg transition">استكشف أعمالي</a>
-      <a href="#contact" class="border border-slate-700 hover:border-teal-400 px-6 py-3 rounded-lg transition">تواصل معي</a>
-    </div>
-  </section>
+    <!-- Hero / Intro Section -->
+    <section class="space-y-4">
+      <div class="inline-block px-4 py-1.5 bg-pink-500/10 border border-pink-500/30 rounded-full text-pink-400 text-xs font-semibold uppercase tracking-widest">
+        ✨ Powered by caffeine & HTML
+      </div>
+      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-cyan-300 to-purple-400">
+        hey, i'm yomna.
+      </h1>
+      <p class="text-xl md:text-2xl text-slate-400 max-w-2xl font-normal leading-relaxed">
+        frontend dev, sea whisperer, and lowkey candy addict. i turn messy ideas into pretty digital stuff.
+      </p>
+    </section>
+
+    <!-- The Vibe Scrapbook (Your Interests) -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-300 flex items-center gap-2">
+        the lore <span class="text-xs text-slate-500 font-normal">(aka things i love)</span>
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Sea Card -->
+        <div class="group relative bg-slate-800/40 border border-slate-700/60 p-6 rounded-3xl hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-1">
+          <div class="flex items-start justify-between mb-4">
+            <span class="text-4xl">🌊</span>
+            <span class="text-xs bg-cyan-950 text-cyan-300 px-3 py-1 rounded-full font-mono">01 / VIBE</span>
+          </div>
+          <h3 class="text-xl font-bold text-cyan-300 mb-2">The Sea</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            My absolute happy place. If my code isn't working, I probably just need to sit by the ocean and stare into the void for 10 minutes.
+          </p>
+          <!-- حطي صورتك البحر هنا -->
+          <div class="mt-4 h-48 rounded-2xl bg-slate-700/50 overflow-hidden border border-slate-600/30">
+            <img src="YOUR_SEA_IMAGE.jpg" alt="Sea" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+        </div>
+
+        <!-- Candy Card -->
+        <div class="group relative bg-slate-800/40 border border-slate-700/60 p-6 rounded-3xl hover:border-pink-400/50 transition-all duration-300 hover:-translate-y-1">
+          <div class="flex items-start justify-between mb-4">
+            <span class="text-4xl">🍬</span>
+            <span class="text-xs bg-pink-950 text-pink-300 px-3 py-1 rounded-full font-mono">02 / FUEL</span>
+          </div>
+          <h3 class="text-xl font-bold text-pink-300 mb-2">Candy & Sweets</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Literally what fuels my debugging sessions. No sugar = no code. It's basic science at this point.
+          </p>
+          <!-- حطي صور الكاندي هنا -->
+          <div class="mt-4 h-48 rounded-2xl bg-slate-700/50 overflow-hidden border border-slate-600/30">
+            <img src="YOUR_CANDY_IMAGE.jpg" alt="Candy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Quick Tech Flex -->
+    <section class="bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-purple-500/20 p-8 rounded-3xl space-y-4">
+      <h3 class="text-lg font-bold text-purple-300">the dev stack 💻</h3>
+      <p class="text-slate-400 text-sm">HTML5, CSS3, JS, UI Design, and making sure everything looks aesthetic AF.</p>
+    </section>
+
+  </main>
 
 </body>
 </html>
