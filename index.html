@@ -1,79 +1,383 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <title>Yomna | My World 🎀</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yomna | Main Character Energy</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <style>
-    /* الحقل الحقيقي */
-    .garden-strip {
-      background: linear-gradient(to bottom, #10b981 0%, #064e3b 100%);
-      position: relative;
-      height: 120px;
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    h1, h2, h3 { font-family: 'Syne', sans-serif; }
+    
+    /* 3D Animation Container */
+    #animation-container {
+      width: 100%;
+      height: 400px;
+      border-radius: 24px;
       overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
     }
-    /* البنت اللي بتمشي */
-    .walking-girl {
+    
+    /* Candy Game Container */
+    #candy-game {
+      width: 100%;
+      height: 300px;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+      cursor: pointer;
+    }
+    
+    /* Candy falling animation */
+    .candy {
       position: absolute;
-      bottom: 0px;
-      width: 100px; /* تحكمي في الحجم من هنا */
-      animation: walk 15s linear infinite;
+      font-size: 24px;
+      animation: fall linear infinite;
+      cursor: pointer;
+      user-select: none;
     }
-    @keyframes walk {
-      0% { left: -150px; transform: scaleX(1); }
-      49% { left: 100%; transform: scaleX(1); }
-      50% { left: 100%; transform: scaleX(-1); }
-      100% { left: -150px; transform: scaleX(-1); }
+    
+    @keyframes fall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(350px) rotate(360deg); opacity: 0; }
+    }
+    
+    /* Character reveal animation */
+    #character-reveal {
+      position: absolute;
+      bottom: -200px;
+      right: 20px;
+      transition: bottom 2s ease-out;
+      z-index: 10;
+    }
+    
+    #character-reveal.show {
+      bottom: 20px;
+    }
+    
+    /* Candy bag animation */
+    #candy-bag {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      transition: transform 0.5s ease-out;
+      z-index: 20;
+    }
+    
+    #candy-bag.show {
+      transform: translateX(-50%) scale(1);
+    }
+    
+    /* Score display */
+    #score {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #f472b6;
+      z-index: 30;
+    }
+    
+    /* Message display */
+    #message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: rgba(244, 114, 182, 0.9);
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+      z-index: 40;
+      transition: transform 0.5s ease-out;
+    }
+    
+    #message.show {
+      transform: translate(-50%, -50%) scale(1);
     }
   </style>
 </head>
-<body class="bg-[#0f172a] text-slate-100 p-6">
+<body class="bg-[#0f172a] text-slate-100 min-h-screen p-6 md:p-12">
 
-  <!-- قسم الحقل والبنت -->
-  <div class="garden-strip rounded-3xl mb-10 shadow-lg border border-emerald-500/20">
-    <!-- حطي هنا صورة الـ GIF بتاعت البنت الـ 3D -->
-    <img src="YOUR_3D_WALKING_GIRL.gif" class="walking-girl" alt="Walking Girl">
-  </div>
+  <main class="max-w-4xl mx-auto space-y-16">
 
-  <!-- قسم اللعبة -->
-  <section class="max-w-lg mx-auto bg-slate-900 p-6 rounded-3xl border border-pink-500/20 text-center">
-    <h3 class="text-xl font-bold mb-4">Catch the Real Candy 🍬</h3>
-    <canvas id="gameCanvas" width="400" height="300" class="bg-black/40 rounded-xl mx-auto"></canvas>
-  </section>
+    <!-- Hero / Intro Section -->
+    <section class="space-y-4">
+      <div class="inline-block px-4 py-1.5 bg-pink-500/10 border border-pink-500/30 rounded-full text-pink-400 text-xs font-semibold uppercase tracking-widest">
+        ✨ Powered by caffeine & HTML
+      </div>
+      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-cyan-300 to-purple-400">
+        hey, i'm yomna.
+      </h1>
+      <p class="text-xl md:text-2xl text-slate-400 max-w-2xl font-normal leading-relaxed">
+        frontend dev, sea whisperer, and lowkey candy addict. i turn messy ideas into pretty digital stuff.
+      </p>
+    </section>
 
+    <!-- 3D Animation Section -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-300 flex items-center gap-2">
+        my 3d world <span class="text-xs text-slate-500 font-normal">(aka where i live in my head)</span>
+      </h2>
+      
+      <div id="animation-container"></div>
+    </section>
+
+    <!-- Candy Collection Game -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-300 flex items-center gap-2">
+        candy collector <span class="text-xs text-slate-500 font-normal">(collect 10 candies!)</span>
+      </h2>
+      
+      <div id="candy-game">
+        <div id="score">🍬 0/10</div>
+        <div id="character-reveal">
+          <!-- 3D Character will be rendered here -->
+          <div style="width: 150px; height: 200px; background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 80px;">🍓</div>
+        </div>
+        <div id="candy-bag">
+          <div style="width: 120px; height: 150px; background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 60px;">🎁</div>
+        </div>
+        <div id="message">
+          <h3 class="text-2xl font-bold text-white mb-2">Yay! You did it! 🎉</h3>
+          <p class="text-white text-lg">"Every sweet moment starts with a little bit of magic ✨"</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Vibe Scrapbook (Your Interests) -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-slate-300 flex items-center gap-2">
+        the lore <span class="text-xs text-slate-500 font-normal">(aka things i love)</span>
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Sea Card -->
+        <div class="group relative bg-slate-800/40 border border-slate-700/60 p-6 rounded-3xl hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-1">
+          <div class="flex items-start justify-between mb-4">
+            <span class="text-4xl">🌊</span>
+            <span class="text-xs bg-cyan-950 text-cyan-300 px-3 py-1 rounded-full font-mono">01 / VIBE</span>
+          </div>
+          <h3 class="text-xl font-bold text-cyan-300 mb-2">The Sea</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            My absolute happy place. If my code isn't working, I probably just need to sit by the ocean and stare into the void for 10 minutes.
+          </p>
+          <!-- حطي صورتك البحر هنا -->
+          <div class="mt-4 h-48 rounded-2xl bg-slate-700/50 overflow-hidden border border-slate-600/30">
+            <img src="YOUR_SEA_IMAGE.jpg" alt="Sea" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+        </div>
+
+        <!-- Candy Card -->
+        <div class="group relative bg-slate-800/40 border border-slate-700/60 p-6 rounded-3xl hover:border-pink-400/50 transition-all duration-300 hover:-translate-y-1">
+          <div class="flex items-start justify-between mb-4">
+            <span class="text-4xl">🍬</span>
+            <span class="text-xs bg-pink-950 text-pink-300 px-3 py-1 rounded-full font-mono">02 / FUEL</span>
+          </div>
+          <h3 class="text-xl font-bold text-pink-300 mb-2">Candy & Sweets</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Literally what fuels my debugging sessions. No sugar = no code. It's basic science at this point.
+          </p>
+          <!-- حطي صور الكاندي هنا -->
+          <div class="mt-4 h-48 rounded-2xl bg-slate-700/50 overflow-hidden border border-slate-600/30">
+            <img src="YOUR_CANDY_IMAGE.jpg" alt="Candy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Quick Tech Flex -->
+    <section class="bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-purple-500/20 p-8 rounded-3xl space-y-4">
+      <h3 class="text-lg font-bold text-purple-300">the dev stack 💻</h3>
+      <p class="text-slate-400 text-sm">HTML5, CSS3, JS, UI Design, and making sure everything looks aesthetic AF.</p>
+    </section>
+
+  </main>
+
+  <!-- Three.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
   <script>
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-    
-    // صورة الكاندي الحقيقية (حطي رابط الصورة هنا)
-    const candyImg = new Image();
-    candyImg.src = 'REAL_CANDY_IMAGE.png'; 
-
-    let score = 0;
-    let basketX = 170;
-    let candies = [{x: 50, y: 0}];
-
-    function draw() {
-      ctx.clearRect(0, 0, 400, 300);
+    // ========== 3D ANIMATION SECTION ==========
+    const init3DAnimation = () => {
+      const container = document.getElementById('animation-container');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       
-      // رسم الكاندي كصورة بدل الدوائر
-      candies.forEach(c => {
-        c.y += 2;
-        ctx.drawImage(candyImg, c.x, c.y, 40, 40); // 40x40 حجم الصورة
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setClearColor(0x0f172a, 0);
+      container.appendChild(renderer.domElement);
+      
+      // Create ground (field)
+      const groundGeometry = new THREE.PlaneGeometry(20, 20);
+      const groundMaterial = new THREE.MeshStandardMaterial({ 
+        color: 0x2d5a27,
+        side: THREE.DoubleSide
       });
-
-      // رسم السلة (ممكن تبدليها بصورة سلة برضه)
-      ctx.fillStyle = "#eab308";
-      ctx.fillRect(basketX, 260, 60, 30);
+      const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+      ground.rotation.x = -Math.PI / 2;
+      ground.position.y = -2;
+      scene.add(ground);
       
-      requestAnimationFrame(draw);
-    }
+      // Create flowers
+      const flowers = [];
+      for (let i = 0; i < 50; i++) {
+        const flowerGeometry = new THREE.SphereGeometry(0.3, 8, 8);
+        const flowerMaterial = new THREE.MeshStandardMaterial({ 
+          color: new THREE.Color().setHSL(Math.random(), 0.8, 0.6)
+        });
+        const flower = new THREE.Mesh(flowerGeometry, flowerMaterial);
+        flower.position.x = (Math.random() - 0.5) * 15;
+        flower.position.z = (Math.random() - 0.5) * 15;
+        flower.position.y = -1.5;
+        scene.add(flower);
+        flowers.push(flower);
+      }
+      
+      // Create simple character (cute girl)
+      const characterGroup = new THREE.Group();
+      
+      // Body
+      const bodyGeometry = new THREE.CylinderGeometry(0.5, 0.7, 1.5, 8);
+      const bodyMaterial = new THREE.MeshStandardMaterial({ color: 0xf472b6 });
+      const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+      body.position.y = 0;
+      characterGroup.add(body);
+      
+      // Head
+      const headGeometry = new THREE.SphereGeometry(0.6, 16, 16);
+      const headMaterial = new THREE.MeshStandardMaterial({ color: 0xffd700 });
+      const head = new THREE.Mesh(headGeometry, headMaterial);
+      head.position.y = 1.2;
+      characterGroup.add(head);
+      
+      // Hair
+      const hairGeometry = new THREE.SphereGeometry(0.7, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2);
+      const hairMaterial = new THREE.MeshStandardMaterial({ color: 0x8b4513 });
+      const hair = new THREE.Mesh(hairGeometry, hairMaterial);
+      hair.position.y = 1.3;
+      hair.rotation.x = Math.PI;
+      characterGroup.add(hair);
+      
+      scene.add(characterGroup);
+      
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      scene.add(ambientLight);
+      
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      directionalLight.position.set(5, 10, 7);
+      scene.add(directionalLight);
+      
+      camera.position.set(0, 2, 8);
+      camera.lookAt(0, 0, 0);
+      
+      // Animation
+      let time = 0;
+      const animate = () => {
+        time += 0.01;
+        
+        // Character walking animation
+        characterGroup.position.x = Math.sin(time) * 3;
+        characterGroup.position.z = Math.cos(time * 0.5) * 2;
+        characterGroup.rotation.y = Math.sin(time * 0.3) * 0.2;
+        
+        // Body bobbing
+        body.position.y = Math.sin(time * 2) * 0.1;
+        
+        // Head looking around
+        head.rotation.y = Math.sin(time * 0.5) * 0.3;
+        head.rotation.x = Math.sin(time * 0.7) * 0.1;
+        
+        // Flowers swaying
+        flowers.forEach((flower, index) => {
+          flower.rotation.z = Math.sin(time + index) * 0.1;
+        });
+        
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      };
+      
+      animate();
+      
+      // Handle resize
+      window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
+    };
     
-    canvas.addEventListener('mousemove', (e) => {
-      basketX = e.offsetX - 30;
+    // ========== CANDY GAME SECTION ==========
+    const initCandyGame = () => {
+      const gameContainer = document.getElementById('candy-game');
+      const scoreDisplay = document.getElementById('score');
+      const characterReveal = document.getElementById('character-reveal');
+      const candyBag = document.getElementById('candy-bag');
+      const message = document.getElementById('message');
+      
+      let score = 0;
+      let gameActive = true;
+      
+      const createCandy = () => {
+        if (!gameActive) return;
+        
+        const candy = document.createElement('div');
+        candy.className = 'candy';
+        candy.textContent = '🍬';
+        candy.style.left = Math.random() * (gameContainer.clientWidth - 40) + 'px';
+        candy.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        
+        candy.addEventListener('click', () => {
+          if (gameActive) {
+            score++;
+            scoreDisplay.textContent = `🍬 ${score}/10`;
+            candy.remove();
+            
+            if (score >= 10) {
+              gameActive = false;
+              document.querySelectorAll('.candy').forEach(c => c.remove());
+              characterReveal.classList.add('show');
+              setTimeout(() => {
+                candyBag.classList.add('show');
+                setTimeout(() => {
+                  message.classList.add('show');
+                }, 1000);
+              }, 2000);
+            }
+          }
+        });
+        
+        gameContainer.appendChild(candy);
+        
+        setTimeout(() => {
+          if (candy.parentNode) candy.remove();
+        }, 4000);
+      };
+      
+      // Create candies every 800ms
+      const candyInterval = setInterval(createCandy, 800);
+      
+      // Stop creating candies after 30 seconds
+      setTimeout(() => {
+        clearInterval(candyInterval);
+      }, 30000);
+    };
+    
+    // Initialize everything when page loads
+    window.addEventListener('load', () => {
+      init3DAnimation();
+      initCandyGame();
     });
-
-    draw();
   </script>
+
 </body>
 </html>
