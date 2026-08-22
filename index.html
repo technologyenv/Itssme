@@ -29,21 +29,21 @@
 
   <main class="max-w-4xl mx-auto space-y-20">
 
-    <!-- Hero / Intro Section with pic1.png -->
+    <!-- Hero / Intro Section with pic1.png (No frame) -->
     <section class="flex flex-col md:flex-row items-center justify-between gap-8 pt-8">
       <div class="space-y-4 flex-1">
         <div class="inline-block px-4 py-1.5 bg-rose-500/10 border border-rose-500/30 rounded-full text-rose-300 text-xs font-semibold uppercase tracking-widest">
-          🍓 main character energy only
+          🍓 main character energy
         </div>
         <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-300 to-red-400">
           hey, i'm yomna.
         </h1>
-        <p class="text-xl text-rose-200/70 font-normal leading-relaxed">
-          just collecting aesthetic moments, soft sunsets, sweet treats, and good music. living life on my own terms. ✨
+        <p class="text-xl text-rose-200/80 font-normal leading-relaxed">
+          welcome to my little corner of the internet. just a dump of aesthetics, favorite tunes, and my favorite things. ✨
         </p>
       </div>
       
-      <!-- Profile Picture (pic1.png) -->
+      <!-- Profile Picture (pic1.png) - No frame -->
       <div class="w-48 md:w-56 flex-shrink-0 drop-shadow-[0_15px_25px_rgba(225,29,72,0.25)] hover:scale-105 transition duration-500">
         <img src="pic1.png" alt="Yomna" class="w-full h-auto object-contain">
       </div>
@@ -52,79 +52,153 @@
     <!-- The Lore (Interests Cards) -->
     <section class="space-y-6">
       <h2 class="text-2xl font-bold text-rose-200 flex items-center gap-2">
-        the lore <span class="text-xs text-rose-400/65 font-normal">(aka things that keep me sane)</span>
+        the lore <span class="text-xs text-rose-400/65 font-normal">(all my favorite things)</span>
       </h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        <!-- Sea Card -->
-        <div class="bg-rose-950/20 border border-rose-900/40 p-6 rounded-3xl hover:border-rose-500/50 transition-all duration-300 hover:-translate-y-1">
-          <div class="flex items-start justify-between mb-4">
-            <span class="text-4xl">🌊</span>
-            <span class="text-xs bg-rose-900/50 text-rose-300 px-3 py-1 rounded-full font-mono">01 / PEACE</span>
+        <!-- Cats Card (Gold Premium Edition - phocat.jpg) -->
+        <div class="relative bg-gradient-to-br from-amber-950/40 via-yellow-950/20 to-amber-900/30 border border-yellow-500/50 p-6 rounded-3xl hover:border-yellow-400 transition-all duration-300 space-y-4 shadow-[0_0_20px_rgba(234,179,8,0.15)] hover:shadow-[0_0_30px_rgba(234,179,8,0.3)] hover:-translate-y-1 md:col-span-2">
+          
+          <div class="absolute -top-3 right-6 bg-gradient-to-r from-yellow-500 to-amber-600 text-black text-[10px] font-extrabold px-3 py-0.5 rounded-full shadow-md uppercase tracking-widest flex items-center gap-1">
+            <span>✨</span> VIP Unlimited Serotonin
           </div>
-          <h3 class="text-xl font-bold text-rose-200 mb-2">The Sea</h3>
-          <p class="text-rose-200/70 text-sm leading-relaxed">
-            My absolute safe space. The sound of waves crashing, night falling over the water, and my favorite playlist playing? Unmatched Vibe.
-          </p>
+
+          <div class="w-full h-48 rounded-2xl overflow-hidden bg-amber-950/50 flex items-center justify-center border border-yellow-500/30">
+            <img src="phocat.jpg" alt="Cats" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'text-5xl\'>🐱</span>'">
+          </div>
+          
+          <div>
+            <h3 class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-amber-300 to-yellow-500 flex items-center gap-2">
+              Cats 🐱 <span class="text-xs text-yellow-400 font-mono font-normal">(Superior Beings)</span>
+            </h3>
+            <p class="text-amber-200/80 text-sm leading-relaxed mt-1">
+              Soft purrs, chaotic zoomies, and absolute perfection. My literal soul healed in one single meow.
+            </p>
+          </div>
         </div>
 
-        <!-- Candy Card -->
-        <div class="bg-rose-950/20 border border-rose-900/40 p-6 rounded-3xl hover:border-rose-500/50 transition-all duration-300 hover:-translate-y-1">
-          <div class="flex items-start justify-between mb-4">
-            <span class="text-4xl">🍬</span>
-            <span class="text-xs bg-rose-900/50 text-rose-300 px-3 py-1 rounded-full font-mono">02 / JOY</span>
+        <!-- Sea Card (phosea.jpg) -->
+        <div class="bg-rose-950/20 border border-rose-900/40 p-6 rounded-3xl hover:border-rose-500/50 transition-all duration-300 space-y-4">
+          <div class="w-full h-36 rounded-2xl overflow-hidden bg-rose-900/30 flex items-center justify-center border border-rose-800/30">
+            <img src="phosea.jpg" alt="Sea" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'text-3xl\'>🌊</span>'">
           </div>
-          <h3 class="text-xl font-bold text-rose-200 mb-2">Candy & Sweets</h3>
-          <p class="text-rose-200/70 text-sm leading-relaxed">
-            Instant serotonin boost. Honestly, I'm fully convinced nothing brings pure unfiltered happiness quite like a stash of good candy.
-          </p>
+          <div>
+            <h3 class="text-xl font-bold text-rose-200">The Sea 🌊</h3>
+            <p class="text-rose-200/70 text-sm leading-relaxed mt-1">
+              Late night walks by the waves, the calm breeze, and total peace of mind.
+            </p>
+          </div>
+        </div>
+
+        <!-- Sweets Card (phosweets.jpg) -->
+        <div class="bg-rose-950/20 border border-rose-900/40 p-6 rounded-3xl hover:border-rose-500/50 transition-all duration-300 space-y-4">
+          <div class="w-full h-36 rounded-2xl overflow-hidden bg-rose-900/30 flex items-center justify-center border border-rose-800/30">
+            <img src="phosweets.jpg" alt="Sweets" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'text-3xl\'>🍬</span>'">
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-rose-200">Candy & Sweets 🍬</h3>
+            <p class="text-rose-200/70 text-sm leading-relaxed mt-1">
+              Instant serotonin boost. Sweet treats make everything ten times better.
+            </p>
+          </div>
+        </div>
+
+        <!-- Sky Card (phosky.jpg) -->
+        <div class="bg-rose-950/20 border border-rose-900/40 p-6 rounded-3xl hover:border-rose-500/50 transition-all duration-300 space-y-4">
+          <div class="w-full h-36 rounded-2xl overflow-hidden bg-rose-900/30 flex items-center justify-center border border-rose-800/30">
+            <img src="phosky.jpg" alt="Sky" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'text-3xl\'>☁️</span>'">
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-rose-200">The Sky & Sunsets ☁️</h3>
+            <p class="text-rose-200/70 text-sm leading-relaxed mt-1">
+              Golden hours, cotton candy clouds, and endless quiet sky gazing.
+            </p>
+          </div>
+        </div>
+
+        <!-- Music / Songs Card (phosongs.jpg) -->
+        <div class="bg-rose-950/20 border border-rose-900/40 p-6 rounded-3xl hover:border-rose-500/50 transition-all duration-300 space-y-4">
+          <div class="w-full h-36 rounded-2xl overflow-hidden bg-rose-900/30 flex items-center justify-center border border-rose-800/30">
+            <img src="phosongs.jpg" alt="Songs" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'text-3xl\'>🎶</span>'">
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-rose-200">Music & Tunes 🎶</h3>
+            <p class="text-rose-200/70 text-sm leading-relaxed mt-1">
+              Headphones on, world off. My soundtrack for every single mood.
+            </p>
+          </div>
+        </div>
+
+        <!-- Flowers Card (phorose.jpg) -->
+        <div class="bg-rose-950/20 border border-rose-900/40 p-6 rounded-3xl hover:border-rose-500/50 transition-all duration-300 space-y-4">
+          <div class="w-full h-36 rounded-2xl overflow-hidden bg-rose-900/30 flex items-center justify-center border border-rose-800/30">
+            <img src="phorose.jpg" alt="Flowers" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'text-3xl\'>🌹</span>'">
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-rose-200">Flowers & Roses 🌹</h3>
+            <p class="text-rose-200/70 text-sm leading-relaxed mt-1">
+              Pretty fresh blooms that instantly make any space feel cozy and lovely.
+            </p>
+          </div>
+        </div>
+
+        <!-- Outings Card (phogoout.jpg) -->
+        <div class="bg-rose-950/20 border border-rose-900/40 p-6 rounded-3xl hover:border-rose-500/50 transition-all duration-300 space-y-4">
+          <div class="w-full h-36 rounded-2xl overflow-hidden bg-rose-900/30 flex items-center justify-center border border-rose-800/30">
+            <img src="phogoout.jpg" alt="Outings" class="w-full h-full object-cover" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\'text-3xl\'>✨</span>'">
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-rose-200">Aesthetic Outings ✨</h3>
+            <p class="text-rose-200/70 text-sm leading-relaxed mt-1">
+              Cozy spots, cute coffee dates, and capturing core memories with good vibes.
+            </p>
+          </div>
         </div>
 
       </div>
     </section>
 
     <!-- Strawberry Field Section with pic2.png -->
-    <section class="relative bg-gradient-to-r from-rose-950/40 to-pink-950/30 border border-rose-500/30 p-8 rounded-3xl overflow-hidden flex flex-col md:flex-row items-center gap-8 shadow-xl">
-      <div class="w-36 h-36 md:w-44 md:h-44 rounded-2xl overflow-hidden border border-rose-400/40 shadow-lg flex-shrink-0 -rotate-3">
-        <img src="pic2.png" alt="Strawberry Field" class="w-full h-full object-cover">
-      </div>
-      <div class="space-y-3 text-center md:text-left">
-        <span class="text-xs font-mono text-rose-400 bg-rose-900/40 px-3 py-1 rounded-full">🍓 strawberry fields forever</span>
-        <h3 class="text-2xl font-bold text-rose-100">Soft aesthetics & quiet moments</h3>
+    <section class="relative bg-gradient-to-r from-rose-950/40 to-pink-950/30 border border-rose-500/30 p-8 rounded-3xl overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
+      <div class="space-y-3 text-center md:text-left flex-1">
+        <span class="text-xs font-mono text-rose-400 bg-rose-900/40 px-3 py-1 rounded-full">🍓 strawberry fields</span>
+        <h3 class="text-2xl font-bold text-rose-100">Soft aesthetics & quiet vibes</h3>
         <p class="text-rose-200/70 text-sm leading-relaxed">
-          Surrounding myself with pretty things, fresh flowers, aesthetic outings, and capturing cozy frames along the way.
+          Surrounding myself with everything sweet, aesthetic, and peaceful.
         </p>
+      </div>
+
+      <div class="w-44 md:w-52 flex-shrink-0 drop-shadow-[0_10px_20px_rgba(225,29,72,0.2)]">
+        <img src="pic2.png" alt="Strawberry Girl" class="w-full h-auto object-contain">
       </div>
     </section>
 
-    <!-- Google Dino Style Game Section -->
+    <!-- Dino Dash Game Section -->
     <section class="bg-rose-950/30 border border-rose-500/30 rounded-3xl p-6 md:p-8 text-center space-y-6 shadow-2xl">
       <div>
-        <span class="text-xs font-mono text-rose-400">🦖 classic mini game</span>
-        <h3 class="text-2xl font-bold text-rose-200 mt-1">Yomna's Dino Runner</h3>
-        <p class="text-rose-300/60 text-xs mt-1">Press <span class="bg-rose-900 px-2 py-0.5 rounded text-rose-200 font-mono">Spacebar</span> or <span class="bg-rose-900 px-2 py-0.5 rounded text-rose-200 font-mono">Tap Screen</span> to jump! Reach 100 points to unlock a vibe.</p>
+        <span class="text-xs font-mono text-rose-400">🎮 mini game</span>
+        <h3 class="text-2xl font-bold text-rose-200 mt-1">Dino Dash 🦖</h3>
+        <p class="text-rose-300/60 text-xs mt-1">Press <span class="bg-rose-900 px-2 py-0.5 rounded text-rose-200 font-mono">Spacebar</span> or <span class="bg-rose-900 px-2 py-0.5 rounded text-rose-200 font-mono">Tap Screen</span> to jump!</p>
       </div>
 
       <div class="relative w-full max-w-xl mx-auto h-56 bg-[#1a0b10] rounded-2xl border border-rose-900 overflow-hidden shadow-inner flex items-center justify-center">
         <canvas id="dinoCanvas" width="550" height="220" class="w-full h-full cursor-pointer"></canvas>
         
-        <!-- Game Over / Start Overlay -->
         <div id="gameOverlay" class="absolute inset-0 bg-[#12090c]/95 flex flex-col items-center justify-center p-4 space-y-3 z-20">
-          <span class="text-3xl animate-bounce" id="overlayEmoji">🦖✨</span>
-          <h4 id="overlayTitle" class="text-lg font-bold text-rose-200">Google Dino (Yomna Edition)</h4>
-          <p id="overlaySub" class="text-rose-300/60 text-xs">Tap or press Space to start</p>
+          <span class="text-4xl animate-bounce">🦖</span>
+          <h4 class="text-lg font-bold text-rose-200">Dino Dash</h4>
+          <p class="text-rose-300/60 text-xs">Tap or press Space to jump over cacti</p>
           <button onclick="startGame()" class="bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs px-6 py-2.5 rounded-full shadow-lg transition cursor-pointer">
-            Play Game
+            Start Game
           </button>
         </div>
 
-        <!-- Won 100 Points Modal Overlay (pic3.jpg) - White Background Style -->
-        <div id="winModal" class="absolute inset-0 bg-white hidden flex-col items-center justify-center p-6 space-y-4 z-30">
-          <div class="w-28 h-28 rounded-2xl overflow-hidden border-2 border-rose-200 shadow-md animate-pulse">
-            <img src="pic3.jpg" alt="You Won" class="w-full h-full object-cover bg-white">
+        <div id="winModal" class="absolute inset-0 bg-white hidden flex-col items-center justify-center p-4 z-30">
+          <div class="max-w-[220px] max-h-[140px] flex items-center justify-center overflow-hidden mb-3">
+            <img src="pic3.jpg" alt="You Won" class="w-full h-full object-contain">
           </div>
-          <h3 class="text-xl md:text-2xl font-extrabold text-rose-900 font-['Syne'] text-center">
+          <h3 class="text-sm md:text-base font-extrabold text-rose-900 font-['Syne'] text-center whitespace-nowrap mb-3">
             congrats u won nothing .. but big love 💖
           </h3>
           <button onclick="startGame()" class="bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs px-5 py-2 rounded-full shadow-md transition cursor-pointer">
@@ -160,8 +234,6 @@
     const ctx = canvas.getContext('2d');
     const overlay = document.getElementById('gameOverlay');
     const winModal = document.getElementById('winModal');
-    const overlayTitle = document.getElementById('overlayTitle');
-    const overlaySub = document.getElementById('overlaySub');
 
     let gameStarted = false;
     let gameOver = false;
@@ -169,9 +241,8 @@
 
     let player = {
       x: 50,
-      y: 155,
-      width: 24,
-      height: 32,
+      y: 150,
+      size: 32,
       vy: 0,
       gravity: 0.6,
       jumpForce: -10,
@@ -185,7 +256,7 @@
     function resetGame() {
       score = 0;
       obstacles = [];
-      player.y = 155;
+      player.y = 150;
       player.vy = 0;
       player.grounded = true;
       gameSpeed = 5;
@@ -231,10 +302,9 @@
     function spawnObstacle() {
       obstacles.push({
         x: canvas.width,
-        y: 165,
-        width: 14 + Math.random() * 10,
-        height: 22 + Math.random() * 8,
-        color: '#f43f5e'
+        y: 155,
+        width: 20,
+        height: 30
       });
     }
 
@@ -246,42 +316,24 @@
       ctx.strokeStyle = '#9f1239';
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(0, 187);
-      ctx.lineTo(canvas.width, 187);
+      ctx.moveTo(0, 185);
+      ctx.lineTo(canvas.width, 185);
       ctx.stroke();
 
       player.vy += player.gravity;
       player.y += player.vy;
 
-      if (player.y >= 155) {
-        player.y = 155;
+      if (player.y >= 150) {
+        player.y = 150;
         player.vy = 0;
         player.grounded = true;
       }
 
-      ctx.fillStyle = '#ff3366';
-      ctx.fillRect(player.x + 6, player.y, 14, 12);
-      ctx.fillStyle = '#fda4af';
-      ctx.fillRect(player.x + 4, player.y - 2, 16, 4);
-      ctx.fillStyle = '#f43f5e';
-      ctx.fillRect(player.x + 8, player.y + 12, 10, 12);
-      ctx.fillStyle = '#fb7185';
-      if (!player.grounded) {
-        ctx.fillRect(player.x + 8, player.y + 24, 3, 8);
-        ctx.fillRect(player.x + 15, player.y + 24, 3, 8);
-      } else {
-        let legFrame = Math.floor(Date.now() / 100) % 2;
-        if (legFrame === 0) {
-          ctx.fillRect(player.x + 7, player.y + 24, 4, 8);
-          ctx.fillRect(player.x + 14, player.y + 24, 2, 6);
-        } else {
-          ctx.fillRect(player.x + 9, player.y + 24, 2, 6);
-          ctx.fillRect(player.x + 13, player.y + 24, 4, 8);
-        }
-      }
+      ctx.font = '28px sans-serif';
+      ctx.fillText('🦖', player.x, player.y + 26);
 
       obstacleTimer++;
-      if (obstacleTimer > 80 + Math.random() * 40) {
+      if (obstacleTimer > 85 + Math.random() * 40) {
         spawnObstacle();
         obstacleTimer = 0;
       }
@@ -289,17 +341,17 @@
       obstacles.forEach((obs, index) => {
         obs.x -= gameSpeed;
 
-        ctx.fillStyle = obs.color;
-        ctx.fillRect(obs.x, obs.y - (obs.height - 22), obs.width, obs.height);
+        ctx.font = '26px sans-serif';
+        ctx.fillText('🌵', obs.x, obs.y + 26);
 
         if (
           player.x < obs.x + obs.width &&
-          player.x + player.width > obs.x &&
-          player.y < (obs.y - (obs.height - 22)) + obs.height &&
-          player.y + player.height > (obs.y - (obs.height - 22))
+          player.x + player.size > obs.x &&
+          player.y < obs.y + obs.height &&
+          player.y + player.size > obs.y
         ) {
           gameOver = true;
-          showGameOver();
+          overlay.classList.remove('hidden');
         }
 
         if (obs.x + obs.width < 0) {
@@ -308,7 +360,8 @@
           
           if (score >= 100) {
             gameOver = true;
-            showWinModal();
+            winModal.classList.remove('hidden');
+            winModal.classList.add('flex');
           } else if (score % 40 === 0) {
             gameSpeed += 0.5;
           }
@@ -320,17 +373,6 @@
       ctx.fillText(String(score).padStart(5, '0'), canvas.width - 70, 25);
 
       requestAnimationFrame(updateGame);
-    }
-
-    function showGameOver() {
-      overlayTitle.textContent = "Game Over 💔";
-      overlaySub.textContent = `You scored ${score} points. Tap to try again!`;
-      overlay.classList.remove('hidden');
-    }
-
-    function showWinModal() {
-      winModal.classList.remove('hidden');
-      winModal.classList.add('flex');
     }
   </script>
 </body>
