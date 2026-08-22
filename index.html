@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Yomna 🍓</title>
 
-  <!-- تحميل الصور المهمة مبكرًا -->
-  <link rel="preload" as="image" href="pic1.png">
-  <link rel="preload" as="image" href="pic2.png">
+  <!-- تحميل الصور مبكرًا -->
+  <link rel="preload" as="image" href="pic1.png" fetchpriority="high">
+  <link rel="preload" as="image" href="pic2.png" fetchpriority="high">
+  <link rel="preload" as="image" href="pic3.jpg" fetchpriority="high">
+
+  <link rel="preload" as="image" href="phocat.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="phosea.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="phosweets.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="phosky.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="phosongs.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="phorose.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="phogoout.jpg" fetchpriority="high">
+
+  <link rel="preload" as="image" href="cat1.png" fetchpriority="high">
+  <link rel="preload" as="image" href="cat2.png" fetchpriority="high">
 
   <!-- تحسين تحميل الخطوط -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +38,9 @@
       color: #fce7f3;
     }
 
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3 {
       font-family: 'Syne', sans-serif;
     }
 
@@ -368,7 +383,7 @@
   <div id="strawberry-rain-container"></div>
 
   <!-- Audio -->
-  <audio id="bgMusic" loop preload="none">
+  <audio id="bgMusic" loop preload="auto">
     <source src="song.wav" type="audio/wav">
     المتصفح لا يدعم تشغيل الصوت.
   </audio>
@@ -377,6 +392,7 @@
 
     <!-- Header -->
     <div class="flex flex-wrap items-center justify-between gap-4">
+
       <span class="text-xs font-mono uppercase tracking-widest px-3 py-1 bg-rose-500/10 border border-rose-500/30 rounded-full text-rose-300">
         a little intro about yomna 🤏✨
       </span>
@@ -386,6 +402,7 @@
         onclick="toggleMusic()"
         id="musicBtn"
         class="flex items-center gap-2 text-xs font-bold px-4 py-2 bg-rose-900/40 border border-rose-500/50 rounded-full text-rose-200 hover:bg-rose-800/60 transition shadow-lg">
+
         <span id="musicIcon">🎵</span>
         <span id="musicText">Play Music</span>
       </button>
@@ -393,7 +410,9 @@
 
     <!-- Hero -->
     <section class="flex flex-col md:flex-row items-center justify-between gap-8">
+
       <div class="space-y-4 flex-1">
+
         <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-300 to-red-400">
           hi i'm yomna
         </h1>
@@ -408,17 +427,21 @@
       </div>
 
       <div class="w-44 md:w-52 flex-shrink-0 drop-shadow-[0_15px_25px_rgba(225,29,72,0.25)]">
+
         <img
           src="pic1.png"
           alt="Yomna"
           loading="eager"
+          fetchpriority="high"
           decoding="async"
           class="w-full h-auto object-contain">
+
       </div>
     </section>
 
     <!-- Things I Love -->
     <section class="space-y-6">
+
       <h2 class="text-2xl font-bold text-rose-200">
         things i love 🍓
       </h2>
@@ -427,16 +450,21 @@
 
         <!-- Cats -->
         <div class="bg-rose-950/25 border border-rose-900/40 p-6 rounded-3xl space-y-4 md:col-span-2">
+
           <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2 min-h-[200px]">
+
             <img
               src="phocat.jpg"
               alt="Cats"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="high"
               decoding="async"
               class="w-full h-auto max-h-[380px] object-contain">
+
           </div>
 
           <div class="space-y-1">
+
             <h3 class="text-2xl font-bold text-rose-200">
               cats 🐾
             </h3>
@@ -444,21 +472,27 @@
             <p class="text-rose-200/80 text-sm leading-relaxed">
               Cats are cute, chaotic, and somehow always convinced that they own the place.
             </p>
+
           </div>
         </div>
 
         <!-- Sea -->
         <div class="bg-rose-950/25 border border-rose-900/40 p-6 rounded-3xl space-y-4">
+
           <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2 min-h-[160px]">
+
             <img
               src="phosea.jpg"
               alt="Sea"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="high"
               decoding="async"
               class="w-full h-auto max-h-[260px] object-contain">
+
           </div>
 
           <div class="space-y-1">
+
             <h3 class="text-xl font-bold text-rose-200">
               the sea 🌊
             </h3>
@@ -466,21 +500,27 @@
             <p class="text-rose-200/80 text-sm leading-relaxed">
               There’s just something about the sea that makes everything feel calm and safe. I could literally spend the whole day there — listening to music, reading a novel, or just enjoying the view.
             </p>
+
           </div>
         </div>
 
         <!-- Sweets -->
         <div class="bg-rose-950/25 border border-rose-900/40 p-6 rounded-3xl space-y-4">
+
           <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2 min-h-[160px]">
+
             <img
               src="phosweets.jpg"
               alt="Candy"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="high"
               decoding="async"
               class="w-full h-auto max-h-[260px] object-contain">
+
           </div>
 
           <div class="space-y-1">
+
             <h3 class="text-xl font-bold text-rose-200">
               candy 🍬
             </h3>
@@ -488,21 +528,27 @@
             <p class="text-rose-200/80 text-sm leading-relaxed">
               I honestly don’t know why I love candy so much, but it just makes me happy and can instantly lift my mood.
             </p>
+
           </div>
         </div>
 
         <!-- Sky -->
         <div class="bg-rose-950/25 border border-rose-900/40 p-6 rounded-3xl space-y-4">
+
           <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2 min-h-[160px]">
+
             <img
               src="phosky.jpg"
               alt="Sky"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="high"
               decoding="async"
               class="w-full h-auto max-h-[260px] object-contain">
+
           </div>
 
           <div class="space-y-1">
+
             <h3 class="text-xl font-bold text-rose-200">
               the sky ☁️
             </h3>
@@ -510,21 +556,27 @@
             <p class="text-rose-200/80 text-sm leading-relaxed">
               There’s always a little star in the sky that feels like it’s watching over me. I call her my guardian star.
             </p>
+
           </div>
         </div>
 
         <!-- Songs -->
         <div class="bg-rose-950/25 border border-rose-900/40 p-6 rounded-3xl space-y-4">
+
           <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2 min-h-[160px]">
+
             <img
               src="phosongs.jpg"
               alt="Songs"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="high"
               decoding="async"
               class="w-full h-auto max-h-[260px] object-contain">
+
           </div>
 
           <div class="space-y-1">
+
             <h3 class="text-xl font-bold text-rose-200">
               songs 🎶
             </h3>
@@ -532,21 +584,27 @@
             <p class="text-rose-200/80 text-sm leading-relaxed">
               Some songs are more than just songs — they somehow become attached to certain people, places, and memories.
             </p>
+
           </div>
         </div>
 
         <!-- Flowers -->
         <div class="bg-rose-950/25 border border-rose-900/40 p-6 rounded-3xl space-y-4">
+
           <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2 min-h-[160px]">
+
             <img
               src="phorose.jpg"
               alt="Flowers"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="high"
               decoding="async"
               class="w-full h-auto max-h-[260px] object-contain">
+
           </div>
 
           <div class="space-y-1">
+
             <h3 class="text-xl font-bold text-rose-200">
               flowers 🌹
             </h3>
@@ -554,21 +612,27 @@
             <p class="text-rose-200/80 text-sm leading-relaxed">
               There’s something about how pretty flowers are that instantly catches your eye. You see one and suddenly you’re like, “wait, I need a picture.”
             </p>
+
           </div>
         </div>
 
         <!-- Going Out -->
         <div class="bg-rose-950/25 border border-rose-900/40 p-6 rounded-3xl space-y-4 md:col-span-2">
+
           <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2 min-h-[180px]">
+
             <img
               src="phogoout.jpg"
               alt="Going out"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="high"
               decoding="async"
               class="w-full h-auto max-h-[300px] object-contain">
+
           </div>
 
           <div class="space-y-1">
+
             <h3 class="text-xl font-bold text-rose-200">
               going out ✨
             </h3>
@@ -576,6 +640,7 @@
             <p class="text-rose-200/80 text-sm leading-relaxed">
               I love going out, even when there’s no real plan. Sometimes the best memories just happen out of nowhere.
             </p>
+
           </div>
         </div>
 
@@ -586,19 +651,24 @@
     <section class="bg-rose-950/30 border border-rose-500/30 rounded-3xl p-6 md:p-8 text-center space-y-6 shadow-xl">
 
       <div class="space-y-1">
+
         <h3 class="text-lg md:text-xl font-bold text-rose-200">
           why is she lowkey daydreaming about a basket of strawberries tho? 🤔💭
         </h3>
+
       </div>
 
       <!-- صورة البنت تحت السؤال -->
       <div class="w-full max-w-xs mx-auto rounded-2xl overflow-hidden border border-rose-900/60 bg-[#1a0b10] flex items-center justify-center p-2 min-h-[200px]">
+
         <img
           src="pic2.png"
           alt="Girl Thinking about Strawberries"
           loading="eager"
+          fetchpriority="high"
           decoding="async"
           class="w-full h-auto max-h-[260px] object-contain rounded-xl">
+
       </div>
 
       <div id="quiz-container" class="max-w-md mx-auto grid grid-cols-1 gap-2.5">
@@ -634,12 +704,14 @@
         class="hidden mt-4 p-4 rounded-2xl bg-rose-900/40 border border-rose-500/40 text-pink-200 text-base font-semibold">
         🥳 Obviously because she loves strawberries, like, zero brain cell required 😋🍓
       </div>
+
     </section>
 
     <!-- Dino Game Section -->
     <section class="bg-rose-950/30 border border-rose-500/30 rounded-3xl p-6 md:p-8 text-center space-y-4 shadow-xl">
 
       <div class="space-y-1">
+
         <h3 class="text-xl md:text-2xl font-bold text-rose-200">
           Dino Dash 🦖🌵
         </h3>
@@ -647,10 +719,12 @@
         <p class="text-xs text-rose-300/70 font-mono">
           Score 200 points to unlock the secret screen! (Tap screen or Space to Jump)
         </p>
+
       </div>
 
       <!-- اللعبة -->
       <div id="dino-game-box">
+
         <div
           class="dino-game-wrapper"
           id="game"
@@ -672,18 +746,28 @@
           <div class="ground"></div>
 
           <div class="gameOver" id="gameOver">
-            <h1>GAME OVER</h1>
-            <p id="finalScore">SCORE: 00000</p>
+
+            <h1>
+              GAME OVER
+            </h1>
+
+            <p id="finalScore">
+              SCORE: 00000
+            </p>
 
             <button onclick="restartDino(event)">
               ↻ Restart
             </button>
+
           </div>
+
         </div>
+
       </div>
 
       <!-- شاشة المكافأة -->
       <div id="dino-reward" class="hidden max-w-md mx-auto pt-2">
+
         <div class="p-6 rounded-2xl bg-rose-900/40 border border-rose-400/50 shadow-2xl space-y-4">
 
           <span class="text-xs font-bold font-mono text-yellow-300 bg-yellow-950/60 px-3 py-1 rounded-full border border-yellow-500/40">
@@ -691,12 +775,15 @@
           </span>
 
           <div class="w-full rounded-xl overflow-hidden bg-white p-4 flex items-center justify-center border border-rose-200">
+
             <img
               src="pic3.jpg"
               alt="Hamster Reward"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="high"
               decoding="async"
               class="w-full h-auto max-h-[240px] object-contain bg-white">
+
           </div>
 
           <p class="text-sm text-rose-200 font-semibold leading-relaxed">
@@ -710,7 +797,9 @@
           </button>
 
         </div>
+
       </div>
+
     </section>
 
     <!-- Ending Section -->
@@ -747,6 +836,7 @@
         <div class="w-full flex justify-center items-center gap-12 md:gap-16 font-['Caveat'] text-2xl font-bold text-rose-300 select-none">
 
           <div class="flex flex-col items-center">
+
             <span class="text-rose-200">
               you 💀
             </span>
@@ -762,10 +852,13 @@
 
               <path d="M12 2 C 10 10, 14 18, 12 26" />
               <path d="M6 20 L 12 27 L 18 20" />
+
             </svg>
+
           </div>
 
           <div class="flex flex-col items-center">
+
             <span class="text-rose-200">
               me 💅
             </span>
@@ -781,7 +874,9 @@
 
               <path d="M12 2 C 14 10, 10 18, 12 26" />
               <path d="M6 20 L 12 27 L 18 20" />
+
             </svg>
+
           </div>
 
         </div>
@@ -789,39 +884,48 @@
         <div class="flex items-center justify-center gap-6 md:gap-10">
 
           <div class="w-28 md:w-32 flex flex-col items-center">
+
             <img
               src="cat1.png"
               alt="You"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="high"
               decoding="async"
               class="w-full h-auto max-h-36 object-contain">
 
             <span class="font-['Caveat'] text-xl font-semibold text-rose-300/80 mt-1">
               Player 2
             </span>
+
           </div>
 
           <div class="w-28 md:w-32 flex flex-col items-center">
+
             <img
               src="cat2.png"
               alt="Me"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="high"
               decoding="async"
               class="w-full h-auto max-h-36 object-contain">
 
             <span class="font-['Caveat'] text-xl font-semibold text-rose-300/80 mt-1">
               Player 1
             </span>
+
           </div>
 
         </div>
+
       </div>
 
       <!-- Footer Quote -->
       <div class="max-w-md mx-auto flex justify-end pr-2 pt-1">
+
         <span class="font-mono text-xs font-semibold text-rose-300/80 tracking-wide bg-rose-950/60 px-3 py-1 rounded-lg border border-rose-800/40 shadow-sm">
           so long nigga 🫡
         </span>
+
       </div>
 
     </section>
@@ -847,13 +951,14 @@
         count++;
 
         const strawberry = document.createElement("div");
+
         strawberry.classList.add("falling-strawberry");
         strawberry.textContent = "🍓";
-
         strawberry.style.left = Math.random() * 95 + "vw";
         strawberry.style.fontSize = Math.random() * 16 + 18 + "px";
 
         const fallDuration = Math.random() * 2 + 3.5;
+
         strawberry.style.animationDuration = fallDuration + "s";
 
         container.appendChild(strawberry);
@@ -861,6 +966,7 @@
         setTimeout(() => {
           strawberry.remove();
         }, fallDuration * 1000);
+
       }, 180);
     }
 
@@ -869,27 +975,53 @@
     const musicIcon = document.getElementById("musicIcon");
     const musicText = document.getElementById("musicText");
 
+    let musicActionInProgress = false;
+
+    audio.volume = 0.7;
+
     async function toggleMusic() {
-      if (audio.paused) {
-        try {
+      if (musicActionInProgress) return;
+
+      musicActionInProgress = true;
+
+      try {
+        if (audio.paused) {
           await audio.play();
 
           musicIcon.textContent = "⏸️";
           musicText.textContent = "Pause Music";
-        } catch (error) {
-          console.log("Audio error:", error);
-        }
-      } else {
-        audio.pause();
 
-        musicIcon.textContent = "🎵";
-        musicText.textContent = "Play Music";
+        } else {
+          audio.pause();
+
+          musicIcon.textContent = "🎵";
+          musicText.textContent = "Play Music";
+        }
+
+      } catch (error) {
+        console.log("Music could not be played:", error);
+
+        musicIcon.textContent = "⚠️";
+        musicText.textContent = "Music Error";
+
+      } finally {
+        musicActionInProgress = false;
       }
     }
 
-    audio.addEventListener("ended", () => {
+    audio.addEventListener("play", () => {
+      musicIcon.textContent = "⏸️";
+      musicText.textContent = "Pause Music";
+    });
+
+    audio.addEventListener("pause", () => {
       musicIcon.textContent = "🎵";
       musicText.textContent = "Play Music";
+    });
+
+    audio.addEventListener("error", () => {
+      musicIcon.textContent = "⚠️";
+      musicText.textContent = "Music Error";
     });
 
     /* Quiz */
@@ -909,6 +1041,7 @@
         );
 
         resultDiv.classList.remove("hidden");
+
       } else {
         button.classList.add("opacity-50");
       }
@@ -1013,6 +1146,7 @@
       if (!playing) return;
 
       const cactus = document.createElement("div");
+
       cactus.className = "cactus move";
       cactus.style.animationDuration = speed + "s";
 
@@ -1027,6 +1161,7 @@
       if (!playing) return;
 
       const bird = document.createElement("div");
+
       bird.className = "bird";
       bird.style.animationDuration = speed + 0.2 + "s";
 
@@ -1049,6 +1184,7 @@
       }
 
       const delay = Math.random() * 1000 + 850;
+
       obstacleTimer = setTimeout(createObstacle, delay);
     }
 
@@ -1110,12 +1246,11 @@
       createObstacle();
     }
 
-    /* تشغيل المطر عند تحميل الصفحة */
+    /* تحميل المطر وتشغيل اللعبة */
     window.addEventListener("DOMContentLoaded", () => {
       startStrawberryRain();
     });
 
-    /* تشغيل اللعبة */
     setInterval(collisionCheck, 10);
     setInterval(updateScore, 100);
 
@@ -1126,4 +1261,5 @@
   </script>
 
 </body>
+
 </html>
