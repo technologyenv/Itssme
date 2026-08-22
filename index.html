@@ -216,12 +216,13 @@
     .dino-game-wrapper .bird {
       position: absolute;
       right: -50px;
-      bottom: 85px;
-      width: 25px;
-      height: 12px;
+      bottom: 75px;
+      width: 26px;
+      height: 14px;
       background: #555;
       border-radius: 50%;
       animation: birdMove 2.2s linear;
+      z-index: 5;
     }
 
     .dino-game-wrapper .bird::before, .dino-game-wrapper .bird::after {
@@ -253,20 +254,6 @@
     .dino-game-wrapper .gameOver h1 { color: #333; font-size: 22px; margin-bottom: 8px; font-weight: 800; }
     .dino-game-wrapper .gameOver p { color: #666; margin-bottom: 12px; font-size: 14px; }
     .dino-game-wrapper .gameOver button { border: 1px solid #777; background: white; color: #333; padding: 6px 16px; font-size: 14px; border-radius: 8px; cursor: pointer; font-weight: 600; }
-
-    .dino-game-wrapper.night { background: #202124; }
-    .dino-game-wrapper.night .ground,
-    .dino-game-wrapper.night .dino,
-    .dino-game-wrapper.night .dino::before,
-    .dino-game-wrapper.night .tail,
-    .dino-game-wrapper.night .leg,
-    .dino-game-wrapper.night .cactus,
-    .dino-game-wrapper.night .cactus::before,
-    .dino-game-wrapper.night .cactus::after,
-    .dino-game-wrapper.night .bird,
-    .dino-game-wrapper.night .bird::before,
-    .dino-game-wrapper.night .bird::after { background: #eee; }
-    .dino-game-wrapper.night .score, .dino-game-wrapper.night .gameOver h1, .dino-game-wrapper.night .gameOver p { color: #eee; }
   </style>
 </head>
 <body class="min-h-screen p-6 md:p-12 relative overflow-x-hidden">
@@ -281,11 +268,16 @@
 
   <main class="max-w-4xl mx-auto space-y-16">
 
-    <!-- Bio Header -->
-    <div class="text-center md:text-left">
+    <!-- Header & Music Button -->
+    <div class="flex flex-wrap items-center justify-between gap-4">
       <span class="text-xs font-mono uppercase tracking-widest px-3 py-1 bg-rose-500/10 border border-rose-500/30 rounded-full text-rose-300">
         a little intro about yomna 🤏✨
       </span>
+
+      <!-- Music Play/Pause Toggle -->
+      <button onclick="toggleMusic()" id="musicBtn" class="flex items-center gap-2 text-xs font-bold px-4 py-2 bg-rose-900/40 border border-rose-500/50 rounded-full text-rose-200 hover:bg-rose-800/60 transition shadow-lg">
+        <span id="musicIcon">🎵</span> <span id="musicText">Play Music</span>
+      </button>
     </div>
 
     <!-- Hero / Intro Section -->
@@ -410,7 +402,7 @@
       </div>
     </section>
 
-    <!-- Girl Thinking Section (pic2.png) FIXED -->
+    <!-- Girl Thinking Section (pic2.png) -->
     <section class="bg-rose-950/30 border border-rose-500/30 rounded-3xl p-6 md:p-8 text-center space-y-6 shadow-xl">
       <div class="space-y-1">
         <h3 class="text-lg md:text-xl font-bold text-rose-200">
@@ -450,41 +442,46 @@
           Dino Dash 🦖🌵
         </h3>
         <p class="text-xs text-rose-300/70 font-mono">
-          Score 300 points to unlock the secret reward! (Tap screen or Space to Jump)
+          Score 200 points to unlock the secret screen! (Tap screen or Space to Jump)
         </p>
       </div>
 
-      <!-- Dino Game Container -->
-      <div class="dino-game-wrapper" id="game" onclick="handleGameClick(event)">
-        <div class="score" id="score">HI 00000 00000</div>
-        <div class="cloud one"></div>
-        <div class="cloud two"></div>
-        <div class="dino" id="dino">
-          <div class="tail"></div>
-          <div class="leg one"></div>
-          <div class="leg two"></div>
-        </div>
-        <div class="ground"></div>
-        <div class="gameOver" id="gameOver">
-          <h1>GAME OVER</h1>
-          <p id="finalScore">SCORE: 00000</p>
-          <button onclick="restartDino(event)">↻ Restart</button>
+      <!-- Main Dino Game Box -->
+      <div id="dino-game-box">
+        <div class="dino-game-wrapper" id="game" onclick="handleGameClick(event)">
+          <div class="score" id="score">HI 00000 00000</div>
+          <div class="cloud one"></div>
+          <div class="cloud two"></div>
+          <div class="dino" id="dino">
+            <div class="tail"></div>
+            <div class="leg one"></div>
+            <div class="leg two"></div>
+          </div>
+          <div class="ground"></div>
+          <div class="gameOver" id="gameOver">
+            <h1>GAME OVER</h1>
+            <p id="finalScore">SCORE: 00000</p>
+            <button onclick="restartDino(event)">↻ Restart</button>
+          </div>
         </div>
       </div>
 
-      <!-- Secret Hamster Reward (pic3.jpg) - Unlocks at Score 300 -->
-      <div id="dino-reward" class="hidden max-w-md mx-auto pt-4 transition-all duration-500">
-        <div class="p-4 rounded-2xl bg-rose-900/40 border border-rose-400/50 shadow-2xl space-y-3">
+      <!-- Secret Screen Reward (pic3.jpg) - Replaces Dino Game at Score 200 -->
+      <div id="dino-reward" class="hidden max-w-md mx-auto pt-2">
+        <div class="p-6 rounded-2xl bg-rose-900/40 border border-rose-400/50 shadow-2xl space-y-4">
           <span class="text-xs font-bold font-mono text-yellow-300 bg-yellow-950/60 px-3 py-1 rounded-full border border-yellow-500/40">
-            🎉 UNLOCKED AT 300 PTS!
+            🎉 UNLOCKED AT 200 PTS!
           </span>
           <!-- Pure White Background Box for pic3.jpg -->
-          <div class="w-full rounded-xl overflow-hidden bg-white p-3 flex items-center justify-center border border-rose-200">
-            <img src="pic3.jpg" alt="Hamster Reward" loading="eager" class="w-full h-auto max-h-[220px] object-contain bg-white">
+          <div class="w-full rounded-xl overflow-hidden bg-white p-4 flex items-center justify-center border border-rose-200">
+            <img src="pic3.jpg" alt="Hamster Reward" loading="eager" class="w-full h-auto max-h-[240px] object-contain bg-white">
           </div>
           <p class="text-sm text-rose-200 font-semibold leading-relaxed">
             congrats u won nothing .. but big love
           </p>
+          <button onclick="returnToGame()" class="px-6 py-2.5 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold rounded-xl shadow-lg hover:brightness-110 transition text-sm">
+            ⬅️ Return to Game
+          </button>
         </div>
       </div>
     </section>
@@ -510,7 +507,7 @@
         </p>
       </div>
 
-      <!-- Cats Card -->
+      <!-- Cats Card FIXED -->
       <div class="bg-rose-900/20 border border-rose-800/30 rounded-3xl p-6 max-w-md mx-auto space-y-4">
         <div class="w-full flex justify-center items-center gap-12 md:gap-16 font-['Caveat'] text-2xl font-bold text-rose-300 select-none">
           <div class="flex flex-col items-center">
@@ -543,7 +540,7 @@
         </div>
       </div>
 
-      <!-- "so long nigga 🫡" -->
+      <!-- Footer Quote -->
       <div class="max-w-md mx-auto flex justify-end pr-2 pt-1">
         <span class="font-mono text-xs font-semibold text-rose-300/80 tracking-wide bg-rose-950/60 px-3 py-1 rounded-lg border border-rose-800/40 shadow-sm">
           so long nigga 🫡
@@ -554,12 +551,12 @@
   </main>
 
   <script>
-    /* 1. Instant Strawberry Rain */
+    /* 1. Strawberry Rain - Automatic Start */
     function startStrawberryRain() {
       const container = document.getElementById('strawberry-rain-container');
       if (!container) return;
       let count = 0;
-      const maxStrawberries = 60;
+      const maxStrawberries = 50;
 
       const rainInterval = setInterval(() => {
         if (count >= maxStrawberries) {
@@ -574,32 +571,38 @@
         strawberry.style.left = Math.random() * 95 + 'vw';
         strawberry.style.fontSize = (Math.random() * 16 + 18) + 'px';
         
-        const fallDuration = Math.random() * 2 + 3; 
+        const fallDuration = Math.random() * 2 + 3.5; 
         strawberry.style.animationDuration = fallDuration + 's';
         
         container.appendChild(strawberry);
         setTimeout(() => strawberry.remove(), fallDuration * 1000);
-      }, 150);
+      }, 180);
     }
 
-    /* 2. Instant Audio Playback on First Touch/Click */
+    /* 2. Audio Control Toggle */
     const audio = document.getElementById('bgMusic');
-    function triggerAudio() {
-      if (audio && audio.paused) {
-        audio.play().catch(() => {});
+    const musicBtn = document.getElementById('musicBtn');
+    const musicIcon = document.getElementById('musicIcon');
+    const musicText = document.getElementById('musicText');
+
+    function toggleMusic() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          musicIcon.textContent = '⏸️';
+          musicText.textContent = 'Pause Music';
+        }).catch(err => console.log('Audio error:', err));
+      } else {
+        audio.pause();
+        musicIcon.textContent = '🎵';
+        musicText.textContent = 'Play Music';
       }
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       startStrawberryRain();
-      triggerAudio();
     });
 
-    ['click', 'touchstart', 'keydown', 'scroll'].forEach(evt => {
-      document.addEventListener(evt, triggerAudio, { once: true });
-    });
-
-    /* 3. Quiz Function */
+    /* 3. Quiz Logic */
     function checkAnswer(isCorrect, btn) {
       const resultDiv = document.getElementById('quiz-result');
       if (isCorrect) {
@@ -611,7 +614,7 @@
       }
     }
 
-    /* 4. Dino Game Engine - Fully Working & Fixed */
+    /* 4. Dino Game Engine - Score 200 Auto Trigger & Unlimited Return */
     const game = document.getElementById("game");
     const dino = document.getElementById("dino");
     const scoreText = document.getElementById("score");
@@ -624,7 +627,8 @@
     let playing = true;
     let jumping = false;
     let obstacleTimer = null;
-    let rewardUnlocked = false;
+    let rewardTriggered = false;
+    let unlimitedMode = false;
 
     function updateScore() {
       if (!playing) return;
@@ -634,15 +638,31 @@
       let high = String(highScore).padStart(5, "0");
       scoreText.textContent = `HI ${high} ${current}`;
 
-      // Show Hamster image (pic3.jpg) at EXACTLY 300 Score
-      if (score >= 300 && !rewardUnlocked) {
-        rewardUnlocked = true;
-        document.getElementById('dino-reward').classList.remove('hidden');
+      // Automatically hide game & show Hamster image at Score 200
+      if (score >= 200 && !rewardTriggered && !unlimitedMode) {
+        rewardTriggered = true;
+        triggerRewardScreen();
+        return;
       }
 
-      if (score % 500 === 0 && speed > 0.65) {
-        speed -= 0.12;
+      if (score % 400 === 0 && speed > 0.65) {
+        speed -= 0.1;
       }
+    }
+
+    function triggerRewardScreen() {
+      playing = false;
+      clearTimeout(obstacleTimer);
+      document.getElementById('dino-game-box').classList.add('hidden');
+      document.getElementById('dino-reward').classList.remove('hidden');
+    }
+
+    function returnToGame() {
+      unlimitedMode = true; // Enables endless Google-style dino gameplay
+      document.getElementById('dino-reward').classList.add('hidden');
+      document.getElementById('dino-game-box').classList.remove('hidden');
+      playing = true;
+      createObstacle();
     }
 
     function jump() {
@@ -656,7 +676,6 @@
     }
 
     function handleGameClick(e) {
-      // Prevent jump if game over screen is open
       if (!playing) return;
       jump();
     }
@@ -678,19 +697,23 @@
     }
 
     function createBird() {
-      if (!playing || score < 300) return;
+      if (!playing) return;
       const bird = document.createElement("div");
       bird.className = "bird";
-      bird.style.animationDuration = (speed + .4) + "s";
+      bird.style.animationDuration = (speed + .2) + "s";
       game.appendChild(bird);
-      setTimeout(() => { bird.remove(); }, (speed + .4) * 1000 + 100);
+      setTimeout(() => { bird.remove(); }, (speed + .2) * 1000 + 100);
     }
 
     function createObstacle() {
       if (!playing) return;
       const random = Math.random();
-      if (random < .2 && score > 300) { createBird(); } else { createCactus(); }
-      let delay = Math.random() * 1000 + 800;
+      if (random < .3 && score > 150) { 
+        createBird(); 
+      } else { 
+        createCactus(); 
+      }
+      let delay = Math.random() * 1000 + 850;
       obstacleTimer = setTimeout(createObstacle, delay);
     }
 
@@ -701,7 +724,7 @@
 
       obstacles.forEach(obstacle => {
         const rect = obstacle.getBoundingClientRect();
-        const padding = 8;
+        const padding = 6;
         const hit = dinoRect.right - padding > rect.left + padding &&
                     dinoRect.left + padding < rect.right - padding &&
                     dinoRect.bottom - padding > rect.top + padding &&
@@ -723,7 +746,7 @@
     }
 
     function restartDino(e) {
-      if (e) e.stopPropagation(); // Stops touch event conflict
+      if (e) e.stopPropagation();
       document.querySelectorAll(".cactus, .bird").forEach(el => el.remove());
       score = 0;
       speed = 1.8;
