@@ -15,16 +15,16 @@
     ::-webkit-scrollbar-track { background: #12090c; }
     ::-webkit-scrollbar-thumb { background: #9f1239; border-radius: 4px; }
 
-    /* Strawberry Rain Animation */
+    /* Strawberry Rain */
     #strawberry-rain-container {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       pointer-events: none;
       overflow: hidden;
-      z-index: 999;
+      z-index: 9999;
     }
 
     .falling-strawberry {
@@ -39,11 +39,11 @@
       100% { transform: translateY(105vh) rotate(360deg); opacity: 0.9; }
     }
 
-    /* ================= DINO GAME ENGINE STYLES ================= */
+    /* DINO GAME STYLES */
     .dino-game-wrapper {
       position: relative;
       width: 100%;
-      height: 240px;
+      height: 220px;
       overflow: hidden;
       background: #f7f7f7;
       border-radius: 16px;
@@ -93,8 +93,8 @@
       border-radius: 50%;
     }
 
-    .dino-game-wrapper .cloud.one { top: 40px; left: 20%; animation: clouds 18s linear infinite; }
-    .dino-game-wrapper .cloud.two { top: 80px; left: 65%; animation: clouds 25s linear infinite; }
+    .dino-game-wrapper .cloud.one { top: 30px; left: 20%; animation: clouds 18s linear infinite; }
+    .dino-game-wrapper .cloud.two { top: 70px; left: 65%; animation: clouds 25s linear infinite; }
 
     @keyframes clouds {
       from { transform: translateX(0); }
@@ -168,12 +168,11 @@
 
     @keyframes jump {
       0% { bottom: 32px; }
-      45% { bottom: 130px; }
+      45% { bottom: 120px; }
       100% { bottom: 32px; }
     }
 
     .dino-game-wrapper .duck { height: 25px; }
-    .dino-game-wrapper .duck::before { top: 4px; }
 
     .dino-game-wrapper .cactus {
       position: absolute;
@@ -218,7 +217,7 @@
     .dino-game-wrapper .bird {
       position: absolute;
       right: -50px;
-      bottom: 95px;
+      bottom: 85px;
       width: 25px;
       height: 12px;
       background: #555;
@@ -255,7 +254,6 @@
     .dino-game-wrapper .gameOver h1 { color: #333; font-size: 22px; margin-bottom: 8px; font-weight: 800; }
     .dino-game-wrapper .gameOver p { color: #666; margin-bottom: 12px; font-size: 14px; }
     .dino-game-wrapper .gameOver button { border: 1px solid #777; background: white; color: #333; padding: 6px 16px; font-size: 14px; border-radius: 8px; cursor: pointer; font-weight: 600; }
-    .dino-game-wrapper .gameOver button:hover { background: #eee; }
 
     .dino-game-wrapper.night { background: #202124; }
     .dino-game-wrapper.night .ground,
@@ -271,20 +269,14 @@
     .dino-game-wrapper.night .bird::after { background: #eee; }
     .dino-game-wrapper.night .score, .dino-game-wrapper.night .gameOver h1, .dino-game-wrapper.night .gameOver p { color: #eee; }
   </style>
-
-  <!-- Preload audio and critical images for instant loading -->
-  <link rel="preload" as="audio" href="song.wav">
-  <link rel="preload" as="image" href="pic1.png">
-  <link rel="preload" as="image" href="pic2.jpg">
-  <link rel="preload" as="image" href="pic3.jpg">
 </head>
 <body class="min-h-screen p-6 md:p-12 relative overflow-x-hidden">
 
-  <!-- Strawberry Rain Container -->
+  <!-- Strawberry Rain Overlay -->
   <div id="strawberry-rain-container"></div>
 
-  <!-- Audio Element with autoplay & preload -->
-  <audio id="bgMusic" loop autoplay preload="auto">
+  <!-- Audio Element -->
+  <audio id="bgMusic" loop preload="auto">
     <source src="song.wav" type="audio/wav">
   </audio>
 
@@ -313,7 +305,7 @@
       
       <!-- Profile Picture (pic1.png) -->
       <div class="w-44 md:w-52 flex-shrink-0 drop-shadow-[0_15px_25px_rgba(225,29,72,0.25)]">
-        <img src="pic1.png" alt="Yomna" loading="eager" class="w-full h-auto object-contain">
+        <img src="pic1.png" alt="Yomna" class="w-full h-auto object-contain">
       </div>
     </section>
 
@@ -327,8 +319,8 @@
 
         <!-- Cats Card -->
         <div class="bg-rose-950/25 border border-rose-900/40 p-6 rounded-3xl space-y-4 md:col-span-2">
-          <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2">
-            <img src="phocat.jpg" alt="Cats" loading="eager" class="w-full h-auto max-h-[380px] object-contain">
+          <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2 min-h-[200px]">
+            <img src="phocat.jpg" alt="Cats" class="w-full h-auto max-h-[380px] object-contain">
           </div>
           <div class="space-y-1">
             <h3 class="text-2xl font-bold text-rose-200">cats 🐾</h3>
@@ -340,8 +332,8 @@
 
         <!-- Sea Card -->
         <div class="bg-rose-950/25 border border-rose-900/40 p-6 rounded-3xl space-y-4">
-          <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2">
-            <img src="phosea.jpg" alt="Sea" loading="eager" class="w-full h-auto max-h-[260px] object-contain">
+          <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2 min-h-[160px]">
+            <img src="phosea.jpg" alt="Sea" class="w-full h-auto max-h-[260px] object-contain">
           </div>
           <div class="space-y-1">
             <h3 class="text-xl font-bold text-rose-200">the sea 🌊</h3>
@@ -353,8 +345,8 @@
 
         <!-- Sweets Card -->
         <div class="bg-rose-950/25 border border-rose-900/40 p-6 rounded-3xl space-y-4">
-          <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2">
-            <img src="phosweets.jpg" alt="Candy" loading="eager" class="w-full h-auto max-h-[260px] object-contain">
+          <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2 min-h-[160px]">
+            <img src="phosweets.jpg" alt="Candy" class="w-full h-auto max-h-[260px] object-contain">
           </div>
           <div class="space-y-1">
             <h3 class="text-xl font-bold text-rose-200">candy 🍬</h3>
@@ -366,8 +358,8 @@
 
         <!-- Sky Card -->
         <div class="bg-rose-950/25 border border-rose-900/40 p-6 rounded-3xl space-y-4">
-          <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2">
-            <img src="phosky.jpg" alt="Sky" loading="eager" class="w-full h-auto max-h-[260px] object-contain">
+          <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2 min-h-[160px]">
+            <img src="phosky.jpg" alt="Sky" class="w-full h-auto max-h-[260px] object-contain">
           </div>
           <div class="space-y-1">
             <h3 class="text-xl font-bold text-rose-200">the sky ☁️</h3>
@@ -379,8 +371,8 @@
 
         <!-- Songs Card -->
         <div class="bg-rose-950/25 border border-rose-900/40 p-6 rounded-3xl space-y-4">
-          <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2">
-            <img src="phosongs.jpg" alt="Songs" loading="eager" class="w-full h-auto max-h-[260px] object-contain">
+          <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2 min-h-[160px]">
+            <img src="phosongs.jpg" alt="Songs" class="w-full h-auto max-h-[260px] object-contain">
           </div>
           <div class="space-y-1">
             <h3 class="text-xl font-bold text-rose-200">songs 🎶</h3>
@@ -392,8 +384,8 @@
 
         <!-- Flowers Card -->
         <div class="bg-rose-950/25 border border-rose-900/40 p-6 rounded-3xl space-y-4">
-          <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2">
-            <img src="phorose.jpg" alt="Flowers" loading="eager" class="w-full h-auto max-h-[260px] object-contain">
+          <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2 min-h-[160px]">
+            <img src="phorose.jpg" alt="Flowers" class="w-full h-auto max-h-[260px] object-contain">
           </div>
           <div class="space-y-1">
             <h3 class="text-xl font-bold text-rose-200">flowers 🌹</h3>
@@ -405,8 +397,8 @@
 
         <!-- Outings Card -->
         <div class="bg-rose-950/25 border border-rose-900/40 p-6 rounded-3xl space-y-4 md:col-span-2">
-          <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2">
-            <img src="phogoout.jpg" alt="Going out" loading="eager" class="w-full h-auto max-h-[300px] object-contain">
+          <div class="w-full rounded-2xl overflow-hidden bg-rose-900/20 flex items-center justify-center border border-rose-800/30 p-2 min-h-[180px]">
+            <img src="phogoout.jpg" alt="Going out" class="w-full h-auto max-h-[300px] object-contain">
           </div>
           <div class="space-y-1">
             <h3 class="text-xl font-bold text-rose-200">going out ✨</h3>
@@ -419,7 +411,7 @@
       </div>
     </section>
 
-    <!-- Strawberry Basket Mystery Section (Girl Thinking pic3.jpg Restored) -->
+    <!-- Girl Thinking Section (pic3.jpg) -->
     <section class="bg-rose-950/30 border border-rose-500/30 rounded-3xl p-6 md:p-8 text-center space-y-6 shadow-xl">
       <div class="space-y-1">
         <h3 class="text-lg md:text-xl font-bold text-rose-200">
@@ -427,9 +419,9 @@
         </h3>
       </div>
 
-      <!-- Girl Thinking Image Restored -->
-      <div class="w-full max-w-xs mx-auto rounded-2xl overflow-hidden border border-rose-900/60 bg-[#1a0b10] flex items-center justify-center p-2">
-        <img src="pic3.jpg" alt="Girl Thinking about Strawberries" loading="eager" class="w-full h-auto max-h-[260px] object-contain rounded-xl">
+      <!-- Girl Thinking Image (pic3.jpg) Fixed -->
+      <div class="w-full max-w-xs mx-auto rounded-2xl overflow-hidden border border-rose-900/60 bg-[#1a0b10] flex items-center justify-center p-2 min-h-[200px]">
+        <img src="pic3.jpg" alt="Girl Thinking about Strawberries" class="w-full h-auto max-h-[260px] object-contain rounded-xl">
       </div>
 
       <div id="quiz-container" class="max-w-md mx-auto grid grid-cols-1 gap-2.5">
@@ -463,8 +455,8 @@
         </p>
       </div>
 
-      <!-- Integrated Google Dino Engine -->
-      <div class="dino-game-wrapper" id="game">
+      <!-- Dino Game Canvas -->
+      <div class="dino-game-wrapper" id="game" onclick="jump()">
         <div class="score" id="score">HI 00000 00000</div>
         <div class="cloud one"></div>
         <div class="cloud two"></div>
@@ -477,19 +469,19 @@
         <div class="gameOver" id="gameOver">
           <h1>GAME OVER</h1>
           <p id="finalScore">SCORE: 00000</p>
-          <button onclick="restartDino()">↻ Restart</button>
+          <button onclick="restartDino(event)">↻ Restart</button>
         </div>
       </div>
 
-      <!-- Secret Unlocked Hamster Card -->
-      <div id="dino-reward" class="hidden max-w-md mx-auto pt-4 transition-all duration-500">
+      <!-- Secret Hamster Image (pic2.jpg) - Appears directly below the game -->
+      <div id="dino-reward" class="hidden max-w-md mx-auto pt-4">
         <div class="p-4 rounded-2xl bg-rose-900/40 border border-rose-400/50 shadow-2xl space-y-3">
           <span class="text-xs font-bold font-mono text-yellow-300 bg-yellow-950/60 px-3 py-1 rounded-full border border-yellow-500/40">
             🎉 UNLOCKED AT 100 PTS!
           </span>
           <!-- Pure White Background Container for pic2.jpg -->
           <div class="w-full rounded-xl overflow-hidden bg-white p-3 flex items-center justify-center border border-rose-200">
-            <img src="pic2.jpg" alt="Hamster Reward" loading="eager" class="w-full h-auto max-h-[220px] object-contain bg-white">
+            <img src="pic2.jpg" alt="Hamster Reward" class="w-full h-auto max-h-[220px] object-contain bg-white">
           </div>
           <p class="text-sm text-rose-200 font-semibold leading-relaxed">
             congrats u won nothing .. but big love
@@ -521,11 +513,7 @@
 
       <!-- Cats Card -->
       <div class="bg-rose-900/20 border border-rose-800/30 rounded-3xl p-6 max-w-md mx-auto space-y-4">
-        
-        <!-- Handwritten Labels & SVG Arrows -->
         <div class="w-full flex justify-center items-center gap-12 md:gap-16 font-['Caveat'] text-2xl font-bold text-rose-300 select-none">
-          
-          <!-- FRIEND (cat1.png) -->
           <div class="flex flex-col items-center">
             <span class="text-rose-200">you 💀</span>
             <svg class="w-6 h-8 text-rose-400 mt-1" viewBox="0 0 24 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -534,7 +522,6 @@
             </svg>
           </div>
 
-          <!-- YOMNA (cat2.png) -->
           <div class="flex flex-col items-center">
             <span class="text-rose-200">me 💅</span>
             <svg class="w-6 h-8 text-rose-400 mt-1" viewBox="0 0 24 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -542,25 +529,22 @@
               <path d="M6 20 L 12 27 L 18 20" />
             </svg>
           </div>
-
         </div>
 
-        <!-- Cats Images Side by Side -->
         <div class="flex items-center justify-center gap-6 md:gap-10">
           <div class="w-28 md:w-32 flex flex-col items-center">
-            <img src="cat1.png" alt="You" loading="eager" class="w-full h-auto max-h-36 object-contain">
+            <img src="cat1.png" alt="You" class="w-full h-auto max-h-36 object-contain">
             <span class="font-['Caveat'] text-xl font-semibold text-rose-300/80 mt-1">Player 2</span>
           </div>
 
           <div class="w-28 md:w-32 flex flex-col items-center">
-            <img src="cat2.png" alt="Me" loading="eager" class="w-full h-auto max-h-36 object-contain">
+            <img src="cat2.png" alt="Me" class="w-full h-auto max-h-36 object-contain">
             <span class="font-['Caveat'] text-xl font-semibold text-rose-300/80 mt-1">Player 1</span>
           </div>
         </div>
-
       </div>
 
-      <!-- "so long nigga 🫡" Placed outside the cats card at the bottom-right corner -->
+      <!-- "so long nigga 🫡" Outside the cats card, bottom-right -->
       <div class="max-w-md mx-auto flex justify-end pr-2 pt-1">
         <span class="font-mono text-xs font-semibold text-rose-300/80 tracking-wide bg-rose-950/60 px-3 py-1 rounded-lg border border-rose-800/40 shadow-sm">
           so long nigga 🫡
@@ -571,26 +555,12 @@
   </main>
 
   <script>
-    /* Instant Audio Playback Logic */
-    const audio = document.getElementById('bgMusic');
-    
-    function tryPlayAudio() {
-      if (audio) {
-        audio.play().catch(() => {});
-      }
-    }
-
-    // Trigger audio immediately on any user activity
-    window.addEventListener('load', tryPlayAudio);
-    ['click', 'touchstart', 'keydown', 'scroll', 'mousemove'].forEach(evt => {
-      document.addEventListener(evt, tryPlayAudio, { once: true });
-    });
-
-    /* Strawberry Rain Animation - Runs temporarily then stops */
+    /* 1. Strawberry Rain Engine */
     function startStrawberryRain() {
       const container = document.getElementById('strawberry-rain-container');
+      if(!container) return;
       let count = 0;
-      const maxStrawberries = 70;
+      const maxStrawberries = 60;
 
       const rainInterval = setInterval(() => {
         if (count >= maxStrawberries) {
@@ -602,20 +572,35 @@
         const strawberry = document.createElement('div');
         strawberry.classList.add('falling-strawberry');
         strawberry.textContent = '🍓';
-        strawberry.style.left = Math.random() * 100 + 'vw';
-        strawberry.style.fontSize = (Math.random() * 18 + 16) + 'px';
+        strawberry.style.left = Math.random() * 95 + 'vw';
+        strawberry.style.fontSize = (Math.random() * 16 + 18) + 'px';
         
-        const fallDuration = Math.random() * 2 + 3.5; 
+        const fallDuration = Math.random() * 2 + 3; 
         strawberry.style.animationDuration = fallDuration + 's';
         
         container.appendChild(strawberry);
         setTimeout(() => strawberry.remove(), fallDuration * 1000);
-      }, 250);
+      }, 200);
     }
 
-    window.addEventListener('load', startStrawberryRain);
+    /* 2. Audio Instant Start on User Touch/Click */
+    const audio = document.getElementById('bgMusic');
+    function playAudio() {
+      if (audio && audio.paused) {
+        audio.play().catch(() => {});
+      }
+    }
 
-    /* Quiz Function */
+    window.addEventListener('DOMContentLoaded', () => {
+      startStrawberryRain();
+      playAudio();
+    });
+
+    ['click', 'touchstart', 'keydown', 'scroll'].forEach(evt => {
+      document.addEventListener(evt, playAudio, { once: true });
+    });
+
+    /* 3. Quiz Function */
     function checkAnswer(isCorrect, btn) {
       const resultDiv = document.getElementById('quiz-result');
       if (isCorrect) {
@@ -627,7 +612,7 @@
       }
     }
 
-    /* ================= DINO GAME ENGINE LOGIC ================= */
+    /* 4. Google Dino Engine (Guaranteed Smooth Execution) */
     const game = document.getElementById("game");
     const dino = document.getElementById("dino");
     const scoreText = document.getElementById("score");
@@ -640,8 +625,6 @@
     let playing = true;
     let jumping = false;
     let obstacleTimer;
-    let mainLoopInterval;
-    let scoreInterval;
     let rewardUnlocked = false;
 
     function updateScore() {
@@ -652,15 +635,14 @@
       let high = String(highScore).padStart(5, "0");
       scoreText.textContent = `HI ${high} ${current}`;
 
-      // Unlock Hamster Image at 100 Points
+      // Show Hamster image at 100 score
       if (score >= 100 && !rewardUnlocked) {
         rewardUnlocked = true;
         document.getElementById('dino-reward').classList.remove('hidden');
       }
 
-      if (score % 500 === 0) {
+      if (score % 500 === 0 && speed > 0.65) {
         speed -= 0.12;
-        if (speed < .65) speed = .65;
       }
     }
 
@@ -674,21 +656,12 @@
       }, 550);
     }
 
-    function duckStart() { if (playing) dino.classList.add("duck"); }
-    function duckEnd() { dino.classList.remove("duck"); }
-
     document.addEventListener("keydown", function(e) {
-      if (e.code === "Space" || e.code === "ArrowUp") { e.preventDefault(); jump(); }
-      if (e.code === "ArrowDown") duckStart();
+      if (e.code === "Space" || e.code === "ArrowUp") { 
+        e.preventDefault(); 
+        jump(); 
+      }
     });
-    document.addEventListener("keyup", function(e) {
-      if (e.code === "ArrowDown") duckEnd();
-    });
-
-    game.addEventListener("touchstart", function(e) {
-      e.preventDefault();
-      jump();
-    }, { passive: false });
 
     function createCactus() {
       if (!playing) return;
@@ -744,7 +717,8 @@
       gameOverDiv.style.display = "block";
     }
 
-    function restartDino() {
+    function restartDino(e) {
+      if(e) e.stopPropagation();
       document.querySelectorAll(".cactus, .bird").forEach(el => el.remove());
       score = 0;
       speed = 1.8;
@@ -755,18 +729,8 @@
       createObstacle();
     }
 
-    let night = false;
-    setInterval(() => {
-      if (!playing) return;
-      if (score > 700) {
-        night = !night;
-        game.classList.toggle("night", night);
-      }
-    }, 12000);
-
-    mainLoopInterval = setInterval(collisionCheck, 10);
-    scoreInterval = setInterval(updateScore, 100);
-
+    setInterval(collisionCheck, 10);
+    setInterval(updateScore, 100);
     createObstacle();
     scoreText.textContent = "HI " + String(highScore).padStart(5, "0") + " 00000";
   </script>
