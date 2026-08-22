@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yomna | Strawberry Vibe 🍓</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #12090c; color: #fce7f3; }
     h1, h2, h3 { font-family: 'Syne', sans-serif; }
@@ -218,7 +218,7 @@
       </div>
     </section>
 
-    <!-- Dinosaur Game Section (Fixed High Quality & Facing Forward / Right towards Cactus) -->
+    <!-- Dinosaur Game Section -->
     <section class="bg-rose-950/30 border border-rose-500/30 rounded-3xl p-6 md:p-8 text-center space-y-6 shadow-2xl">
       <div class="space-y-2">
         <span class="text-xs font-mono text-rose-400 bg-rose-900/40 px-3 py-1 rounded-full">🕹️ arcade break</span>
@@ -227,14 +227,13 @@
         </h3>
       </div>
 
-      <!-- Wider & Clearer Game Canvas Container -->
       <div class="w-full max-w-2xl mx-auto bg-black/60 border-2 border-rose-500/40 rounded-2xl overflow-hidden shadow-inner p-2">
         <canvas id="dinoCanvas" width="700" height="220" class="w-full h-auto block rounded-xl cursor-pointer bg-gradient-to-b from-[#180a0f] to-[#0b0407]"></canvas>
       </div>
       <p class="text-xs text-rose-300/60">Pro tip: Tap screen or hit Spacebar to jump. Don't let the cactuses win!</p>
     </section>
 
-    <!-- Ending Section with Gen Z Friend Note & Cats Image -->
+    <!-- Ending Section with Gen Z Friend Note & Cats (Separate Transparent Images) -->
     <section class="bg-rose-950/40 border border-rose-500/40 rounded-3xl p-6 md:p-10 text-center space-y-8 shadow-2xl">
       <div class="space-y-3 max-w-xl mx-auto">
         <h3 class="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-rose-300 to-pink-300">
@@ -245,23 +244,43 @@
         </p>
       </div>
 
-      <!-- Final Cats Image with Arrows & Labels (pic2.jpg) -->
-      <div class="max-w-md mx-auto space-y-3 relative pt-4">
-        <div class="w-full rounded-2xl overflow-hidden border border-rose-500/30 shadow-lg bg-black/40 p-2 flex items-center justify-center">
-          <img src="pic2.jpg" alt="Players" class="w-full h-auto max-h-[300px] object-contain rounded-xl">
-        </div>
+      <!-- Cats Container with Handwritten Font (Caveat) -->
+      <div class="max-w-md mx-auto pt-4 flex flex-col items-center">
         
-        <!-- Arrows & Labels Container -->
-        <div class="flex justify-between px-8 text-rose-300 font-bold text-sm">
-          <div class="flex flex-col items-center animate-bounce">
-            <span class="text-rose-400 text-lg">⬆️</span>
-            <span class="bg-rose-900/60 px-3 py-1 rounded-full border border-rose-500/30 text-xs">me (carrying the team 💅)</span>
+        <!-- Me & You Handwritten Labels with Arrows ABOVE Cats -->
+        <div class="w-full flex justify-center items-center gap-12 md:gap-16 mb-2 font-['Caveat'] text-2xl md:text-3xl font-bold text-rose-300 select-none">
+          
+          <!-- FRIEND (YOU / BOT) -> LEFT side (cat1.png) -->
+          <div class="flex flex-col items-center leading-none">
+            <span class="text-rose-200 tracking-wide">you 💀</span>
+            <span class="text-rose-400 text-xl animate-bounce mt-1">⬇️</span>
           </div>
-          <div class="flex flex-col items-center animate-bounce">
-            <span class="text-rose-400 text-lg">⬆️</span>
-            <span class="bg-rose-900/60 px-3 py-1 rounded-full border border-rose-500/30 text-xs">you (the official bot 💀)</span>
+
+          <!-- YOMNA (ME) -> RIGHT side (cat2.png) -->
+          <div class="flex flex-col items-center leading-none">
+            <span class="text-rose-200 tracking-wide">me 💅</span>
+            <span class="text-rose-400 text-xl animate-bounce mt-1">⬇️</span>
           </div>
+
         </div>
+
+        <!-- Cats Side-by-Side Images -->
+        <div class="flex items-center justify-center gap-6 md:gap-10">
+          
+          <!-- Cat 1 (Friend / Bot - LEFT) -->
+          <div class="w-28 md:w-36 flex flex-col items-center transition duration-300 hover:scale-105">
+            <img src="cat1.png" alt="Player 2 (You)" class="w-full h-auto max-h-40 object-contain drop-shadow-[0_10px_15px_rgba(244,63,94,0.3)]">
+            <span class="mt-2 font-['Caveat'] text-xl md:text-2xl font-semibold text-rose-300/80">Player 2 (bot)</span>
+          </div>
+
+          <!-- Cat 2 (Yomna / Me - RIGHT) -->
+          <div class="w-28 md:w-36 flex flex-col items-center transition duration-300 hover:scale-105">
+            <img src="cat2.png" alt="Player 1 (Me)" class="w-full h-auto max-h-40 object-contain drop-shadow-[0_10px_15px_rgba(244,63,94,0.3)]">
+            <span class="mt-2 font-['Caveat'] text-xl md:text-2xl font-semibold text-rose-300/80">Player 1 (carrying)</span>
+          </div>
+
+        </div>
+
       </div>
     </section>
 
@@ -316,7 +335,7 @@
       }
     }
 
-    /* Dinosaur Game Script (Facing right toward cactus with varied obstacles) */
+    /* Dinosaur Game Script */
     const canvas = document.getElementById('dinoCanvas');
     const ctx = canvas.getContext('2d');
 
@@ -391,14 +410,14 @@
         dino.grounded = true;
       }
 
-      // Draw Dino (Facing Right towards the obstacles)
+      // Draw Dino (Facing Right towards obstacles)
       ctx.fillStyle = '#fb7185';
       ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
       // Eye & details facing right
       ctx.fillStyle = '#12090c';
-      ctx.fillRect(dino.x + 24, dino.y + 8, 5, 5); // eye
+      ctx.fillRect(dino.x + 24, dino.y + 8, 5, 5);
       ctx.fillStyle = '#fda4af';
-      ctx.fillRect(dino.x + 28, dino.y + 16, 6, 8); // snout facing right
+      ctx.fillRect(dino.x + 28, dino.y + 16, 6, 8);
 
       // Spawn obstacles dynamically
       if (frameCount % 110 === 0) {
@@ -410,7 +429,6 @@
         let obs = obstacles[i];
         obs.x -= 4.5;
 
-        // Draw different obstacles (Cactus varieties)
         if (obs.type === 'strawberry_bush') {
           ctx.fillStyle = '#e11d48';
           ctx.fillRect(obs.x, obs.y + 10, obs.width, 20);
@@ -424,7 +442,7 @@
           ctx.fillRect(obs.x, obs.y + 10, obs.width, 8);
         }
 
-        // Collision Check (AABB)
+        // Collision Check
         if (
           dino.x < obs.x + obs.width &&
           dino.x + dino.width > obs.x &&
