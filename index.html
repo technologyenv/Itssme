@@ -3,381 +3,313 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yomna | Main Character Energy</title>
+  <title>Yomna | Strawberry Vibe 🍓</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #12090c; color: #fce7f3; }
     h1, h2, h3 { font-family: 'Syne', sans-serif; }
     
-    /* 3D Animation Container */
-    #animation-container {
-      width: 100%;
-      height: 400px;
-      border-radius: 24px;
-      overflow: hidden;
-      position: relative;
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    }
-    
-    /* Candy Game Container */
-    #candy-game {
-      width: 100%;
-      height: 300px;
-      border-radius: 24px;
-      overflow: hidden;
-      position: relative;
-      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-      cursor: pointer;
-    }
-    
-    /* Candy falling animation */
-    .candy {
-      position: absolute;
-      font-size: 24px;
-      animation: fall linear infinite;
-      cursor: pointer;
-      user-select: none;
-    }
-    
-    @keyframes fall {
-      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(350px) rotate(360deg); opacity: 0; }
-    }
-    
-    /* Character reveal animation */
-    #character-reveal {
-      position: absolute;
-      bottom: -200px;
-      right: 20px;
-      transition: bottom 2s ease-out;
-      z-index: 10;
-    }
-    
-    #character-reveal.show {
-      bottom: 20px;
-    }
-    
-    /* Candy bag animation */
-    #candy-bag {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%) scale(0);
-      transition: transform 0.5s ease-out;
-      z-index: 20;
-    }
-    
-    #candy-bag.show {
-      transform: translateX(-50%) scale(1);
-    }
-    
-    /* Score display */
-    #score {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      font-size: 24px;
-      font-weight: bold;
-      color: #f472b6;
-      z-index: 30;
-    }
-    
-    /* Message display */
-    #message {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      background: rgba(244, 114, 182, 0.9);
-      padding: 20px;
-      border-radius: 16px;
-      text-align: center;
-      z-index: 40;
-      transition: transform 0.5s ease-out;
-    }
-    
-    #message.show {
-      transform: translate(-50%, -50%) scale(1);
-    }
+    /* Custom Strawberry Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #12090c; }
+    ::-webkit-scrollbar-thumb { background: #9f1239; border-radius: 4px; }
   </style>
 </head>
-<body class="bg-[#0f172a] text-slate-100 min-h-screen p-6 md:p-12">
+<body class="min-h-screen p-6 md:p-12 relative overflow-x-hidden">
 
-  <main class="max-w-4xl mx-auto space-y-16">
+  <!-- Background Music Audio Element -->
+  <audio id="bgMusic" loop>
+    <source src="song.wav" type="audio/wav">
+  </audio>
 
-    <!-- Hero / Intro Section -->
-    <section class="space-y-4">
-      <div class="inline-block px-4 py-1.5 bg-pink-500/10 border border-pink-500/30 rounded-full text-pink-400 text-xs font-semibold uppercase tracking-widest">
-        ✨ Powered by caffeine & HTML
+  <!-- Floating Music Toggle Button -->
+  <button onclick="toggleMusic()" id="musicBtn" class="fixed top-6 right-6 z-50 bg-rose-900/80 border border-rose-500/40 text-pink-200 px-4 py-2 rounded-full text-xs font-semibold backdrop-blur-md shadow-lg hover:bg-rose-800 transition flex items-center gap-2">
+    <span>🎵</span> <span id="musicText">Play Vibe</span>
+  </button>
+
+  <main class="max-w-4xl mx-auto space-y-20">
+
+    <!-- Hero / Intro Section with pic1.png -->
+    <section class="flex flex-col md:flex-row items-center gap-8 pt-8">
+      <div class="space-y-4 flex-1">
+        <div class="inline-block px-4 py-1.5 bg-rose-500/10 border border-rose-500/30 rounded-full text-rose-300 text-xs font-semibold uppercase tracking-widest">
+          🍓 main character energy only
+        </div>
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-300 to-red-400">
+          hey, i'm yomna.
+        </h1>
+        <p class="text-xl text-rose-200/70 font-normal leading-relaxed">
+          just collecting aesthetic moments, soft sunsets, sweet treats, and good music. living life on my own terms. ✨
+        </p>
       </div>
-      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-cyan-300 to-purple-400">
-        hey, i'm yomna.
-      </h1>
-      <p class="text-xl md:text-2xl text-slate-400 max-w-2xl font-normal leading-relaxed">
-        frontend dev, sea whisperer, and lowkey candy addict. i turn messy ideas into pretty digital stuff.
-      </p>
-    </section>
-
-    <!-- 3D Animation Section -->
-    <section class="space-y-6">
-      <h2 class="text-2xl font-bold text-slate-300 flex items-center gap-2">
-        my 3d world <span class="text-xs text-slate-500 font-normal">(aka where i live in my head)</span>
-      </h2>
       
-      <div id="animation-container"></div>
-    </section>
-
-    <!-- Candy Collection Game -->
-    <section class="space-y-6">
-      <h2 class="text-2xl font-bold text-slate-300 flex items-center gap-2">
-        candy collector <span class="text-xs text-slate-500 font-normal">(collect 10 candies!)</span>
-      </h2>
-      
-      <div id="candy-game">
-        <div id="score">🍬 0/10</div>
-        <div id="character-reveal">
-          <!-- 3D Character will be rendered here -->
-          <div style="width: 150px; height: 200px; background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 80px;">🍓</div>
-        </div>
-        <div id="candy-bag">
-          <div style="width: 120px; height: 150px; background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 60px;">🎁</div>
-        </div>
-        <div id="message">
-          <h3 class="text-2xl font-bold text-white mb-2">Yay! You did it! 🎉</h3>
-          <p class="text-white text-lg">"Every sweet moment starts with a little bit of magic ✨"</p>
-        </div>
+      <!-- Profile Picture (pic1.png) -->
+      <div class="w-48 h-48 md:w-56 md:h-56 rounded-3xl overflow-hidden border-2 border-rose-500/40 shadow-2xl shadow-rose-900/30 flex-shrink-0 rotate-2 hover:rotate-0 transition duration-300">
+        <img src="pic1.png" alt="Yomna" class="w-full h-full object-cover">
       </div>
     </section>
 
-    <!-- The Vibe Scrapbook (Your Interests) -->
+    <!-- The Lore (Interests Cards) -->
     <section class="space-y-6">
-      <h2 class="text-2xl font-bold text-slate-300 flex items-center gap-2">
-        the lore <span class="text-xs text-slate-500 font-normal">(aka things i love)</span>
+      <h2 class="text-2xl font-bold text-rose-200 flex items-center gap-2">
+        the lore <span class="text-xs text-rose-400/65 font-normal">(aka things that keep me sane)</span>
       </h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
         <!-- Sea Card -->
-        <div class="group relative bg-slate-800/40 border border-slate-700/60 p-6 rounded-3xl hover:border-cyan-400/50 transition-all duration-300 hover:-translate-y-1">
+        <div class="bg-rose-950/20 border border-rose-900/40 p-6 rounded-3xl hover:border-rose-500/50 transition-all duration-300 hover:-translate-y-1">
           <div class="flex items-start justify-between mb-4">
             <span class="text-4xl">🌊</span>
-            <span class="text-xs bg-cyan-950 text-cyan-300 px-3 py-1 rounded-full font-mono">01 / VIBE</span>
+            <span class="text-xs bg-rose-900/50 text-rose-300 px-3 py-1 rounded-full font-mono">01 / PEACE</span>
           </div>
-          <h3 class="text-xl font-bold text-cyan-300 mb-2">The Sea</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            My absolute happy place. If my code isn't working, I probably just need to sit by the ocean and stare into the void for 10 minutes.
+          <h3 class="text-xl font-bold text-rose-200 mb-2">The Sea</h3>
+          <p class="text-rose-200/70 text-sm leading-relaxed">
+            My absolute safe space. The sound of waves crashing, night falling over the water, and my favorite playlist playing? Unmatched Vibe.
           </p>
-          <!-- حطي صورتك البحر هنا -->
-          <div class="mt-4 h-48 rounded-2xl bg-slate-700/50 overflow-hidden border border-slate-600/30">
-            <img src="YOUR_SEA_IMAGE.jpg" alt="Sea" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-          </div>
         </div>
 
         <!-- Candy Card -->
-        <div class="group relative bg-slate-800/40 border border-slate-700/60 p-6 rounded-3xl hover:border-pink-400/50 transition-all duration-300 hover:-translate-y-1">
+        <div class="bg-rose-950/20 border border-rose-900/40 p-6 rounded-3xl hover:border-rose-500/50 transition-all duration-300 hover:-translate-y-1">
           <div class="flex items-start justify-between mb-4">
             <span class="text-4xl">🍬</span>
-            <span class="text-xs bg-pink-950 text-pink-300 px-3 py-1 rounded-full font-mono">02 / FUEL</span>
+            <span class="text-xs bg-rose-900/50 text-rose-300 px-3 py-1 rounded-full font-mono">02 / JOY</span>
           </div>
-          <h3 class="text-xl font-bold text-pink-300 mb-2">Candy & Sweets</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            Literally what fuels my debugging sessions. No sugar = no code. It's basic science at this point.
+          <h3 class="text-xl font-bold text-rose-200 mb-2">Candy & Sweets</h3>
+          <p class="text-rose-200/70 text-sm leading-relaxed">
+            Instant serotonin boost. Honestly, I'm fully convinced nothing brings pure unfiltered happiness quite like a stash of good candy.
           </p>
-          <!-- حطي صور الكاندي هنا -->
-          <div class="mt-4 h-48 rounded-2xl bg-slate-700/50 overflow-hidden border border-slate-600/30">
-            <img src="YOUR_CANDY_IMAGE.jpg" alt="Candy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-          </div>
         </div>
 
       </div>
     </section>
 
-    <!-- Quick Tech Flex -->
-    <section class="bg-gradient-to-r from-purple-900/20 to-pink-900/20 border border-purple-500/20 p-8 rounded-3xl space-y-4">
-      <h3 class="text-lg font-bold text-purple-300">the dev stack 💻</h3>
-      <p class="text-slate-400 text-sm">HTML5, CSS3, JS, UI Design, and making sure everything looks aesthetic AF.</p>
+    <!-- Strawberry Field Section with pic2.png -->
+    <section class="relative bg-gradient-to-r from-rose-950/40 to-pink-950/30 border border-rose-500/30 p-8 rounded-3xl overflow-hidden flex flex-col md:flex-row items-center gap-8 shadow-xl">
+      <div class="w-36 h-36 md:w-44 md:h-44 rounded-2xl overflow-hidden border border-rose-400/40 shadow-lg flex-shrink-0 -rotate-3">
+        <img src="pic2.png" alt="Strawberry Field" class="w-full h-full object-cover">
+      </div>
+      <div class="space-y-3 text-center md:text-left">
+        <span class="text-xs font-mono text-rose-400 bg-rose-900/40 px-3 py-1 rounded-full">🍓 strawberry fields forever</span>
+        <h3 class="text-2xl font-bold text-rose-100">Soft aesthetics & quiet moments</h3>
+        <p class="text-rose-200/70 text-sm leading-relaxed">
+          Surrounding myself with pretty things, fresh flowers, aesthetic outings, and capturing cozy frames along the way.
+        </p>
+      </div>
+    </section>
+
+    <!-- Strawberry Runner Game Section (Google Dino Style) -->
+    <section class="bg-rose-950/30 border border-rose-500/30 rounded-3xl p-6 md:p-8 text-center space-y-6 shadow-2xl">
+      <div>
+        <span class="text-xs font-mono text-rose-400">🎮 mini game</span>
+        <h3 class="text-2xl font-bold text-rose-200 mt-1">Strawberry Dash 🍓</h3>
+        <p class="text-rose-300/60 text-xs mt-1">Press <span class="bg-rose-900 px-2 py-0.5 rounded text-rose-200 font-mono">Spacebar</span> or <span class="bg-rose-900 px-2 py-0.5 rounded text-rose-200 font-mono">Tap Screen</span> to jump over obstacles!</p>
+      </div>
+
+      <div class="relative w-full max-w-xl mx-auto h-56 bg-[#1a0b10] rounded-2xl border border-rose-900 overflow-hidden shadow-inner flex items-center justify-center">
+        <canvas id="dinoCanvas" width="550" height="220" class="w-full h-full cursor-pointer"></canvas>
+        
+        <!-- Game Over / Start Overlay -->
+        <div id="gameOverlay" class="absolute inset-0 bg-[#12090c]/90 flex flex-col items-center justify-center p-4 space-y-3">
+          <span class="text-3xl animate-bounce">🍓✨</span>
+          <h4 id="overlayTitle" class="text-lg font-bold text-rose-200">Strawberry Dash</h4>
+          <p id="overlaySub" class="text-rose-300/60 text-xs">Tap or click to start playing</p>
+          <button onclick="startGame()" class="bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs px-6 py-2.5 rounded-full shadow-lg transition">
+            Start Game
+          </button>
+        </div>
+      </div>
     </section>
 
   </main>
 
-  <!-- Three.js Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  
+  <!-- Scripts for Music and Game -->
   <script>
-    // ========== 3D ANIMATION SECTION ==========
-    const init3DAnimation = () => {
-      const container = document.getElementById('animation-container');
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      
-      renderer.setSize(container.clientWidth, container.clientHeight);
-      renderer.setClearColor(0x0f172a, 0);
-      container.appendChild(renderer.domElement);
-      
-      // Create ground (field)
-      const groundGeometry = new THREE.PlaneGeometry(20, 20);
-      const groundMaterial = new THREE.MeshStandardMaterial({ 
-        color: 0x2d5a27,
-        side: THREE.DoubleSide
-      });
-      const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-      ground.rotation.x = -Math.PI / 2;
-      ground.position.y = -2;
-      scene.add(ground);
-      
-      // Create flowers
-      const flowers = [];
-      for (let i = 0; i < 50; i++) {
-        const flowerGeometry = new THREE.SphereGeometry(0.3, 8, 8);
-        const flowerMaterial = new THREE.MeshStandardMaterial({ 
-          color: new THREE.Color().setHSL(Math.random(), 0.8, 0.6)
-        });
-        const flower = new THREE.Mesh(flowerGeometry, flowerMaterial);
-        flower.position.x = (Math.random() - 0.5) * 15;
-        flower.position.z = (Math.random() - 0.5) * 15;
-        flower.position.y = -1.5;
-        scene.add(flower);
-        flowers.push(flower);
-      }
-      
-      // Create simple character (cute girl)
-      const characterGroup = new THREE.Group();
-      
-      // Body
-      const bodyGeometry = new THREE.CylinderGeometry(0.5, 0.7, 1.5, 8);
-      const bodyMaterial = new THREE.MeshStandardMaterial({ color: 0xf472b6 });
-      const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
-      body.position.y = 0;
-      characterGroup.add(body);
-      
-      // Head
-      const headGeometry = new THREE.SphereGeometry(0.6, 16, 16);
-      const headMaterial = new THREE.MeshStandardMaterial({ color: 0xffd700 });
-      const head = new THREE.Mesh(headGeometry, headMaterial);
-      head.position.y = 1.2;
-      characterGroup.add(head);
-      
-      // Hair
-      const hairGeometry = new THREE.SphereGeometry(0.7, 16, 16, 0, Math.PI * 2, 0, Math.PI / 2);
-      const hairMaterial = new THREE.MeshStandardMaterial({ color: 0x8b4513 });
-      const hair = new THREE.Mesh(hairGeometry, hairMaterial);
-      hair.position.y = 1.3;
-      hair.rotation.x = Math.PI;
-      characterGroup.add(hair);
-      
-      scene.add(characterGroup);
-      
-      // Lighting
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-      scene.add(ambientLight);
-      
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-      directionalLight.position.set(5, 10, 7);
-      scene.add(directionalLight);
-      
-      camera.position.set(0, 2, 8);
-      camera.lookAt(0, 0, 0);
-      
-      // Animation
-      let time = 0;
-      const animate = () => {
-        time += 0.01;
-        
-        // Character walking animation
-        characterGroup.position.x = Math.sin(time) * 3;
-        characterGroup.position.z = Math.cos(time * 0.5) * 2;
-        characterGroup.rotation.y = Math.sin(time * 0.3) * 0.2;
-        
-        // Body bobbing
-        body.position.y = Math.sin(time * 2) * 0.1;
-        
-        // Head looking around
-        head.rotation.y = Math.sin(time * 0.5) * 0.3;
-        head.rotation.x = Math.sin(time * 0.7) * 0.1;
-        
-        // Flowers swaying
-        flowers.forEach((flower, index) => {
-          flower.rotation.z = Math.sin(time + index) * 0.1;
-        });
-        
-        renderer.render(scene, camera);
-        requestAnimationFrame(animate);
-      };
-      
-      animate();
-      
-      // Handle resize
-      window.addEventListener('resize', () => {
-        camera.aspect = container.clientWidth / container.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
-      });
-    };
-    
-    // ========== CANDY GAME SECTION ==========
-    const initCandyGame = () => {
-      const gameContainer = document.getElementById('candy-game');
-      const scoreDisplay = document.getElementById('score');
-      const characterReveal = document.getElementById('character-reveal');
-      const candyBag = document.getElementById('candy-bag');
-      const message = document.getElementById('message');
-      
-      let score = 0;
-      let gameActive = true;
-      
-      const createCandy = () => {
-        if (!gameActive) return;
-        
-        const candy = document.createElement('div');
-        candy.className = 'candy';
-        candy.textContent = '🍬';
-        candy.style.left = Math.random() * (gameContainer.clientWidth - 40) + 'px';
-        candy.style.animationDuration = (Math.random() * 2 + 2) + 's';
-        
-        candy.addEventListener('click', () => {
-          if (gameActive) {
-            score++;
-            scoreDisplay.textContent = `🍬 ${score}/10`;
-            candy.remove();
-            
-            if (score >= 10) {
-              gameActive = false;
-              document.querySelectorAll('.candy').forEach(c => c.remove());
-              characterReveal.classList.add('show');
-              setTimeout(() => {
-                candyBag.classList.add('show');
-                setTimeout(() => {
-                  message.classList.add('show');
-                }, 1000);
-              }, 2000);
-            }
-          }
-        });
-        
-        gameContainer.appendChild(candy);
-        
-        setTimeout(() => {
-          if (candy.parentNode) candy.remove();
-        }, 4000);
-      };
-      
-      // Create candies every 800ms
-      const candyInterval = setInterval(createCandy, 800);
-      
-      // Stop creating candies after 30 seconds
-      setTimeout(() => {
-        clearInterval(candyInterval);
-      }, 30000);
-    };
-    
-    // Initialize everything when page loads
-    window.addEventListener('load', () => {
-      init3DAnimation();
-      initCandyGame();
-    });
-  </script>
+    // Music Toggle Logic
+    const music = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+    const musicText = document.getElementById('musicText');
+    let isPlaying = false;
 
+    function toggleMusic() {
+      if (isPlaying) {
+        music.pause();
+        musicText.textContent = "Play Vibe";
+        musicBtn.classList.remove('bg-rose-600');
+      } else {
+        music.play().then(() => {
+          isPlaying = true;
+          musicText.textContent = "Pause Vibe";
+          musicBtn.classList.add('bg-rose-600');
+        }).catch(e => console.log("Audio play blocked:", e));
+      }
+    }
+
+    // Google Dino Style Game Logic
+    const canvas = document.getElementById('dinoCanvas');
+    const ctx = canvas.getContext('2d');
+    const overlay = document.getElementById('gameOverlay');
+    const overlayTitle = document.getElementById('overlayTitle');
+    const overlaySub = document.getElementById('overlaySub');
+
+    let gameStarted = false;
+    let gameOver = false;
+    let score = 0;
+
+    let player = {
+      x: 50,
+      y: 150,
+      width: 30,
+      height: 35,
+      vy: 0,
+      gravity: 0.6,
+      jumpForce: -10,
+      grounded: true
+    };
+
+    let obstacles = [];
+    let obstacleTimer = 0;
+    let gameSpeed = 4;
+
+    function resetGame() {
+      score = 0;
+      obstacles = [];
+      player.y = 150;
+      player.vy = 0;
+      player.grounded = true;
+      gameSpeed = 4;
+      gameOver = false;
+    }
+
+    function startGame() {
+      resetGame();
+      gameStarted = true;
+      overlay.classList.add('hidden');
+      requestAnimationFrame(updateGame);
+    }
+
+    function jump() {
+      if (!gameStarted || gameOver) return;
+      if (player.grounded) {
+        player.vy = player.jumpForce;
+        player.grounded = false;
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        if (!gameStarted || gameOver) {
+          startGame();
+        } else {
+          jump();
+        }
+      }
+    });
+
+    canvas.addEventListener('click', () => {
+      if (!gameStarted || gameOver) {
+        startGame();
+      } else {
+        jump();
+      }
+    });
+
+    function spawnObstacle() {
+      obstacles.push({
+        x: canvas.width,
+        y: 165,
+        width: 20,
+        height: 25,
+        color: '#f43f5e'
+      });
+    }
+
+    function updateGame() {
+      if (!gameStarted || gameOver) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw Ground Line
+      ctx.strokeStyle = '#9f1239';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(0, 200);
+      ctx.lineTo(canvas.width, 200);
+      ctx.stroke();
+
+      // Player Physics
+      player.vy += player.gravity;
+      player.y += player.vy;
+
+      if (player.y >= 165) {
+        player.y = 165;
+        player.vy = 0;
+        player.grounded = true;
+      }
+
+      // Draw Cute Strawberry/Player Character
+      ctx.fillStyle = '#ff3366';
+      ctx.beginPath();
+      ctx.roundRect(player.x, player.y, player.width, player.height, [8, 8, 4, 4]);
+      ctx.fill();
+      // Stem / Leaf on top
+      ctx.fillStyle = '#22c55e';
+      ctx.fillRect(player.x + 10, player.y - 6, 10, 6);
+
+      // Obstacles Management
+      obstacleTimer++;
+      if (obstacleTimer > 90 + Math.random() * 50) {
+        spawnObstacle();
+        obstacleTimer = 0;
+      }
+
+      obstacles.forEach((obs, index) => {
+        obs.x -= gameSpeed;
+
+        // Draw Obstacle (Cute mini cactus/rock substitute)
+        ctx.fillStyle = obs.color;
+        ctx.beginPath();
+        ctx.roundRect(obs.x, obs.y, obs.width, obs.height, [4, 4, 0, 0]);
+        ctx.fill();
+
+        // Collision Detection
+        if (
+          player.x < obs.x + obs.width &&
+          player.x + player.width > obs.x &&
+          player.y < obs.y + obs.height &&
+          player.y + player.height > obs.y
+        ) {
+          gameOver = true;
+          showGameOver();
+        }
+
+        // Remove off-screen obstacles
+        if (obs.x + obs.width < 0) {
+          obstacles.splice(index, 1);
+          score += 10;
+          if (score % 50 === 0) gameSpeed += 0.5; // Increase speed gradually
+        }
+      });
+
+      // Draw Score
+      ctx.fillStyle = '#fecdd3';
+      ctx.font = 'bold 13px Plus Jakarta Sans';
+      ctx.fillText(`Score: ${score}`, canvas.width - 90, 25);
+
+      requestAnimationFrame(updateGame);
+    }
+
+    function showGameOver() {
+      overlayTitle.textContent = "Game Over! 🍓";
+      overlaySub.textContent = `You scored ${score} points. Tap to try again!`;
+      overlay.classList.remove('hidden');
+    }
+
+    // Initial render preview
+    ctx.fillStyle = '#9f1239';
+    ctx.fillRect(0, 200, canvas.width, 2);
+  </script>
 </body>
 </html>
