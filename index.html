@@ -10,7 +10,6 @@
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #12090c; color: #fce7f3; }
     h1, h2, h3 { font-family: 'Syne', sans-serif; }
     
-    /* Custom Strawberry Scrollbar */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #12090c; }
     ::-webkit-scrollbar-thumb { background: #9f1239; border-radius: 4px; }
@@ -24,14 +23,14 @@
   </audio>
 
   <!-- Floating Music Toggle Button -->
-  <button onclick="toggleMusic()" id="musicBtn" class="fixed top-6 right-6 z-50 bg-rose-900/80 border border-rose-500/40 text-pink-200 px-4 py-2 rounded-full text-xs font-semibold backdrop-blur-md shadow-lg hover:bg-rose-800 transition flex items-center gap-2">
+  <button onclick="toggleMusic()" id="musicBtn" class="fixed top-6 right-6 z-50 bg-rose-900/80 border border-rose-500/40 text-pink-200 px-4 py-2 rounded-full text-xs font-semibold backdrop-blur-md shadow-lg hover:bg-rose-800 transition flex items-center gap-2 cursor-pointer">
     <span>🎵</span> <span id="musicText">Play Vibe</span>
   </button>
 
   <main class="max-w-4xl mx-auto space-y-20">
 
     <!-- Hero / Intro Section with pic1.png -->
-    <section class="flex flex-col md:flex-row items-center gap-8 pt-8">
+    <section class="flex flex-col md:flex-row items-center justify-between gap-8 pt-8">
       <div class="space-y-4 flex-1">
         <div class="inline-block px-4 py-1.5 bg-rose-500/10 border border-rose-500/30 rounded-full text-rose-300 text-xs font-semibold uppercase tracking-widest">
           🍓 main character energy only
@@ -45,8 +44,8 @@
       </div>
       
       <!-- Profile Picture (pic1.png) -->
-      <div class="w-48 h-48 md:w-56 md:h-56 rounded-3xl overflow-hidden border-2 border-rose-500/40 shadow-2xl shadow-rose-900/30 flex-shrink-0 rotate-2 hover:rotate-0 transition duration-300">
-        <img src="pic1.png" alt="Yomna" class="w-full h-full object-cover">
+      <div class="w-48 md:w-56 flex-shrink-0 drop-shadow-[0_15px_25px_rgba(225,29,72,0.25)] hover:scale-105 transition duration-500">
+        <img src="pic1.png" alt="Yomna" class="w-full h-auto object-contain">
       </div>
     </section>
 
@@ -99,24 +98,37 @@
       </div>
     </section>
 
-    <!-- Strawberry Runner Game Section (Google Dino Style) -->
+    <!-- Google Dino Style Game Section -->
     <section class="bg-rose-950/30 border border-rose-500/30 rounded-3xl p-6 md:p-8 text-center space-y-6 shadow-2xl">
       <div>
-        <span class="text-xs font-mono text-rose-400">🎮 mini game</span>
-        <h3 class="text-2xl font-bold text-rose-200 mt-1">Strawberry Dash 🍓</h3>
-        <p class="text-rose-300/60 text-xs mt-1">Press <span class="bg-rose-900 px-2 py-0.5 rounded text-rose-200 font-mono">Spacebar</span> or <span class="bg-rose-900 px-2 py-0.5 rounded text-rose-200 font-mono">Tap Screen</span> to jump over obstacles!</p>
+        <span class="text-xs font-mono text-rose-400">🦖 classic mini game</span>
+        <h3 class="text-2xl font-bold text-rose-200 mt-1">Yomna's Dino Runner</h3>
+        <p class="text-rose-300/60 text-xs mt-1">Press <span class="bg-rose-900 px-2 py-0.5 rounded text-rose-200 font-mono">Spacebar</span> or <span class="bg-rose-900 px-2 py-0.5 rounded text-rose-200 font-mono">Tap Screen</span> to jump! Reach 100 points to unlock a vibe.</p>
       </div>
 
       <div class="relative w-full max-w-xl mx-auto h-56 bg-[#1a0b10] rounded-2xl border border-rose-900 overflow-hidden shadow-inner flex items-center justify-center">
         <canvas id="dinoCanvas" width="550" height="220" class="w-full h-full cursor-pointer"></canvas>
         
         <!-- Game Over / Start Overlay -->
-        <div id="gameOverlay" class="absolute inset-0 bg-[#12090c]/90 flex flex-col items-center justify-center p-4 space-y-3">
-          <span class="text-3xl animate-bounce">🍓✨</span>
-          <h4 id="overlayTitle" class="text-lg font-bold text-rose-200">Strawberry Dash</h4>
-          <p id="overlaySub" class="text-rose-300/60 text-xs">Tap or click to start playing</p>
-          <button onclick="startGame()" class="bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs px-6 py-2.5 rounded-full shadow-lg transition">
-            Start Game
+        <div id="gameOverlay" class="absolute inset-0 bg-[#12090c]/95 flex flex-col items-center justify-center p-4 space-y-3 z-20">
+          <span class="text-3xl animate-bounce" id="overlayEmoji">🦖✨</span>
+          <h4 id="overlayTitle" class="text-lg font-bold text-rose-200">Google Dino (Yomna Edition)</h4>
+          <p id="overlaySub" class="text-rose-300/60 text-xs">Tap or press Space to start</p>
+          <button onclick="startGame()" class="bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs px-6 py-2.5 rounded-full shadow-lg transition cursor-pointer">
+            Play Game
+          </button>
+        </div>
+
+        <!-- Won 100 Points Modal Overlay (pic3.jpg) - White Background Style -->
+        <div id="winModal" class="absolute inset-0 bg-white hidden flex-col items-center justify-center p-6 space-y-4 z-30">
+          <div class="w-28 h-28 rounded-2xl overflow-hidden border-2 border-rose-200 shadow-md animate-pulse">
+            <img src="pic3.jpg" alt="You Won" class="w-full h-full object-cover bg-white">
+          </div>
+          <h3 class="text-xl md:text-2xl font-extrabold text-rose-900 font-['Syne'] text-center">
+            congrats u won nothing .. but big love 💖
+          </h3>
+          <button onclick="startGame()" class="bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs px-5 py-2 rounded-full shadow-md transition cursor-pointer">
+            Play Again
           </button>
         </div>
       </div>
@@ -124,9 +136,7 @@
 
   </main>
 
-  <!-- Scripts for Music and Game -->
   <script>
-    // Music Toggle Logic
     const music = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('musicBtn');
     const musicText = document.getElementById('musicText');
@@ -146,10 +156,10 @@
       }
     }
 
-    // Google Dino Style Game Logic
     const canvas = document.getElementById('dinoCanvas');
     const ctx = canvas.getContext('2d');
     const overlay = document.getElementById('gameOverlay');
+    const winModal = document.getElementById('winModal');
     const overlayTitle = document.getElementById('overlayTitle');
     const overlaySub = document.getElementById('overlaySub');
 
@@ -159,9 +169,9 @@
 
     let player = {
       x: 50,
-      y: 150,
-      width: 30,
-      height: 35,
+      y: 155,
+      width: 24,
+      height: 32,
       vy: 0,
       gravity: 0.6,
       jumpForce: -10,
@@ -170,22 +180,24 @@
 
     let obstacles = [];
     let obstacleTimer = 0;
-    let gameSpeed = 4;
+    let gameSpeed = 5;
 
     function resetGame() {
       score = 0;
       obstacles = [];
-      player.y = 150;
+      player.y = 155;
       player.vy = 0;
       player.grounded = true;
-      gameSpeed = 4;
+      gameSpeed = 5;
       gameOver = false;
+      winModal.classList.add('hidden');
     }
 
     function startGame() {
       resetGame();
       gameStarted = true;
       overlay.classList.add('hidden');
+      winModal.classList.add('hidden');
       requestAnimationFrame(updateGame);
     }
 
@@ -220,8 +232,8 @@
       obstacles.push({
         x: canvas.width,
         y: 165,
-        width: 20,
-        height: 25,
+        width: 14 + Math.random() * 10,
+        height: 22 + Math.random() * 8,
         color: '#f43f5e'
       });
     }
@@ -231,36 +243,45 @@
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw Ground Line
       ctx.strokeStyle = '#9f1239';
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(0, 200);
-      ctx.lineTo(canvas.width, 200);
+      ctx.moveTo(0, 187);
+      ctx.lineTo(canvas.width, 187);
       ctx.stroke();
 
-      // Player Physics
       player.vy += player.gravity;
       player.y += player.vy;
 
-      if (player.y >= 165) {
-        player.y = 165;
+      if (player.y >= 155) {
+        player.y = 155;
         player.vy = 0;
         player.grounded = true;
       }
 
-      // Draw Cute Strawberry/Player Character
       ctx.fillStyle = '#ff3366';
-      ctx.beginPath();
-      ctx.roundRect(player.x, player.y, player.width, player.height, [8, 8, 4, 4]);
-      ctx.fill();
-      // Stem / Leaf on top
-      ctx.fillStyle = '#22c55e';
-      ctx.fillRect(player.x + 10, player.y - 6, 10, 6);
+      ctx.fillRect(player.x + 6, player.y, 14, 12);
+      ctx.fillStyle = '#fda4af';
+      ctx.fillRect(player.x + 4, player.y - 2, 16, 4);
+      ctx.fillStyle = '#f43f5e';
+      ctx.fillRect(player.x + 8, player.y + 12, 10, 12);
+      ctx.fillStyle = '#fb7185';
+      if (!player.grounded) {
+        ctx.fillRect(player.x + 8, player.y + 24, 3, 8);
+        ctx.fillRect(player.x + 15, player.y + 24, 3, 8);
+      } else {
+        let legFrame = Math.floor(Date.now() / 100) % 2;
+        if (legFrame === 0) {
+          ctx.fillRect(player.x + 7, player.y + 24, 4, 8);
+          ctx.fillRect(player.x + 14, player.y + 24, 2, 6);
+        } else {
+          ctx.fillRect(player.x + 9, player.y + 24, 2, 6);
+          ctx.fillRect(player.x + 13, player.y + 24, 4, 8);
+        }
+      }
 
-      // Obstacles Management
       obstacleTimer++;
-      if (obstacleTimer > 90 + Math.random() * 50) {
+      if (obstacleTimer > 80 + Math.random() * 40) {
         spawnObstacle();
         obstacleTimer = 0;
       }
@@ -268,48 +289,49 @@
       obstacles.forEach((obs, index) => {
         obs.x -= gameSpeed;
 
-        // Draw Obstacle (Cute mini cactus/rock substitute)
         ctx.fillStyle = obs.color;
-        ctx.beginPath();
-        ctx.roundRect(obs.x, obs.y, obs.width, obs.height, [4, 4, 0, 0]);
-        ctx.fill();
+        ctx.fillRect(obs.x, obs.y - (obs.height - 22), obs.width, obs.height);
 
-        // Collision Detection
         if (
           player.x < obs.x + obs.width &&
           player.x + player.width > obs.x &&
-          player.y < obs.y + obs.height &&
-          player.y + player.height > obs.y
+          player.y < (obs.y - (obs.height - 22)) + obs.height &&
+          player.y + player.height > (obs.y - (obs.height - 22))
         ) {
           gameOver = true;
           showGameOver();
         }
 
-        // Remove off-screen obstacles
         if (obs.x + obs.width < 0) {
           obstacles.splice(index, 1);
           score += 10;
-          if (score % 50 === 0) gameSpeed += 0.5; // Increase speed gradually
+          
+          if (score >= 100) {
+            gameOver = true;
+            showWinModal();
+          } else if (score % 40 === 0) {
+            gameSpeed += 0.5;
+          }
         }
       });
 
-      // Draw Score
       ctx.fillStyle = '#fecdd3';
-      ctx.font = 'bold 13px Plus Jakarta Sans';
-      ctx.fillText(`Score: ${score}`, canvas.width - 90, 25);
+      ctx.font = 'bold 14px monospace';
+      ctx.fillText(String(score).padStart(5, '0'), canvas.width - 70, 25);
 
       requestAnimationFrame(updateGame);
     }
 
     function showGameOver() {
-      overlayTitle.textContent = "Game Over! 🍓";
+      overlayTitle.textContent = "Game Over 💔";
       overlaySub.textContent = `You scored ${score} points. Tap to try again!`;
       overlay.classList.remove('hidden');
     }
 
-    // Initial render preview
-    ctx.fillStyle = '#9f1239';
-    ctx.fillRect(0, 200, canvas.width, 2);
+    function showWinModal() {
+      winModal.classList.remove('hidden');
+      winModal.classList.add('flex');
+    }
   </script>
 </body>
 </html>
