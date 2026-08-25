@@ -328,7 +328,7 @@
       }
     }
 
-    /* الديناصورة الجديدة */
+    /* الديناصورة النهائية */
     .dino-girlfriend {
       position: absolute;
       right: -80px;
@@ -339,14 +339,18 @@
       border-radius: 4px 4px 2px 2px;
       z-index: 10;
       animation: girlfriendMove 4s linear forwards;
+      transform: scaleX(-1);
+      transform-origin: center bottom;
     }
 
-    /*
-      عكس اتجاه الديناصورة أفقيًا حتى تكون مواجهة للديناصور
-      بدل أن تكون معطياه ظهرها
-    */
-    .dino-girlfriend.facing-left {
-      transform: scaleX(-1);
+    @keyframes girlfriendMove {
+      from {
+        right: -80px;
+      }
+
+      to {
+        right: 118px;
+      }
     }
 
     .dino-girlfriend::before {
@@ -397,7 +401,7 @@
       right: 6px;
     }
 
-    /* الفيونكة */
+    /* الفيونكة فوق الديناصورة */
     .dino-girlfriend .pink-bow {
       position: absolute;
       top: -15px;
@@ -442,49 +446,59 @@
       z-index: 2;
     }
 
-    @keyframes girlfriendMove {
-      from {
-        right: -80px;
-      }
-
-      to {
-        right: 135px;
-      }
+    /*
+      وضع المشهد النهائي:
+      الديناصور الأساسي يقف عند اليسار،
+      والديناصورة تقف عند اليمين،
+      وبينهما مسافة صغيرة
+    */
+    .dino.together-position {
+      left: 72px;
     }
 
-    /* قلب فوق الديناصورين */
+    .dino-girlfriend.together-position {
+      right: 118px;
+      animation: none;
+    }
+
+    /*
+      القلب في منتصف المسافة بين الديناصورين
+    */
     .love-heart {
       display: none;
       position: absolute;
-      right: 166px;
-      bottom: 105px;
-      font-size: 36px;
+      left: 50%;
+      top: 73px;
+      transform: translateX(-50%);
+      font-size: 34px;
       line-height: 1;
-      z-index: 40;
+      z-index: 45;
       animation: heartBeat 0.8s infinite alternate;
     }
 
     @keyframes heartBeat {
       from {
-        transform: scale(1);
+        transform: translateX(-50%) scale(1);
       }
 
       to {
-        transform: scale(1.25);
+        transform: translateX(-50%) scale(1.2);
       }
     }
 
-    /* العبارة أثناء وجودهما معًا */
+    /*
+      العبارة تظهر بعد مرور 5 ثوانٍ من ظهور القلب
+    */
     .love-message {
       display: none;
       position: absolute;
-      top: 38%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      top: 118px;
+      transform: translateX(-50%);
       color: #be185d;
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 800;
-      z-index: 40;
+      z-index: 45;
       white-space: nowrap;
     }
 
@@ -493,8 +507,8 @@
       display: none;
       position: absolute;
       inset: 0;
-      background: rgba(255, 255, 255, 0.92);
-      z-index: 50;
+      background: rgba(255, 255, 255, 0.93);
+      z-index: 60;
       align-items: center;
       justify-content: center;
       flex-direction: column;
@@ -529,7 +543,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
-      z-index: 60;
+      z-index: 70;
     }
 
     .dino-game-wrapper .gameOver h1 {
@@ -948,11 +962,11 @@
           <div id="finalGameScreen" class="final-game-screen">
 
             <h2>
-              always together 💕
+              found you 💕
             </h2>
 
             <p>
-              You reached 1000 points!
+              some things are worth the wait.
             </p>
 
             <button onclick="restartDino(event)">
@@ -1295,6 +1309,7 @@
     let finalDino = null;
     let finalDinoTimer = null;
     let finalEndingTimer = null;
+    let dinoApproachTimer = null;
 
     function updateScore() {
       if (!playing) return;
@@ -1311,14 +1326,14 @@
         localStorage.setItem("dinoHighScore", highScore);
       }
 
-      /* شاشة الهامستر عند 200 */
+      /* عند 200 تظهر صورة الهامستر */
       if (score >= 200 && !rewardTriggered && !unlimitedMode) {
         rewardTriggered = true;
         triggerRewardScreen();
         return;
       }
 
-      /* بداية المرحلة الأخيرة عند 1000 */
+      /* بعد العودة من الهامستر، المرحلة النهائية تبدأ عند 1000 */
       if (score >= 1000 && unlimitedMode && !finalStage) {
         startFinalStage();
         return;
@@ -1451,10 +1466,10 @@
       finalDino = document.createElement("div");
 
       /*
-        facing-left تجعل وجه الديناصورة ناحية اليسار،
-        أي ناحية الديناصور الموجود في الجهة اليسرى
+        الديناصورة تبدأ من اليمين،
+        و scaleX(-1) يجعلها مواجهة ناحية اليسار
       */
-      finalDino.className = "dino-girlfriend facing-left";
+      finalDino.className = "dino-girlfriend";
 
       finalDino.innerHTML = `
         <div class="girlfriend-tail"></div>
@@ -1468,10 +1483,6 @@
 
       game.appendChild(finalDino);
 
-      /*
-        تنتظر الديناصورة 4 ثوانٍ حتى تصل إلى مكانها،
-        ثم يبدأ اقتراب الديناصورين
-      */
       finalDinoTimer = setTimeout(() => {
         bringDinosTogether();
       }, 4000);
@@ -1480,26 +1491,30 @@
     function bringDinosTogether() {
       if (!finalDino) return;
 
+      /*
+        إيقاف حركة الديناصورة في مكانها
+      */
       finalDino.style.animation = "none";
-      finalDino.style.right = "135px";
+      finalDino.classList.add("together-position");
 
       /*
-        تحريك الديناصور الأساسي بالقرب من الديناصورة
+        الديناصور يتحرك إلى اليسار/المنتصف،
+        وتظل بينهما مسافة صغيرة
       */
-      dino.style.transition = "left 1.5s ease";
-      dino.style.left = "100px";
+      dino.style.transition = "left 1.4s ease";
+      dino.classList.add("together-position");
 
-      setTimeout(() => {
+      dinoApproachTimer = setTimeout(() => {
         showCoupleTogether();
 
         /*
-          يظل الاثنان معًا 5 ثوانٍ قبل شاشة النهاية
+          يظل المشهد ظاهرًا 5 ثوانٍ كاملة
         */
         finalEndingTimer = setTimeout(() => {
           showFinalGameScreen();
         }, 5000);
 
-      }, 1600);
+      }, 1500);
     }
 
     function showCoupleTogether() {
@@ -1517,18 +1532,24 @@
 
       message.id = "finalLoveMessage";
       message.className = "love-message";
-      message.textContent = "always together 💕";
+      message.textContent = "found you 💕";
 
       game.appendChild(message);
 
       heart.style.display = "block";
-      message.style.display = "block";
+      message.style.display = "none";
 
       gameInstruction.textContent =
-        "always together 💕";
+        "a little moment 💕";
     }
 
     function showFinalGameScreen() {
+      const message = document.getElementById("finalLoveMessage");
+
+      if (message) {
+        message.style.display = "block";
+      }
+
       finalGameScreen.style.display = "flex";
     }
 
@@ -1552,6 +1573,7 @@
       clearTimeout(obstacleTimer);
       clearTimeout(finalDinoTimer);
       clearTimeout(finalEndingTimer);
+      clearTimeout(dinoApproachTimer);
 
       document.querySelectorAll(
         ".cactus, .bird, .dino-girlfriend, .love-heart, .love-message"
@@ -1570,6 +1592,7 @@
       finalDino = null;
 
       dino.style.transition = "none";
+      dino.classList.remove("together-position");
       dino.style.left = "40px";
 
       gameOverDiv.style.display = "none";
