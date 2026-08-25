@@ -939,18 +939,62 @@
     const codeInput = document.getElementById("codeInput");
     const preview = document.getElementById("preview");
 
-    let visitorName = localStorage.getItem("kobaaVisitorName") || "";
+    const NAME_KEY = "kobaaVisitorName";
+    const CHAT_KEY = "kobaaConversation";
+
+    let visitorName = localStorage.getItem(NAME_KEY) || "";
+    let conversation = loadConversation();
 
     const generalReplies = [
-      "تمام، فهمت عليك. خلينا نفكر فيها واحدة واحدة بدل ما نرمي كل الأفكار فوق بعض 😄",
-      "دي فكرة لطيفة. نقدر نعملها بشكل شيك وخفيف من غير ما الموقع يلبس في الحيطة.",
-      "حاضر. ابعت التفاصيل وأنا أساعدك نطلع نسخة مرتبة وقابلة للتعديل.",
-      "كوبع بيقول إن الحل موجود، بس مستخبي شوية وعايز سؤال أوضح 🧐",
-      "ممكن جدًا. نبدأ بنسخة بسيطة وبعدها نزود اللمسات الفخمة.",
-      "أنا معاك. قول عايز النتيجة النهائية تبقى عاملة إزاي وأنا أرتب لك الطريق."
+      "أنا تمام ولمبتي منورة 😄 إنت أخبارك إيه؟",
+      "أهلًا بيك! نورت كوبع. تحب نتكلم في إيه؟",
+      "أنا موجود معاك. قول اللي في بالك براحتك 🤖",
+      "كوبع حاضر، بس المخ بيعمل تسخين بسيط 😄 احكي لي أكتر.",
+      "تمام، فهمت عليك. خلينا نفكر فيها واحدة واحدة.",
+      "حلو الكلام ده. نقدر نتكلم فيه سوا بهدوء.",
+      "أنا سامعك. تحب تحكي أكتر ولا تسألني سؤال مباشر؟",
+      "ممكن جدًا. نبدأ من أبسط نقطة وبعدين نزود التفاصيل.",
+      "أنا معاك. قول لي إيه اللي شاغل بالك؟"
     ];
 
-    function addMessage(text, type) {
+    const unknownReplies = [
+      "مش عايز أخمّن وأقول معلومة غلط. وضّح لي السؤال أو اكتب تفاصيل أكتر.",
+      "أنا مش متأكد من الإجابة دي، ومش هألف عليك. اديني سياق أكتر.",
+      "السؤال واسع شوية 😄 حدده لي أكثر عشان أجاوبك بشكل أدق.",
+      "أقدر أساعدك، لكن محتاج أعرف المقصود بالضبط.",
+      "خلينا نحدد السؤال الأول، وبعدها أرتب لك إجابة واضحة."
+    ];
+
+    function loadConversation() {
+      try {
+        return JSON.parse(localStorage.getItem(CHAT_KEY)) || [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveConversation() {
+      try {
+        localStorage.setItem(
+          CHAT_KEY,
+          JSON.stringify(conversation.slice(-20))
+        );
+      } catch (error) {
+        console.warn("تعذر حفظ المحادثة");
+      }
+    }
+
+    function remember(role, text) {
+      conversation.push({
+        role: role,
+        text: text,
+        time: Date.now()
+      });
+
+      saveConversation();
+    }
+
+    function addMessage(text, type, shouldRemember = true) {
       const message = document.createElement("div");
 
       message.className = "message " + type;
@@ -958,11 +1002,31 @@
 
       messages.insertBefore(message, typing);
       messages.scrollTop = messages.scrollHeight;
+
+      if (shouldRemember) {
+        remember(type === "user" ? "user" : "bot", text);
+      }
+    }
+
+    function normalizeText(text) {
+      return text
+        .toLowerCase()
+        .replace(/[إأآ]/g, "ا")
+        .replace(/ة/g, "ه")
+        .replace(/ى/g, "ي")
+        .replace(/[ًٌٍَُِّْـ]/g, "")
+        .replace(/[؟?!،,.]/g, " ")
+        .replace(/s+/g, " ")
+        .trim();
+    }
+
+    function containsAny(text, words) {
+      return words.some(word => text.includes(word));
     }
 
     function extractName(text) {
       const patterns = [
-        /(?:اسمي|أنا اسمي|انا اسمي)s+([^s،,.!?؟]+)/i,
+        /(?:اسمي|انا اسمي|أنا اسمي|اسمى)s+([^s،,.!?؟]+)/i,
         /(?:اسمي هو|اسمى هو)s+([^s،,.!?؟]+)/i
       ];
 
@@ -970,66 +1034,294 @@
         const match = text.match(pattern);
 
         if (match && match[1]) {
-          return match[1].trim();
+          const possibleName = match[1].trim();
+          const cleanName = normalizeText(possibleName);
+
+          const ignoredWords = [
+            "تمام",
+            "بخير",
+            "زهقان",
+            "زهقانه",
+            "كويس",
+            "كويسه",
+            "تعبان",
+            "تعبانه",
+            "مبسوط",
+            "مبسوطه",
+            "عايز",
+            "عايزه",
+            "محتاج",
+            "محتاجه"
+          ];
+
+          if (!ignoredWords.includes(cleanName)) {
+            return possibleName;
+          }
         }
       }
 
       return "";
     }
 
-    function getReply(text) {
-      const foundName = extractName(text);
+    function chooseReply(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function replyWithName(withName, withoutName) {
+      return visitorName
+        ? withName.replaceAll("{name}", visitorName)
+        : withoutName;
+    }
+
+    function recentUserMessages() {
+      return conversation
+        .filter(item => item.role === "user")
+        .slice(-3)
+        .map(item => item.text)
+        .join(" ");
+    }
+
+    function answerQuestion(text) {
+      if (
+        containsAny(text, [
+          "ما هو",
+          "ايه هو",
+          "يعني ايه",
+          "اشرح",
+          "شرح",
+          "تعريف"
+        ])
+      ) {
+        return "أقدر أشرح لك، لكن اكتب لي اسم المصطلح أو الموضوع نفسه عشان أديك شرحًا واضحًا.";
+      }
+
+      if (
+        containsAny(text, [
+          "ازاي",
+          "كيف",
+          "اعمل",
+          "اعمل ايه",
+          "ماذا افعل",
+          "حل"
+        ])
+      ) {
+        return "خلينا نقسم الموضوع لخطوات بسيطة. اكتب لي المشكلة أو الهدف، وإيه اللي جربته لحد دلوقتي.";
+      }
+
+      if (
+        containsAny(text, [
+          "رايك",
+          "رأيك",
+          "تنصحني",
+          "اختار",
+          "افضل",
+          "مناسب"
+        ])
+      ) {
+        return "أقدر أساعدك تقارن، لكن اكتب لي الاختيارات وإيه الأهم بالنسبة لك: السعر، الجودة، السهولة، ولا الوقت؟";
+      }
+
+      return chooseReply(unknownReplies);
+    }
+
+    function getReply(originalText) {
+      const text = normalizeText(originalText);
+      const foundName = extractName(originalText);
 
       if (foundName) {
         visitorName = foundName;
-        localStorage.setItem("kobaaVisitorName", visitorName);
+        localStorage.setItem(NAME_KEY, visitorName);
 
-        return `أهلًا يا ${visitorName} 🤖 كده عرفت مين بيكلمني. تحب نبدأ بإيه؟`;
+        return `أهلًا يا ${visitorName} 🤖 نورت كوبع. أخبارك إيه؟ تحب نتكلم في إيه؟`;
       }
 
       if (
-        text.includes("مين") &&
-        (
-          text.includes("انت") ||
-          text.includes("إنت") ||
-          text.includes("كوبع")
-        )
+        text === "هاي" ||
+        text === "هلو" ||
+        text === "hello" ||
+        text === "hi" ||
+        text === "hey" ||
+        text.includes("السلام عليكم") ||
+        text.includes("صباح الخير") ||
+        text.includes("مساء الخير")
       ) {
-        return "أنا كوبع 🤖 مساعد صغير بدم خفيف نسبيًا، وبكلم أي حد يدخل عندي مش شخص واحد بس.";
+        return replyWithName(
+          "أهلًا يا {name} 😄 نورت كوبع. أخبارك إيه؟ تحب نتكلم في إيه؟",
+          "أهلًا وسهلًا 😄 نورت كوبع. مين بيكلمني دلوقتي؟ ولو مش حابب تقول اسمك عادي جدًا!"
+        );
       }
 
       if (
-        text.includes("كود") ||
-        text.includes("html") ||
-        text.includes("css") ||
-        text.includes("javascript") ||
-        text.includes("جافاسكريبت")
+        containsAny(text, [
+          "ازيك",
+          "اخبارك",
+          "عامل ايه",
+          "عامله ايه",
+          "كيف حالك",
+          "انت كويس",
+          "كويس"
+        ])
       ) {
-        return visitorName
-          ? `حاضر يا ${visitorName}. اكتب وصف الكود بالتفصيل، وجربه في مساحة الكود تحت.`
-          : "حاضر. اكتب وصف الكود بالتفصيل، وجربه في مساحة الكود تحت.";
+        return replyWithName(
+          "أنا تمام يا {name} ولمبتي منورة 😄 إنت أخبارك إيه؟",
+          "أنا تمام ولمبتي منورة 😄 إنت أخبارك إيه؟"
+        );
       }
 
       if (
-        text.includes("شكرا") ||
-        text.includes("شكرًا") ||
-        text.includes("تسلم")
+        containsAny(text, [
+          "مين انت",
+          "من انت",
+          "عرفني بنفسك",
+          "انت ايه",
+          "ايه هو كوبع"
+        ])
       ) {
-        return visitorName
-          ? `العفو يا ${visitorName}، كوبع في الخدمة من غير إيصال 😄`
-          : "العفو! كوبع في الخدمة من غير إيصال 😄";
+        return "أنا كوبع 🤖 صاحبك الرقمي. أقدر أدردش مع أي حد، أساعدك في أفكار وأسئلة عامة، وأتكلم في البرمجة لما تحتاجني.";
       }
 
       if (
-        text.includes("صورة") ||
-        text.includes("شكلك") ||
-        text.includes("شخصيتك")
+        containsAny(text, [
+          "بتعمل ايه",
+          "تقدر تعمل ايه",
+          "ممكن تساعدني",
+          "بتعرف تعمل ايه"
+        ])
       ) {
-        return "أنا متصمم بـ CSS، مش صورة ثابتة. عينيّ ولمبة الهوائي بيتحركوا، ولما أفكر بعمل نفسي مركز جدًا 🤖";
+        return "أقدر أتكلم معاك في مواضيع عامة، أرتب فكرة، أشرح حاجة، أساعد في كتابة أو كود، أو نكسر الملل شوية 😄";
       }
 
-      const reply =
-        generalReplies[Math.floor(Math.random() * generalReplies.length)];
+      if (
+        containsAny(text, [
+          "شكرا",
+          "شكرًا",
+          "متشكر",
+          "تسلم",
+          "ميرسي"
+        ])
+      ) {
+        return replyWithName(
+          "العفو يا {name} 😄 كوبع في الخدمة من غير إيصال.",
+          "العفو 😄 كوبع في الخدمة من غير إيصال."
+        );
+      }
+
+      if (
+        containsAny(text, [
+          "زهقان",
+          "زهقانه",
+          "ملان",
+          "ملانه",
+          "طفشان"
+        ])
+      ) {
+        return "ولا يهمك، نكسر الملل 😄 نلعب أسئلة؟ أحكيلك نكتة؟ ولا نتكلم في موضوع عشوائي؟";
+      }
+
+      if (
+        containsAny(text, [
+          "نكت",
+          "اضحكني",
+          "ضحكني",
+          "قول حاجه مضحكه"
+        ])
+      ) {
+        return chooseReply([
+          "مرة واحد مبرمج دخل مطعم، قال للجرسون: عندكم واي فاي؟ قاله: آه. قاله: طب هاتلي باسورد 😄",
+          "كوبع حاول يعمل رجيم، حذف كلمة حلويات من الكود… ظهرت له رسالة خطأ: لا يمكن حذف السعادة 🤖",
+          "مرة كمبيوتر عطس، قالوا له: يرحمكم الله. قال: شكرًا، بس أنا كنت بعمل Restart 😄"
+        ]);
+      }
+
+      if (
+        containsAny(text, [
+          "كود",
+          "برمج",
+          "html",
+          "css",
+          "javascript",
+          "جافاسكريبت"
+        ])
+      ) {
+        return replyWithName(
+          "حاضر يا {name}. أقدر أساعدك في الكود، اكتب المطلوب بالتفصيل وأنا أمشي معاك خطوة خطوة.",
+          "حاضر. أقدر أساعدك في الكود، اكتب المطلوب بالتفصيل وأنا أمشي معاك خطوة خطوة."
+        );
+      }
+
+      if (
+        containsAny(text, [
+          "صوره",
+          "صورة",
+          "شكلك",
+          "شخصيتك",
+          "روبوت"
+        ])
+      ) {
+        return "أنا روبوت صغير معمول بـ HTML وCSS وJavaScript 🤖 شكلي ثابت، لكن كلامي بيتغير حسب اللي بتكتبه.";
+      }
+
+      if (
+        containsAny(text, [
+          "فاكر",
+          "نكمل",
+          "الموضوع ده",
+          "قصدك ايه",
+          "كنا بنتكلم"
+        ])
+      ) {
+        const previousTopic = recentUserMessages();
+
+        return previousTopic
+          ? `فاكر إن آخر كلام ظاهر عندي كان: "${previousTopic}". قول لي الجزء اللي عايز نكمله.`
+          : "لسه مفيش موضوع محفوظ عندي. فكّرني بس كنا بنتكلم عن إيه.";
+      }
+
+      if (
+        containsAny(text, [
+          "تصبح على خير",
+          "تصبحي على خير",
+          "باي",
+          "سلام"
+        ])
+      ) {
+        return replyWithName(
+          "تصبح على خير يا {name} 🌙 ونشوفك في دردشة جديدة.",
+          "تصبح على خير 🌙 ونشوفك في دردشة جديدة."
+        );
+      }
+
+      if (
+        containsAny(text, [
+          "بحبك",
+          "بحب كوبع",
+          "انت جميل",
+          "كيوت"
+        ])
+      ) {
+        return "وأنا مبسوط إن كوبع عجبك 😄 خلينا نقول دي صداقة رقمية محترمة 🤖";
+      }
+
+      if (
+        containsAny(text, [
+          "معلومه",
+          "معلومات",
+          "سؤال",
+          "ليه",
+          "لماذا",
+          "كيف",
+          "ازاي",
+          "ايه",
+          "اشرح",
+          "تعريف",
+          "رايك",
+          "رأيك"
+        ])
+      ) {
+        return answerQuestion(text);
+      }
+
+      const reply = chooseReply(generalReplies);
 
       return visitorName
         ? `${reply}
@@ -1054,12 +1346,15 @@
       setTimeout(() => {
         typing.style.display = "none";
         addMessage(getReply(text), "bot");
-      }, 800);
+      }, 700);
     }
 
     function clearChat() {
-      localStorage.removeItem("kobaaVisitorName");
+      localStorage.removeItem(NAME_KEY);
+      localStorage.removeItem(CHAT_KEY);
+
       visitorName = "";
+      conversation = [];
 
       messages.innerHTML = `
         <div class="message bot">
@@ -1097,6 +1392,17 @@
         sendMessage(event);
       }
     });
+
+    conversation
+      .filter(item => item.role === "user" || item.role === "bot")
+      .slice(-10)
+      .forEach(item => {
+        addMessage(
+          item.text,
+          item.role === "user" ? "user" : "bot",
+          false
+        );
+      });
 
     runCode();
   </script>
