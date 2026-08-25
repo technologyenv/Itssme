@@ -1,1 +1,1106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>كوبع | المساعد الصغير</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050b18;
+      --panel: rgba(12, 25, 49, 0.82);
+      --line: rgba(103, 232, 249, 0.24);
+      --cyan: #67e8f9;
+      --blue: #60a5fa;
+      --purple: #a78bfa;
+      --text: #e0f2fe;
+      --muted: #94a3b8;
+      --green: #4ade80;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(37, 99, 235, 0.24), transparent 28%),
+        radial-gradient(circle at 85% 75%, rgba(124, 58, 237, 0.22), transparent 30%),
+        linear-gradient(135deg, #030712, var(--bg));
+      font-family: "Cairo", sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      background-image:
+        linear-gradient(rgba(103, 232, 249, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(103, 232, 249, 0.035) 1px, transparent 1px);
+      background-size: 38px 38px;
+    }
+
+    .page {
+      position: relative;
+      width: min(1180px, calc(100% - 24px));
+      margin: auto;
+      padding: 18px 0 35px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #bae6fd;
+      text-decoration: none;
+      font-size: 12px;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(8, 47, 73, 0.4);
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px var(--green);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 275px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .side-card,
+    .chat-card,
+    .code-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      backdrop-filter: blur(16px);
+      box-shadow:
+        0 20px 55px rgba(0, 0, 0, 0.3),
+        inset 0 0 30px rgba(56, 189, 248, 0.035);
+    }
+
+    .side-card {
+      position: sticky;
+      top: 15px;
+      min-height: 510px;
+      padding: 20px;
+      border-radius: 25px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .brand {
+      margin: 12px 0 4px;
+      color: white;
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .capabilities {
+      display: grid;
+      gap: 9px;
+      margin-top: 24px;
+      text-align: right;
+    }
+
+    .capability {
+      padding: 10px 11px;
+      color: #c7d2fe;
+      font-size: 12px;
+      border: 1px solid rgba(96, 165, 250, 0.17);
+      border-radius: 12px;
+      background: rgba(30, 64, 175, 0.15);
+    }
+
+    .capability span {
+      margin-left: 6px;
+    }
+
+    .kobaa-avatar {
+      position: relative;
+      width: 150px;
+      height: 190px;
+      margin: 6px auto 0;
+      animation: float 3s ease-in-out infinite;
+      filter: drop-shadow(0 18px 22px rgba(0, 217, 255, 0.2));
+    }
+
+    .antenna {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 4px;
+      height: 26px;
+      transform: translateX(-50%);
+      border-radius: 10px;
+      background: var(--cyan);
+      z-index: 5;
+    }
+
+    .antenna::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      width: 13px;
+      height: 13px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: var(--purple);
+      box-shadow: 0 0 9px var(--purple), 0 0 18px var(--cyan);
+      animation: lightBlink 1.5s infinite;
+    }
+
+    .head {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      width: 116px;
+      height: 82px;
+      transform: translateX(-50%);
+      border: 2px solid var(--cyan);
+      border-radius: 30px 30px 23px 23px;
+      background: linear-gradient(145deg, #e0fbff, #8be9f5 45%, #3694c6);
+      box-shadow:
+        inset 0 -10px 18px rgba(20, 85, 130, 0.25),
+        0 0 18px rgba(34, 211, 238, 0.35);
+      z-index: 3;
+    }
+
+    .ear {
+      position: absolute;
+      top: 28px;
+      width: 14px;
+      height: 27px;
+      border-radius: 8px;
+      background: #2563a8;
+    }
+
+    .ear.left {
+      left: -12px;
+    }
+
+    .ear.right {
+      right: -12px;
+    }
+
+    .face {
+      position: absolute;
+      inset: 17px 13px 13px;
+      border-radius: 20px;
+      background: #071a32;
+      border: 1px solid rgba(165, 243, 252, 0.75);
+      box-shadow: inset 0 0 15px rgba(34, 211, 238, 0.23);
+    }
+
+    .eye {
+      position: absolute;
+      top: 21px;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px #22d3ee, 0 0 17px rgba(34, 211, 238, 0.8);
+      animation: blink 4s infinite;
+    }
+
+    .eye.left {
+      left: 17px;
+    }
+
+    .eye.right {
+      right: 17px;
+    }
+
+    .eye::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: white;
+    }
+
+    .mouth {
+      position: absolute;
+      left: 50%;
+      bottom: 12px;
+      width: 23px;
+      height: 8px;
+      transform: translateX(-50%);
+      border-bottom: 2px solid var(--cyan);
+      border-radius: 50%;
+    }
+
+    .body {
+      position: absolute;
+      top: 108px;
+      left: 50%;
+      width: 85px;
+      height: 60px;
+      transform: translateX(-50%);
+      border: 2px solid var(--blue);
+      border-radius: 25px 25px 18px 18px;
+      background: linear-gradient(145deg, #1e5b91, #0d2749);
+    }
+
+    .screen {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      width: 36px;
+      height: 23px;
+      display: grid;
+      place-items: center;
+      transform: translateX(-50%);
+      border: 1px solid var(--cyan);
+      border-radius: 8px;
+      color: var(--cyan);
+      background: #06152b;
+      font: 800 10px monospace;
+    }
+
+    .light {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      width: 8px;
+      height: 8px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px var(--green);
+    }
+
+    .shadow {
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      width: 90px;
+      height: 13px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.35);
+      filter: blur(5px);
+    }
+
+    .main-area {
+      min-width: 0;
+      display: grid;
+      gap: 18px;
+    }
+
+    .chat-card {
+      min-height: 565px;
+      display: flex;
+      flex-direction: column;
+      border-radius: 25px;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(15, 35, 67, 0.5);
+    }
+
+    .chat-title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .tiny-status {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px var(--green);
+    }
+
+    .chat-title strong {
+      display: block;
+      color: white;
+      font-size: 16px;
+    }
+
+    .chat-title small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .clear-btn {
+      border: 0;
+      color: #93c5fd;
+      background: transparent;
+      font: 11px "Cairo";
+      cursor: pointer;
+    }
+
+    .messages {
+      flex: 1;
+      min-height: 375px;
+      max-height: 450px;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .message {
+      max-width: 80%;
+      padding: 11px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      line-height: 1.9;
+      white-space: pre-wrap;
+    }
+
+    .message.bot {
+      align-self: flex-start;
+      border: 1px solid rgba(103, 232, 249, 0.18);
+      border-top-right-radius: 5px;
+      background: rgba(14, 50, 84, 0.65);
+    }
+
+    .message.user {
+      align-self: flex-end;
+      border: 1px solid rgba(167, 139, 250, 0.25);
+      border-top-left-radius: 5px;
+      color: #ede9fe;
+      background: rgba(76, 29, 149, 0.4);
+    }
+
+    .typing {
+      display: none;
+      align-items: center;
+      gap: 5px;
+      align-self: flex-start;
+      padding: 11px 14px;
+      border-radius: 16px;
+      border-top-right-radius: 5px;
+      background: rgba(14, 50, 84, 0.65);
+    }
+
+    .typing span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: typing 0.8s infinite alternate;
+    }
+
+    .typing span:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .typing span:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .composer {
+      display: flex;
+      align-items: flex-end;
+      gap: 9px;
+      padding: 14px;
+      border-top: 1px solid var(--line);
+      background: rgba(3, 12, 28, 0.5);
+    }
+
+    .composer textarea {
+      flex: 1;
+      min-height: 46px;
+      max-height: 125px;
+      resize: vertical;
+      padding: 11px 13px;
+      outline: none;
+      border: 1px solid rgba(96, 165, 250, 0.25);
+      border-radius: 14px;
+      color: #e0f2fe;
+      background: rgba(15, 23, 42, 0.8);
+      font: 13px "Cairo";
+    }
+
+    .send-btn,
+    .action-btn {
+      border: 0;
+      color: #03111f;
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      font-family: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .send-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      font-size: 20px;
+    }
+
+    .code-card {
+      border-radius: 25px;
+      overflow: hidden;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .code-header h2 {
+      margin: 0;
+      color: white;
+      font-size: 16px;
+    }
+
+    .code-header p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .code-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .action-btn {
+      padding: 8px 10px;
+      border-radius: 9px;
+      font-size: 10px;
+    }
+
+    .action-btn.secondary {
+      color: #bae6fd;
+      border: 1px solid rgba(103, 232, 249, 0.25);
+      background: rgba(8, 47, 73, 0.45);
+    }
+
+    .code-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 12px;
+      padding: 14px;
+    }
+
+    .editor,
+    .preview-wrap {
+      min-width: 0;
+      border: 1px solid rgba(96, 165, 250, 0.18);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #020617;
+    }
+
+    .editor-label,
+    .preview-label {
+      padding: 8px 10px;
+      color: var(--muted);
+      border-bottom: 1px solid rgba(96, 165, 250, 0.15);
+      background: rgba(15, 23, 42, 0.86);
+      font-size: 10px;
+    }
+
+    #codeInput {
+      display: block;
+      width: 100%;
+      min-height: 250px;
+      padding: 12px;
+      resize: vertical;
+      outline: none;
+      border: 0;
+      color: #bae6fd;
+      background: #020617;
+      font: 12px/1.7 monospace;
+      direction: ltr;
+      text-align: left;
+    }
+
+    #preview {
+      display: block;
+      width: 100%;
+      min-height: 250px;
+      border: 0;
+      background: white;
+    }
+
+    .note {
+      padding: 0 16px 14px;
+      color: #64748b;
+      font-size: 10px;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes blink {
+      0%, 46%, 50%, 100% {
+        transform: scaleY(1);
+      }
+
+      48% {
+        transform: scaleY(0.08);
+      }
+    }
+
+    @keyframes lightBlink {
+      0%, 100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.4;
+      }
+    }
+
+    @keyframes typing {
+      from {
+        transform: translateY(0);
+        opacity: 0.35;
+      }
+
+      to {
+        transform: translateY(-4px);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 850px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .side-card {
+        position: relative;
+        top: auto;
+        min-height: auto;
+      }
+
+      .kobaa-avatar {
+        margin-bottom: -10px;
+      }
+
+      .code-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .page {
+        width: calc(100% - 16px);
+      }
+
+      .topbar {
+        align-items: flex-start;
+      }
+
+      .status {
+        font-size: 9px;
+      }
+
+      .message {
+        max-width: 90%;
+      }
+
+      .code-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <header class="topbar">
+
+      <a class="back-link" href="index.html">
+        ← الرجوع للموقع
+      </a>
+
+      <div class="status">
+        <span class="status-dot"></span>
+        كوبع جاهز للكلام
+      </div>
+
+    </header>
+
+    <div class="layout">
+
+      <aside class="side-card">
+
+        <div class="kobaa-avatar">
+
+          <div class="antenna"></div>
+
+          <div class="head">
+
+            <div class="ear left"></div>
+            <div class="ear right"></div>
+
+            <div class="face">
+
+              <div class="eye left"></div>
+              <div class="eye right"></div>
+              <div class="mouth"></div>
+
+            </div>
+
+          </div>
+
+          <div class="body">
+
+            <div class="screen">
+              AI
+            </div>
+
+            <div class="light"></div>
+
+          </div>
+
+          <div class="shadow"></div>
+
+        </div>
+
+        <h1 class="brand">
+          كوبع
+        </h1>
+
+        <p class="subtitle">
+          مساعد صغير، بس عنده كلام كتير 🤖
+        </p>
+
+        <div class="capabilities">
+
+          <div class="capability">
+            <span>✦</span>
+            دردشة وأسئلة
+          </div>
+
+          <div class="capability">
+            <span>⌘</span>
+            أفكار وكود
+          </div>
+
+          <div class="capability">
+            <span>▣</span>
+            تجربة الكود
+          </div>
+
+        </div>
+
+      </aside>
+
+      <main class="main-area">
+
+        <section class="chat-card">
+
+          <div class="chat-header">
+
+            <div class="chat-title">
+
+              <span class="tiny-status"></span>
+
+              <div>
+                <strong>اتكلم مع كوبع</strong>
+                <small>قول اسمك لو حابب، وكوبع هيفتكره</small>
+              </div>
+
+            </div>
+
+            <button class="clear-btn" onclick="clearChat()">
+              مسح المحادثة
+            </button>
+
+          </div>
+
+          <div class="messages" id="messages">
+
+            <div class="message bot">
+              أهلًا! أنا كوبع 🤖
+              مين بيكلمني دلوقتي؟ اكتب اسمك لو حابب، أو ادخل في الموضوع على طول 🧐
+            </div>
+
+            <div class="message bot">
+              أقدر أساعد أي حد في الأسئلة، الأفكار، الكتابة، البرمجة، وترتيب المشاريع ✨
+            </div>
+
+            <div class="typing" id="typing">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+          </div>
+
+          <form class="composer" onsubmit="sendMessage(event)">
+
+            <textarea
+              id="userInput"
+              placeholder="اكتب رسالتك لكوبع..."
+              autocomplete="off"></textarea>
+
+            <button class="send-btn" type="submit">
+              ↑
+            </button>
+
+          </form>
+
+        </section>
+
+        <section class="code-card">
+
+          <div class="code-header">
+
+            <div>
+              <h2>مساحة تجربة الكود</h2>
+              <p>اكتب HTML وCSS وJavaScript وشوف النتيجة</p>
+            </div>
+
+            <div class="code-actions">
+
+              <button class="action-btn" onclick="runCode()">
+                تشغيل
+              </button>
+
+              <button class="action-btn secondary" onclick="copyCode()">
+                نسخ
+              </button>
+
+              <button class="action-btn secondary" onclick="clearCode()">
+                مسح
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="code-layout">
+
+            <div class="editor">
+
+              <div class="editor-label">
+                editor.html
+              </div>
+
+              <textarea id="codeInput"><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #dbeafe, #ede9fe);
+      font-family: Arial, sans-serif;
+    }
+
+    .card {
+      padding: 28px;
+      text-align: center;
+      color: #172554;
+      border-radius: 24px;
+      background: white;
+      box-shadow: 0 20px 45px rgba(30, 64, 175, .18);
+    }
+
+    button {
+      padding: 10px 18px;
+      color: white;
+      border: 0;
+      border-radius: 12px;
+      background: #2563eb;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h2>أهلًا من مساحة كوبع ✨</h2>
+    <p>عدّل الكود وجربه.</p>
+    <button onclick="sayHi()">اضغط هنا</button>
+  </div>
+
+  <script>
+    function sayHi() {
+      alert("كوبع بيقولك: شاطر 🤖");
+    }
+  </script>
+
+</body>
+</html></textarea>
+
+            </div>
+
+            <div class="preview-wrap">
+
+              <div class="preview-label">
+                live preview
+              </div>
+
+              <iframe
+                id="preview"
+                title="معاينة الكود"
+                sandbox="allow-scripts">
+              </iframe>
+
+            </div>
+
+          </div>
+
+          <div class="note">
+            المعاينة منفصلة عن صفحة كوبع.
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <script>
+    const messages = document.getElementById("messages");
+    const userInput = document.getElementById("userInput");
+    const typing = document.getElementById("typing");
+    const codeInput = document.getElementById("codeInput");
+    const preview = document.getElementById("preview");
+
+    let visitorName = localStorage.getItem("kobaaVisitorName") || "";
+
+    const generalReplies = [
+      "تمام، فهمت عليك. خلينا نفكر فيها واحدة واحدة بدل ما نرمي كل الأفكار فوق بعض 😄",
+      "دي فكرة لطيفة. نقدر نعملها بشكل شيك وخفيف من غير ما الموقع يلبس في الحيطة.",
+      "حاضر. ابعت التفاصيل وأنا أساعدك نطلع نسخة مرتبة وقابلة للتعديل.",
+      "كوبع بيقول إن الحل موجود، بس مستخبي شوية وعايز سؤال أوضح 🧐",
+      "ممكن جدًا. نبدأ بنسخة بسيطة وبعدها نزود اللمسات الفخمة.",
+      "أنا معاك. قول عايز النتيجة النهائية تبقى عاملة إزاي وأنا أرتب لك الطريق."
+    ];
+
+    function addMessage(text, type) {
+      const message = document.createElement("div");
+
+      message.className = "message " + type;
+      message.textContent = text;
+
+      messages.insertBefore(message, typing);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function extractName(text) {
+      const patterns = [
+        /(?:اسمي|أنا اسمي|انا اسمي)s+([^s،,.!?؟]+)/i,
+        /(?:اسمي هو|اسمى هو)s+([^s،,.!?؟]+)/i
+      ];
+
+      for (const pattern of patterns) {
+        const match = text.match(pattern);
+
+        if (match && match[1]) {
+          return match[1].trim();
+        }
+      }
+
+      return "";
+    }
+
+    function getReply(text) {
+      const foundName = extractName(text);
+
+      if (foundName) {
+        visitorName = foundName;
+        localStorage.setItem("kobaaVisitorName", visitorName);
+
+        return `أهلًا يا ${visitorName} 🤖 كده عرفت مين بيكلمني. تحب نبدأ بإيه؟`;
+      }
+
+      if (
+        text.includes("مين") &&
+        (
+          text.includes("انت") ||
+          text.includes("إنت") ||
+          text.includes("كوبع")
+        )
+      ) {
+        return "أنا كوبع 🤖 مساعد صغير بدم خفيف نسبيًا، وبكلم أي حد يدخل عندي مش شخص واحد بس.";
+      }
+
+      if (
+        text.includes("كود") ||
+        text.includes("html") ||
+        text.includes("css") ||
+        text.includes("javascript") ||
+        text.includes("جافاسكريبت")
+      ) {
+        return visitorName
+          ? `حاضر يا ${visitorName}. اكتب وصف الكود بالتفصيل، وجربه في مساحة الكود تحت.`
+          : "حاضر. اكتب وصف الكود بالتفصيل، وجربه في مساحة الكود تحت.";
+      }
+
+      if (
+        text.includes("شكرا") ||
+        text.includes("شكرًا") ||
+        text.includes("تسلم")
+      ) {
+        return visitorName
+          ? `العفو يا ${visitorName}، كوبع في الخدمة من غير إيصال 😄`
+          : "العفو! كوبع في الخدمة من غير إيصال 😄";
+      }
+
+      if (
+        text.includes("صورة") ||
+        text.includes("شكلك") ||
+        text.includes("شخصيتك")
+      ) {
+        return "أنا متصمم بـ CSS، مش صورة ثابتة. عينيّ ولمبة الهوائي بيتحركوا، ولما أفكر بعمل نفسي مركز جدًا 🤖";
+      }
+
+      const reply =
+        generalReplies[Math.floor(Math.random() * generalReplies.length)];
+
+      return visitorName
+        ? `${reply}
+
+وبالمناسبة يا ${visitorName}، تحب نكمل في نفس الموضوع؟`
+        : reply;
+    }
+
+    function sendMessage(event) {
+      event.preventDefault();
+
+      const text = userInput.value.trim();
+
+      if (!text) return;
+
+      addMessage(text, "user");
+
+      userInput.value = "";
+      typing.style.display = "flex";
+      messages.scrollTop = messages.scrollHeight;
+
+      setTimeout(() => {
+        typing.style.display = "none";
+        addMessage(getReply(text), "bot");
+      }, 800);
+    }
+
+    function clearChat() {
+      localStorage.removeItem("kobaaVisitorName");
+      visitorName = "";
+
+      messages.innerHTML = `
+        <div class="message bot">
+          المحادثة اتمسحت. نبدأ من جديد؟ أنا كوبع جاهز 🤖
+        </div>
+      `;
+
+      messages.appendChild(typing);
+      typing.style.display = "none";
+    }
+
+    function runCode() {
+      preview.srcdoc = codeInput.value;
+    }
+
+    async function copyCode() {
+      try {
+        await navigator.clipboard.writeText(codeInput.value);
+        alert("اتنسخ الكود ✅");
+      } catch (error) {
+        codeInput.select();
+        document.execCommand("copy");
+        alert("اتنسخ الكود ✅");
+      }
+    }
+
+    function clearCode() {
+      codeInput.value = "";
+      preview.srcdoc = "";
+    }
+
+    userInput.addEventListener("keydown", event => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage(event);
+      }
+    });
+
+    runCode();
+  </script>
+
+</body>
+
+</html>
