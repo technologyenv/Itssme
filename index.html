@@ -569,6 +569,119 @@
       cursor: pointer;
       font-weight: 600;
     }
+ .kobaa-link-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 24px;
+}
+
+.kobaa-page-link {
+  width: min(100%, 520px);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  color: #dbeafe;
+  text-decoration: none;
+  border: 1px solid rgba(96, 165, 250, 0.35);
+  border-radius: 24px;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 64, 175, 0.3),
+    rgba(15, 23, 42, 0.82)
+  );
+  box-shadow:
+    0 15px 35px rgba(2, 6, 23, 0.35),
+    inset 0 0 22px rgba(56, 189, 248, 0.08);
+  transition: 0.25s ease;
+}
+
+.kobaa-page-link:hover {
+  transform: translateY(-5px);
+  border-color: #67e8f9;
+}
+
+.kobaa-link-arrow {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 14px;
+  color: #67e8f9;
+  background: rgba(8, 47, 73, 0.75);
+  border: 1px solid rgba(103, 232, 249, 0.4);
+  font-size: 24px;
+}
+
+.kobaa-link-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+  font-weight: 800;
+}
+
+.kobaa-link-text small {
+  color: rgba(191, 219, 254, 0.65);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.kobaa-link-bot {
+  position: relative;
+  width: 54px;
+  height: 46px;
+  margin-left: auto;
+  border: 2px solid #67e8f9;
+  border-radius: 17px;
+  background: linear-gradient(145deg, #dffaff, #38bdf8);
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.45);
+}
+
+.kobaa-link-bot::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 3px;
+  height: 9px;
+  transform: translateX(-50%);
+  background: #67e8f9;
+}
+
+.kobaa-link-bot::after {
+  content: "";
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: #a78bfa;
+  box-shadow: 0 0 9px #a78bfa;
+}
+
+.mini-bot-face {
+  position: absolute;
+  inset: 9px 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 10px;
+  background: #071a32;
+}
+
+.mini-bot-face i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #67e8f9;
+  box-shadow: 0 0 8px #22d3ee;
+  } 
   </style>
 </head>
 
