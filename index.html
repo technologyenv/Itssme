@@ -10,20 +10,8 @@
   <!-- تحميل الصور مبكرًا -->
   <link rel="preload" as="image" href="pic1.png" fetchpriority="high">
   <link rel="preload" as="image" href="pic2.png" fetchpriority="high">
-  <link rel="preload" as="image" href="pic3.jpg" fetchpriority="high">
-
   <link rel="preload" as="image" href="phocat.jpg" fetchpriority="high">
-  <link rel="preload" as="image" href="phosea.jpg" fetchpriority="high">
-  <link rel="preload" as="image" href="phosweets.jpg" fetchpriority="high">
-  <link rel="preload" as="image" href="phosky.jpg" fetchpriority="high">
-  <link rel="preload" as="image" href="phosongs.jpg" fetchpriority="high">
-  <link rel="preload" as="image" href="phorose.jpg" fetchpriority="high">
-  <link rel="preload" as="image" href="phogoout.jpg" fetchpriority="high">
 
-  <link rel="preload" as="image" href="cat1.png" fetchpriority="high">
-  <link rel="preload" as="image" href="cat2.png" fetchpriority="high">
-
-  <!-- تحسين تحميل الخطوط -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -341,6 +329,186 @@
       }
     }
 
+    /* الديناصورة الثانية */
+    .dino-girlfriend {
+      position: absolute;
+      right: -80px;
+      bottom: 32px;
+      width: 32px;
+      height: 40px;
+      background: #777;
+      border-radius: 4px 4px 2px 2px;
+      z-index: 10;
+      animation: girlfriendMove 4s linear forwards;
+    }
+
+    .dino-girlfriend::before {
+      content: "";
+      position: absolute;
+      right: -16px;
+      top: 0;
+      width: 22px;
+      height: 22px;
+      background: #777;
+      border-radius: 4px;
+    }
+
+    .dino-girlfriend::after {
+      content: "";
+      position: absolute;
+      right: -8px;
+      top: 5px;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .dino-girlfriend .girlfriend-tail {
+      position: absolute;
+      left: -12px;
+      top: 18px;
+      width: 18px;
+      height: 8px;
+      background: #777;
+      transform: rotate(-20deg);
+    }
+
+    .dino-girlfriend .girlfriend-leg {
+      position: absolute;
+      bottom: -10px;
+      width: 6px;
+      height: 14px;
+      background: #777;
+    }
+
+    .dino-girlfriend .girlfriend-leg.one {
+      left: 6px;
+    }
+
+    .dino-girlfriend .girlfriend-leg.two {
+      right: 6px;
+    }
+
+    .dino-girlfriend .pink-bow {
+      position: absolute;
+      top: -13px;
+      left: 4px;
+      width: 25px;
+      height: 14px;
+      z-index: 20;
+    }
+
+    .dino-girlfriend .pink-bow::before,
+    .dino-girlfriend .pink-bow::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      width: 13px;
+      height: 10px;
+      background: #ec4899;
+      border: 1px solid #be185d;
+      border-radius: 80% 20% 80% 20%;
+    }
+
+    .dino-girlfriend .pink-bow::before {
+      left: 0;
+      transform: rotate(25deg);
+    }
+
+    .dino-girlfriend .pink-bow::after {
+      right: 0;
+      transform: rotate(-25deg);
+    }
+
+    .dino-girlfriend .pink-bow-center {
+      position: absolute;
+      top: 4px;
+      left: 10px;
+      width: 7px;
+      height: 7px;
+      background: #f9a8d4;
+      border: 1px solid #be185d;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    @keyframes girlfriendMove {
+      from {
+        right: -80px;
+      }
+
+      to {
+        right: 150px;
+      }
+    }
+
+    .love-heart {
+      display: none;
+      position: absolute;
+      right: 177px;
+      bottom: 105px;
+      font-size: 35px;
+      z-index: 30;
+      animation: heartBeat 0.8s infinite alternate;
+    }
+
+    @keyframes heartBeat {
+      from {
+        transform: scale(1);
+      }
+
+      to {
+        transform: scale(1.25);
+      }
+    }
+
+    .love-message {
+      display: none;
+      position: absolute;
+      top: 42%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #be185d;
+      font-size: 18px;
+      font-weight: 800;
+      z-index: 40;
+      white-space: nowrap;
+    }
+
+    .final-game-screen {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.88);
+      z-index: 35;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .final-game-screen h2 {
+      color: #be185d;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .final-game-screen p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .final-game-screen button {
+      border: 1px solid #be185d;
+      background: #be185d;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
     .dino-game-wrapper .gameOver {
       display: none;
       position: absolute;
@@ -397,7 +565,6 @@
         a little intro about yomna 🤏✨
       </span>
 
-      <!-- Music Button -->
       <button
         onclick="toggleMusic()"
         id="musicBtn"
@@ -406,6 +573,7 @@
         <span id="musicIcon">🎵</span>
         <span id="musicText">Play Music</span>
       </button>
+
     </div>
 
     <!-- Hero -->
@@ -424,6 +592,7 @@
         <p class="text-sm text-rose-300/70 font-normal leading-relaxed">
           I made this little space to put some of the things I love in one place. It’s basically a tiny collection of my favorite things, random interests, and pieces of my personality… so yeah, welcome to my little corner of the internet :) ✨
         </p>
+
       </div>
 
       <div class="w-44 md:w-52 flex-shrink-0 drop-shadow-[0_15px_25px_rgba(225,29,72,0.25)]">
@@ -433,10 +602,11 @@
           alt="Yomna"
           loading="eager"
           fetchpriority="high"
-          decoding="async"
+          decoding="sync"
           class="w-full h-auto object-contain">
 
       </div>
+
     </section>
 
     <!-- Things I Love -->
@@ -457,7 +627,7 @@
               src="phocat.jpg"
               alt="Cats"
               loading="eager"
-              fetchpriority="high"
+              fetchpriority="auto"
               decoding="async"
               class="w-full h-auto max-h-[380px] object-contain">
 
@@ -485,7 +655,7 @@
               src="phosea.jpg"
               alt="Sea"
               loading="eager"
-              fetchpriority="high"
+              fetchpriority="auto"
               decoding="async"
               class="w-full h-auto max-h-[260px] object-contain">
 
@@ -513,7 +683,7 @@
               src="phosweets.jpg"
               alt="Candy"
               loading="eager"
-              fetchpriority="high"
+              fetchpriority="auto"
               decoding="async"
               class="w-full h-auto max-h-[260px] object-contain">
 
@@ -541,7 +711,7 @@
               src="phosky.jpg"
               alt="Sky"
               loading="eager"
-              fetchpriority="high"
+              fetchpriority="auto"
               decoding="async"
               class="w-full h-auto max-h-[260px] object-contain">
 
@@ -569,7 +739,7 @@
               src="phosongs.jpg"
               alt="Songs"
               loading="eager"
-              fetchpriority="high"
+              fetchpriority="auto"
               decoding="async"
               class="w-full h-auto max-h-[260px] object-contain">
 
@@ -597,7 +767,7 @@
               src="phorose.jpg"
               alt="Flowers"
               loading="eager"
-              fetchpriority="high"
+              fetchpriority="auto"
               decoding="async"
               class="w-full h-auto max-h-[260px] object-contain">
 
@@ -625,7 +795,7 @@
               src="phogoout.jpg"
               alt="Going out"
               loading="eager"
-              fetchpriority="high"
+              fetchpriority="auto"
               decoding="async"
               class="w-full h-auto max-h-[300px] object-contain">
 
@@ -647,7 +817,7 @@
       </div>
     </section>
 
-    <!-- Quiz Section -->
+    <!-- Quiz -->
     <section class="bg-rose-950/30 border border-rose-500/30 rounded-3xl p-6 md:p-8 text-center space-y-6 shadow-xl">
 
       <div class="space-y-1">
@@ -658,7 +828,6 @@
 
       </div>
 
-      <!-- صورة البنت تحت السؤال -->
       <div class="w-full max-w-xs mx-auto rounded-2xl overflow-hidden border border-rose-900/60 bg-[#1a0b10] flex items-center justify-center p-2 min-h-[200px]">
 
         <img
@@ -666,7 +835,7 @@
           alt="Girl Thinking about Strawberries"
           loading="eager"
           fetchpriority="high"
-          decoding="async"
+          decoding="sync"
           class="w-full h-auto max-h-[260px] object-contain rounded-xl">
 
       </div>
@@ -707,7 +876,7 @@
 
     </section>
 
-    <!-- Dino Game Section -->
+    <!-- Dino Game -->
     <section class="bg-rose-950/30 border border-rose-500/30 rounded-3xl p-6 md:p-8 text-center space-y-4 shadow-xl">
 
       <div class="space-y-1">
@@ -716,13 +885,12 @@
           Dino Dash 🦖🌵
         </h3>
 
-        <p class="text-xs text-rose-300/70 font-mono">
+        <p id="gameInstruction" class="text-xs text-rose-300/70 font-mono">
           Score 200 points to unlock the secret screen! (Tap screen or Space to Jump)
         </p>
 
       </div>
 
-      <!-- اللعبة -->
       <div id="dino-game-box">
 
         <div
@@ -761,11 +929,27 @@
 
           </div>
 
+          <div id="finalGameScreen" class="final-game-screen">
+
+            <h2>
+              Together at last! 💕
+            </h2>
+
+            <p>
+              You reached 1000 points!
+            </p>
+
+            <button onclick="restartDino(event)">
+              ↻ Play Again
+            </button>
+
+          </div>
+
         </div>
 
       </div>
 
-      <!-- شاشة المكافأة -->
+      <!-- شاشة الهامستر -->
       <div id="dino-reward" class="hidden max-w-md mx-auto pt-2">
 
         <div class="p-6 rounded-2xl bg-rose-900/40 border border-rose-400/50 shadow-2xl space-y-4">
@@ -780,7 +964,7 @@
               src="pic3.jpg"
               alt="Hamster Reward"
               loading="eager"
-              fetchpriority="high"
+              fetchpriority="auto"
               decoding="async"
               class="w-full h-auto max-h-[240px] object-contain bg-white">
 
@@ -802,7 +986,7 @@
 
     </section>
 
-    <!-- Ending Section -->
+    <!-- Ending -->
     <section class="bg-rose-950/30 border border-rose-500/30 rounded-3xl p-6 md:p-8 text-center space-y-6 shadow-xl">
 
       <div class="space-y-3 max-w-lg mx-auto">
@@ -830,7 +1014,6 @@
 
       </div>
 
-      <!-- Cats Footer Card -->
       <div class="bg-rose-900/20 border border-rose-800/30 rounded-3xl p-6 max-w-md mx-auto space-y-4">
 
         <div class="w-full flex justify-center items-center gap-12 md:gap-16 font-['Caveat'] text-2xl font-bold text-rose-300 select-none">
@@ -889,7 +1072,7 @@
               src="cat1.png"
               alt="You"
               loading="eager"
-              fetchpriority="high"
+              fetchpriority="auto"
               decoding="async"
               class="w-full h-auto max-h-36 object-contain">
 
@@ -905,7 +1088,7 @@
               src="cat2.png"
               alt="Me"
               loading="eager"
-              fetchpriority="high"
+              fetchpriority="auto"
               decoding="async"
               class="w-full h-auto max-h-36 object-contain">
 
@@ -919,7 +1102,6 @@
 
       </div>
 
-      <!-- Footer Quote -->
       <div class="max-w-md mx-auto flex justify-end pr-2 pt-1">
 
         <span class="font-mono text-xs font-semibold text-rose-300/80 tracking-wide bg-rose-950/60 px-3 py-1 rounded-lg border border-rose-800/40 shadow-sm">
@@ -933,6 +1115,28 @@
   </main>
 
   <script>
+    /* تحميل الصور مبكرًا */
+    const imageFiles = [
+      "pic1.png",
+      "pic2.png",
+      "pic3.jpg",
+      "phocat.jpg",
+      "phosea.jpg",
+      "phosweets.jpg",
+      "phosky.jpg",
+      "phosongs.jpg",
+      "phorose.jpg",
+      "phogoout.jpg",
+      "cat1.png",
+      "cat2.png"
+    ];
+
+    imageFiles.forEach(file => {
+      const image = new Image();
+      image.decoding = "async";
+      image.src = file;
+    });
+
     /* Strawberry Rain */
     function startStrawberryRain() {
       const container = document.getElementById("strawberry-rain-container");
@@ -1055,6 +1259,8 @@
     const finalScore = document.getElementById("finalScore");
     const gameBox = document.getElementById("dino-game-box");
     const rewardBox = document.getElementById("dino-reward");
+    const finalGameScreen = document.getElementById("finalGameScreen");
+    const gameInstruction = document.getElementById("gameInstruction");
 
     let score = 0;
     let highScore = Number(localStorage.getItem("dinoHighScore")) || 0;
@@ -1064,6 +1270,9 @@
     let obstacleTimer = null;
     let rewardTriggered = false;
     let unlimitedMode = false;
+    let finalStage = false;
+    let finalDino = null;
+    let finalDinoTimer = null;
 
     function updateScore() {
       if (!playing) return;
@@ -1080,9 +1289,16 @@
         localStorage.setItem("dinoHighScore", highScore);
       }
 
+      /* ظهور مكافأة الهامستر عند 200 */
       if (score >= 200 && !rewardTriggered && !unlimitedMode) {
         rewardTriggered = true;
         triggerRewardScreen();
+        return;
+      }
+
+      /* نهاية اللعبة عند 1000 بعد الرجوع من الهامستر */
+      if (score >= 1000 && unlimitedMode && !finalStage) {
+        startFinalStage();
         return;
       }
 
@@ -1110,12 +1326,16 @@
       gameBox.classList.remove("hidden");
       rewardBox.classList.add("hidden");
       gameOverDiv.style.display = "none";
+      finalGameScreen.style.display = "none";
+
+      gameInstruction.textContent =
+        "Reach 1000 points to meet your special dinosaur! (Tap screen or Space to Jump)";
 
       createObstacle();
     }
 
     function jump() {
-      if (!playing || jumping) return;
+      if (!playing || jumping || finalStage) return;
 
       jumping = true;
       dino.classList.add("jump");
@@ -1143,7 +1363,7 @@
     });
 
     function createCactus() {
-      if (!playing) return;
+      if (!playing || finalStage) return;
 
       const cactus = document.createElement("div");
 
@@ -1158,7 +1378,7 @@
     }
 
     function createBird() {
-      if (!playing) return;
+      if (!playing || finalStage) return;
 
       const bird = document.createElement("div");
 
@@ -1173,7 +1393,7 @@
     }
 
     function createObstacle() {
-      if (!playing) return;
+      if (!playing || finalStage) return;
 
       const random = Math.random();
 
@@ -1188,26 +1408,64 @@
       obstacleTimer = setTimeout(createObstacle, delay);
     }
 
-    function collisionCheck() {
-      if (!playing) return;
+    function startFinalStage() {
+      finalStage = true;
+      playing = false;
 
-      const dinoRect = dino.getBoundingClientRect();
-      const obstacles = document.querySelectorAll(".cactus, .bird");
+      clearTimeout(obstacleTimer);
 
-      obstacles.forEach(obstacle => {
-        const obstacleRect = obstacle.getBoundingClientRect();
-        const padding = 6;
-
-        const collision =
-          dinoRect.right - padding > obstacleRect.left + padding &&
-          dinoRect.left + padding < obstacleRect.right - padding &&
-          dinoRect.bottom - padding > obstacleRect.top + padding &&
-          dinoRect.top + padding < obstacleRect.bottom - padding;
-
-        if (collision) {
-          endGame();
-        }
+      document.querySelectorAll(".cactus, .bird").forEach(element => {
+        element.remove();
       });
+
+      gameInstruction.textContent =
+        "She was waiting for you 💕";
+
+      createGirlfriendDino();
+    }
+
+    function createGirlfriendDino() {
+      finalDino = document.createElement("div");
+
+      finalDino.className = "dino-girlfriend";
+
+      finalDino.innerHTML = `
+        <div class="girlfriend-tail"></div>
+        <div class="girlfriend-leg one"></div>
+        <div class="girlfriend-leg two"></div>
+        <div class="pink-bow">
+          <div class="pink-bow-center"></div>
+        </div>
+      `;
+
+      game.appendChild(finalDino);
+
+      finalDinoTimer = setTimeout(() => {
+        showLoveEnding();
+      }, 4000);
+    }
+
+    function showLoveEnding() {
+      if (!finalDino) return;
+
+      const heart = document.createElement("div");
+
+      heart.className = "love-heart";
+      heart.textContent = "❤️";
+
+      game.appendChild(heart);
+
+      const message = document.createElement("div");
+
+      message.className = "love-message";
+      message.textContent = "Finally together 💕";
+
+      game.appendChild(message);
+
+      heart.style.display = "block";
+      message.style.display = "block";
+
+      finalGameScreen.style.display = "flex";
     }
 
     function endGame() {
@@ -1227,7 +1485,12 @@
         event.stopPropagation();
       }
 
-      document.querySelectorAll(".cactus, .bird").forEach(element => {
+      clearTimeout(obstacleTimer);
+      clearTimeout(finalDinoTimer);
+
+      document.querySelectorAll(
+        ".cactus, .bird, .dino-girlfriend, .love-heart, .love-message"
+      ).forEach(element => {
         element.remove();
       });
 
@@ -1237,8 +1500,16 @@
       jumping = false;
       rewardTriggered = false;
       unlimitedMode = false;
+      finalStage = false;
+      finalDino = null;
 
       gameOverDiv.style.display = "none";
+      finalGameScreen.style.display = "none";
+      gameBox.classList.remove("hidden");
+      rewardBox.classList.add("hidden");
+
+      gameInstruction.textContent =
+        "Score 200 points to unlock the secret screen! (Tap screen or Space to Jump)";
 
       scoreText.textContent =
         "HI " + String(highScore).padStart(5, "0") + " 00000";
@@ -1246,13 +1517,36 @@
       createObstacle();
     }
 
-    /* تحميل المطر وتشغيل اللعبة */
+    /* بداية المطر */
     window.addEventListener("DOMContentLoaded", () => {
       startStrawberryRain();
     });
 
+    /* تشغيل اللعبة */
     setInterval(collisionCheck, 10);
     setInterval(updateScore, 100);
+
+    function collisionCheck() {
+      if (!playing || finalStage) return;
+
+      const dinoRect = dino.getBoundingClientRect();
+      const obstacles = document.querySelectorAll(".cactus, .bird");
+
+      obstacles.forEach(obstacle => {
+        const obstacleRect = obstacle.getBoundingClientRect();
+        const padding = 6;
+
+        const collision =
+          dinoRect.right - padding > obstacleRect.left + padding &&
+          dinoRect.left + padding < obstacleRect.right - padding &&
+          dinoRect.bottom - padding > obstacleRect.top + padding &&
+          dinoRect.top + padding < obstacleRect.bottom - padding;
+
+        if (collision) {
+          endGame();
+        }
+      });
+    }
 
     scoreText.textContent =
       "HI " + String(highScore).padStart(5, "0") + " 00000";
