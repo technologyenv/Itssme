@@ -187,12 +187,14 @@
     .buttons-area {
       position: relative;
       z-index: 2;
-      min-height: 92px;
+      min-height: 110px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 14px;
       margin-top: 30px;
+      overflow: hidden;
+      touch-action: none;
     }
 
     .answer-button {
@@ -202,8 +204,12 @@
       border-radius: 14px;
       font: 700 14px "DM Sans", sans-serif;
       cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
       transition:
         transform 0.25s ease,
+        left 0.2s ease,
+        top 0.2s ease,
         box-shadow 0.25s ease,
         background 0.25s ease;
     }
@@ -235,6 +241,27 @@
       margin: 28px 0 0;
       color: #9f8baa;
       font-size: 10px;
+    }
+
+    .yay-message {
+      display: none;
+      position: relative;
+      z-index: 5;
+      margin-top: 24px;
+      color: var(--pink);
+      font-family: "Playfair Display", serif;
+      font-size: clamp(36px, 10vw, 64px);
+      font-weight: 700;
+      text-shadow: 0 0 20px rgba(249, 168, 212, 0.5);
+      animation: yayBounce 0.8s ease both;
+    }
+
+    .yay-message.show {
+      display: block;
+    }
+
+    .hidden {
+      display: none !important;
     }
 
     @keyframes cardAppear {
@@ -272,6 +299,27 @@
       }
     }
 
+    @keyframes yayBounce {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) translateY(20px);
+      }
+
+      55% {
+        opacity: 1;
+        transform: scale(1.18) translateY(-8px);
+      }
+
+      75% {
+        transform: scale(0.94) translateY(3px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
     @media (max-width: 520px) {
       .page {
         width: min(100% - 20px, 650px);
@@ -287,6 +335,7 @@
       }
 
       .buttons-area {
+        min-height: 125px;
         gap: 10px;
       }
 
@@ -347,6 +396,10 @@
 
       </div>
 
+      <div class="yay-message" id="yayMessage">
+        YAAAY 🤍
+      </div>
+
       <p class="footer-note">
         some questions are too important to leave unasked
       </p>
@@ -354,6 +407,53 @@
     </section>
 
   </main>
+
+  <script>
+    const yesButton = document.querySelector(".yes-button");
+    const noButton = document.querySelector(".no-button");
+    const buttonsArea = document.querySelector(".buttons-area");
+    const yayMessage = document.getElementById("yayMessage");
+
+    function moveNoButton(event) {
+      if (event) {
+        event.preventDefault();
+      }
+
+      const areaRect = buttonsArea.getBoundingClientRect();
+      const buttonRect = noButton.getBoundingClientRect();
+
+      const maxX = Math.max(
+        0,
+        areaRect.width - buttonRect.width - 8
+      );
+
+      const maxY = Math.max(
+        0,
+        areaRect.height - buttonRect.height - 8
+      );
+
+      const randomX = Math.floor(Math.random() * (maxX + 1));
+      const randomY = Math.floor(Math.random() * (maxY + 1));
+
+      noButton.style.position = "absolute";
+      noButton.style.left = `${randomX}px`;
+      noButton.style.top = `${randomY}px`;
+    }
+
+    noButton.addEventListener("pointerenter", moveNoButton);
+
+    noButton.addEventListener("pointerdown", moveNoButton);
+
+    noButton.addEventListener("touchstart", moveNoButton, {
+      passive: false
+    });
+
+    yesButton.addEventListener("click", () => {
+      yesButton.classList.add("hidden");
+      noButton.classList.add("hidden");
+      yayMessage.classList.add("show");
+    });
+  </script>
 
 </body>
 
