@@ -40,6 +40,7 @@
 
     body {
       margin: 0;
+      min-width: 320px;
       min-height: 100vh;
       overflow-x: hidden;
       color: var(--white);
@@ -69,9 +70,13 @@
     .page {
       width: min(100% - 22px, 780px);
       min-height: 100vh;
-      margin: auto;
+      margin: 0 auto;
       padding: 12px 0 80px;
     }
+
+    /* =========================
+       FIRST SCREEN
+    ========================== */
 
     .question-section {
       min-height: 100vh;
@@ -83,7 +88,7 @@
       position: relative;
       width: 100%;
       overflow: hidden;
-      padding: 46px 24px 40px;
+      padding: 46px 22px 40px;
       text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.16);
       border-radius: 30px;
@@ -147,7 +152,7 @@
     .subtitle {
       position: relative;
       z-index: 1;
-      max-width: 440px;
+      max-width: 450px;
       margin: 20px auto 0;
       color: var(--soft);
       font-size: 14px;
@@ -163,19 +168,18 @@
     }
 
     /*
-      مهم:
-      دي المنطقة الثابتة التي يتحرك داخلها زر No.
-      الزر لن يخرج منها ولن يختفي خارج الشاشة.
+      مساحة الأزرار ثابتة.
+      Yes ثابت في مكانه.
+      No فقط هو الذي يتحرك بداخلها.
     */
     .buttons-area {
       position: relative;
       z-index: 2;
-      width: min(100%, 580px);
-      height: 190px;
+      width: min(100%, 430px);
+      height: 84px;
       margin: 28px auto 0;
       overflow: hidden;
       touch-action: none;
-      border-radius: 20px;
     }
 
     .answer-button {
@@ -190,36 +194,40 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .yes-button {
+    .yes-holder {
       position: absolute;
-      left: 50%;
       top: 50%;
+      left: 35%;
       z-index: 2;
-      transform: translate(-108%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
+    .yes-button {
       color: #351026;
       background: linear-gradient(135deg, #fbcfe8, var(--pink));
       box-shadow: 0 10px 25px rgba(249, 168, 212, 0.22);
-      transition: transform 0.2s ease, box-shadow 0.25s ease;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.25s ease;
     }
 
     .yes-button:hover {
-      transform: translate(-108%, calc(-50% - 3px));
+      transform: translateY(-3px);
       box-shadow: 0 15px 32px rgba(249, 168, 212, 0.35);
     }
 
     .no-button {
       position: absolute;
-      left: 67%;
       top: 50%;
-      z-index: 10;
+      left: 70%;
+      z-index: 5;
       transform: translate(-50%, -50%);
       color: var(--soft);
       border-color: rgba(255, 255, 255, 0.2);
       background: rgba(255, 255, 255, 0.08);
       transition:
-        left 0.2s ease,
-        top 0.2s ease,
-        transform 0.2s ease;
+        left 0.22s ease,
+        top 0.22s ease;
     }
 
     .footer-note {
@@ -229,6 +237,10 @@
       color: #9f8baa;
       font-size: 10px;
     }
+
+    /* =========================
+       YAY SCREEN
+    ========================== */
 
     .yay-screen {
       position: fixed;
@@ -344,10 +356,132 @@
       animation-delay: 0.6s;
     }
 
+    /* =========================
+       MEMORY INTRO
+    ========================== */
+
+    .memory-intro {
+      display: none;
+      padding: 60px 22px 25px;
+      text-align: center;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .memory-intro.show {
+      display: block;
+    }
+
+    .memory-intro-eyebrow {
+      margin: 0 0 12px;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .memory-intro h2 {
+      margin: 0;
+      color: var(--white);
+      font-family: "Playfair Display", serif;
+      font-size: clamp(30px, 7vw, 52px);
+      line-height: 1.15;
+    }
+
+    .memory-intro p:last-child {
+      max-width: 480px;
+      margin: 18px auto 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    /* =========================
+       BOX
+    ========================== */
+
+    .box-section {
+      display: none;
+      min-height: 430px;
+      padding: 10px 0 70px;
+      text-align: center;
+    }
+
+    .box-section.show {
+      display: block;
+    }
+
+    .box-stage {
+      position: relative;
+      width: min(88vw, 430px);
+      height: 310px;
+      margin: auto;
+      display: grid;
+      place-items: center;
+      perspective: 1000px;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
     /*
-      المكتبة القديمة.
-      الخلفية الكاملة للمشهد بعد فتح الصندوق.
+      الصورتان فوق بعض.
+      في البداية sora1 فقط ظاهرة.
     */
+    .box-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      object-position: center;
+      opacity: 0;
+      pointer-events: none;
+      user-select: none;
+      transition:
+        opacity 0.8s ease,
+        transform 0.8s ease,
+        filter 0.8s ease;
+    }
+
+    .box-image.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #closedBox.active {
+      transform: scale(1);
+    }
+
+    #openBox.active {
+      transform: scale(1.04);
+      filter: drop-shadow(0 0 32px rgba(249, 168, 212, 0.55));
+    }
+
+    .box-stage.shake {
+      animation: boxShake 0.7s ease both;
+    }
+
+    .box-stage.opening #closedBox {
+      opacity: 0;
+      transform: scale(0.82) rotate(-7deg);
+    }
+
+    .box-stage.opening #openBox {
+      opacity: 1;
+      transform: scale(1.08);
+    }
+
+    .box-hint {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* =========================
+       LIBRARY
+    ========================== */
+
     .library-section {
       position: relative;
       display: none;
@@ -581,6 +715,10 @@
       pointer-events: none;
     }
 
+    /* =========================
+       PHOTO MODAL
+    ========================== */
+
     .photo-modal {
       position: fixed;
       inset: 0;
@@ -631,6 +769,10 @@
       font-size: 25px;
       cursor: pointer;
     }
+
+    /* =========================
+       ANIMATIONS
+    ========================== */
 
     @keyframes cardIn {
       from {
@@ -729,6 +871,41 @@
       }
     }
 
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes boxShake {
+      0%,
+      100% {
+        transform: translateX(0) rotate(0);
+      }
+
+      20% {
+        transform: translateX(-12px) rotate(-3deg);
+      }
+
+      40% {
+        transform: translateX(12px) rotate(3deg);
+      }
+
+      60% {
+        transform: translateX(-8px) rotate(-2deg);
+      }
+
+      80% {
+        transform: translateX(8px) rotate(2deg);
+      }
+    }
+
     @keyframes libraryReveal {
       from {
         opacity: 0;
@@ -755,11 +932,11 @@
       }
     }
 
-    @media (max-width: 700px) {
-      .buttons-area {
-        height: 200px;
-      }
+    /* =========================
+       RESPONSIVE
+    ========================== */
 
+    @media (max-width: 700px) {
       .wall-photos {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 20px 13px;
@@ -787,38 +964,40 @@
       }
     }
 
-    @media (max-width: 430px) {
+    @media (max-width: 500px) {
+      .buttons-area {
+        width: 100%;
+        height: 86px;
+      }
+
       .answer-button {
-        min-width: 125px;
+        min-width: 126px;
         padding: 12px 14px;
         font-size: 13px;
       }
 
-      .yes-button {
-        left: 36%;
+      .yes-holder {
+        left: 35%;
       }
 
       .no-button {
         left: 70%;
       }
+    }
 
-      .wall-photos {
-        padding: 20px 19px;
-        gap: 18px 9px;
+    @media (max-width: 380px) {
+      .answer-button {
+        min-width: 116px;
+        padding: 11px 10px;
+        font-size: 12px;
       }
 
-      .wall-photo {
-        padding: 9px;
-        border-width: 5px;
-        height: 170px;
+      .yes-holder {
+        left: 33%;
       }
 
-      .wall-photo:nth-child(3n) {
-        height: 195px;
-      }
-
-      .wall-photo:nth-child(4n) {
-        height: 155px;
+      .no-button {
+        left: 72%;
       }
     }
   </style>
@@ -827,6 +1006,8 @@
 <body>
 
   <main class="page">
+
+    <!-- أول واجهة -->
 
     <section class="question-section" id="questionSection">
 
@@ -854,9 +1035,11 @@
 
         <div class="buttons-area" id="buttonsArea">
 
-          <button class="answer-button yes-button" type="button">
-            Yes, I do 🤍
-          </button>
+          <div class="yes-holder">
+            <button class="answer-button yes-button" type="button">
+              Yes, I do 🤍
+            </button>
+          </div>
 
           <button class="answer-button no-button" type="button">
             No
@@ -871,6 +1054,83 @@
       </div>
 
     </section>
+
+    <!-- شاشة YAAAY -->
+
+    <section class="yay-screen" id="yayScreen">
+
+      <div class="confetti"></div>
+      <div class="confetti"></div>
+      <div class="confetti"></div>
+      <div class="confetti"></div>
+      <div class="confetti"></div>
+      <div class="confetti"></div>
+      <div class="confetti"></div>
+      <div class="confetti"></div>
+
+      <div class="yay-content">
+
+        <h2 class="yay-title">
+          YAAAY <span class="yay-heart">♡</span>
+        </h2>
+
+        <p class="yay-subtitle">
+          you just made my heart smile
+        </p>
+
+      </div>
+
+    </section>
+
+    <!-- الكلام قبل البوكس -->
+
+    <section class="memory-intro" id="memoryIntro">
+
+      <p class="memory-intro-eyebrow">
+        I kept something for us
+      </p>
+
+      <h2>
+        Some memories deserve<br>
+        their own little place
+      </h2>
+
+      <p>
+        Behind this box, there is a tiny world made of moments,
+        smiles, and everything I never want to forget.
+      </p>
+
+    </section>
+
+    <!-- البوكس -->
+
+    <section class="box-section" id="boxSection">
+
+      <div class="box-stage" id="boxStage">
+
+        <img
+          id="closedBox"
+          class="box-image active"
+          src="sora1.png"
+          alt="closed memory box"
+        >
+
+        <img
+          id="openBox"
+          class="box-image"
+          src="sora2.png"
+          alt="open memory box"
+        >
+
+      </div>
+
+      <p class="box-hint" id="boxHint">
+        tap once… then tap again ✨
+      </p>
+
+    </section>
+
+    <!-- المكتبة -->
 
     <section class="library-section" id="librarySection">
 
@@ -902,6 +1162,8 @@
 
   </main>
 
+  <!-- نافذة YAAAY منفصلة عن المحتوى -->
+
   <section class="yay-screen" id="yayScreen">
 
     <div class="confetti"></div>
@@ -927,31 +1189,7 @@
 
   </section>
 
-  <section class="memory-overlay" id="memoryOverlay">
-
-    <div class="box-stage">
-
-      <div class="box-halo"></div>
-
-      <img
-        class="box-image box-closed"
-        src="sora1.png"
-        alt="closed memory box"
-      >
-
-      <img
-        class="box-image box-open"
-        src="sora2.png"
-        alt="open memory box"
-      >
-
-      <p class="box-message" id="boxMessage">
-        tap once… then tap again ✨
-      </p>
-
-    </div>
-
-  </section>
+  <!-- مودال الصورة -->
 
   <div class="photo-modal" id="photoModal">
 
@@ -964,214 +1202,256 @@
   </div>
 
   <script>
-    const questionSection = document.getElementById("questionSection");
-    const buttonsArea = document.getElementById("buttonsArea");
-    const yesButton = document.querySelector(".yes-button");
-    const noButton = document.querySelector(".no-button");
+    const questionSection =
+      document.getElementById("questionSection");
 
-    const yayScreen = document.getElementById("yayScreen");
-    const memoryOverlay = document.getElementById("memoryOverlay");
-    const librarySection = document.getElementById("librarySection");
+    const buttonsArea =
+      document.getElementById("buttonsArea");
 
-    const boxMessage = document.getElementById("boxMessage");
+    const yesButton =
+      document.querySelector(".yes-button");
 
-    const wallPhotos = document.getElementById("wallPhotos");
-    const photoModal = document.getElementById("photoModal");
-    const modalImage = document.getElementById("modalImage");
-    const closeModal = document.getElementById("closeModal");
+    const noButton =
+      document.querySelector(".no-button");
 
-    let noMoveLock = false;
-    let yesWasClicked = false;
-    let boxWasTapped = false;
+    const yayScreen =
+      document.getElementById("yayScreen");
+
+    const memoryIntro =
+      document.getElementById("memoryIntro");
+
+    const boxSection =
+      document.getElementById("boxSection");
+
+    const boxStage =
+      document.getElementById("boxStage");
+
+    const boxHint =
+      document.getElementById("boxHint");
+
+    const closedBox =
+      document.getElementById("closedBox");
+
+    const openBox =
+      document.getElementById("openBox");
+
+    const librarySection =
+      document.getElementById("librarySection");
+
+    const wallPhotos =
+      document.getElementById("wallPhotos");
+
+    const photoModal =
+      document.getElementById("photoModal");
+
+    const modalImage =
+      document.getElementById("modalImage");
+
+    const closeModal =
+      document.getElementById("closeModal");
+
+    let noMoving = false;
+    let yesClicked = false;
+    let boxTapCount = 0;
+    let boxIsOpening = false;
 
     /*
-      زر No:
-      لا نستخدم fixed نهائيًا.
-      الزر يتحرك فقط داخل buttons-area.
+      زر No يتحرك داخل buttons-area فقط.
+      لا يستخدم fixed ولا يختفي.
     */
     function moveNoButton(event) {
-      if (noMoveLock) {
+      if (noMoving) {
         return;
       }
 
-      noMoveLock = true;
+      noMoving = true;
 
       if (event) {
         event.preventDefault();
       }
 
-      const areaRect = buttonsArea.getBoundingClientRect();
+      const areaWidth =
+        buttonsArea.clientWidth;
 
-      const buttonWidth = noButton.offsetWidth;
-      const buttonHeight = noButton.offsetHeight;
+      const areaHeight =
+        buttonsArea.clientHeight;
 
-      const padding = 8;
+      const buttonWidth =
+        noButton.offsetWidth;
 
-      const maxX = buttonsArea.clientWidth - buttonWidth - padding;
-      const maxY = buttonsArea.clientHeight - buttonHeight - padding;
+      const buttonHeight =
+        noButton.offsetHeight;
 
-      const pointerX =
-        typeof event?.clientX === "number"
-          ? event.clientX
-          : areaRect.left + areaRect.width / 2;
+      const padding = 5;
 
-      const pointerY =
-        typeof event?.clientY === "number"
-          ? event.clientY
-          : areaRect.top + areaRect.height / 2;
+      const maxX =
+        areaWidth - buttonWidth - padding;
 
-      let selectedX = padding;
-      let selectedY = padding;
-      let selectedDistance = -1;
+      const maxY =
+        areaHeight - buttonHeight - padding;
 
-      for (let attempt = 0; attempt < 120; attempt++) {
-        const x = padding + Math.random() * Math.max(1, maxX - padding);
-        const y = padding + Math.random() * Math.max(1, maxY - padding);
+      const currentLeft =
+        parseFloat(noButton.style.left);
 
-        const centerX = areaRect.left + x + buttonWidth / 2;
-        const centerY = areaRect.top + y + buttonHeight / 2;
+      const currentTop =
+        parseFloat(noButton.style.top);
 
-        const distance = Math.hypot(
-          centerX - pointerX,
-          centerY - pointerY
-        );
+      let newX;
+      let newY;
+      let attempts = 0;
 
-        if (distance > selectedDistance) {
-          selectedDistance = distance;
-          selectedX = x;
-          selectedY = y;
-        }
+      do {
+        newX =
+          padding +
+          Math.random() *
+          Math.max(1, maxX - padding);
 
-        if (distance > 180) {
-          break;
-        }
-      }
+        newY =
+          padding +
+          Math.random() *
+          Math.max(1, maxY - padding);
 
-      noButton.style.left = `${Math.round(selectedX)}px`;
-      noButton.style.top = `${Math.round(selectedY)}px`;
-      noButton.style.transform = "none";
+        attempts++;
+      } while (
+        attempts < 100 &&
+        Number.isFinite(currentLeft) &&
+        Number.isFinite(currentTop) &&
+        Math.hypot(
+          newX - currentLeft,
+          newY - currentTop
+        ) < 45
+      );
 
-      /*
-        تأكيد أنه يظل ظاهرًا.
-      */
-      noButton.style.display = "block";
-      noButton.style.visibility = "visible";
-      noButton.style.opacity = "1";
+      noButton.style.left =
+        `${Math.round(newX)}px`;
 
-      window.setTimeout(() => {
-        noMoveLock = false;
-      }, 220);
+      noButton.style.top =
+        `${Math.round(newY)}px`;
+
+      noButton.style.transform =
+        "none";
+
+      noButton.style.display =
+        "block";
+
+      noButton.style.visibility =
+        "visible";
+
+      noButton.style.opacity =
+        "1";
+
+      setTimeout(() => {
+        noMoving = false;
+      }, 230);
     }
 
     /*
-      pointerdown يعمل مع اللمس والماوس.
-      لا نضيف touchstart حتى لا يتحرك مرتين في نفس اللمسة.
+      pointerdown يعمل على الموبايل والماوس والقلم.
     */
-    noButton.addEventListener("pointerdown", moveNoButton, {
-      passive: false
-    });
-
-    noButton.addEventListener("pointerenter", event => {
-      if (event.pointerType === "mouse") {
-        moveNoButton(event);
+    noButton.addEventListener(
+      "pointerdown",
+      moveNoButton,
+      {
+        passive: false
       }
-    });
+    );
+
+    noButton.addEventListener(
+      "pointerenter",
+      event => {
+        if (event.pointerType === "mouse") {
+          moveNoButton(event);
+        }
+      }
+    );
 
     /*
-      منع الزر من الخروج بعد تغيير حجم الشاشة.
-    */
-    window.addEventListener("resize", () => {
-      const areaWidth = buttonsArea.clientWidth;
-      const areaHeight = buttonsArea.clientHeight;
-
-      const buttonWidth = noButton.offsetWidth;
-      const buttonHeight = noButton.offsetHeight;
-
-      const currentLeft = parseFloat(noButton.style.left);
-
-      const currentTop = parseFloat(noButton.style.top);
-
-      if (!Number.isFinite(currentLeft) || !Number.isFinite(currentTop)) {
-        return;
-      }
-
-      const safeLeft = Math.min(
-        Math.max(8, currentLeft),
-        areaWidth - buttonWidth - 8
-      );
-
-      const safeTop = Math.min(
-        Math.max(8, currentTop),
-        areaHeight - buttonHeight - 8
-      );
-
-      noButton.style.left = `${safeLeft}px`;
-      noButton.style.top = `${safeTop}px`;
-    });
-
-    /*
-      Yes:
-      تظهر YAAAY ثم نعرض صندوق الذكريات.
+      زر Yes.
     */
     yesButton.addEventListener("click", () => {
-      if (yesWasClicked) {
+      if (yesClicked) {
         return;
       }
 
-      yesWasClicked = true;
+      yesClicked = true;
+
       yayScreen.classList.add("show");
 
-      window.setTimeout(() => {
+      setTimeout(() => {
         yayScreen.classList.remove("show");
-        questionSection.style.display = "none";
-        memoryOverlay.classList.add("show");
+
+        questionSection.style.display =
+          "none";
+
+        memoryIntro.classList.add("show");
+        boxSection.classList.add("show");
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
       }, 4000);
     });
 
     /*
-      الصندوق:
-      أول ضغطة = يهتز.
-      ثاني ضغطة = sora1 تختفي و sora2 تظهر.
+      البوكس:
+      tap الأولى = اهتزاز.
+      tap الثانية = فتح الصورة الثانية.
     */
-    memoryOverlay.addEventListener("click", event => {
-      if (event.target.closest(".box-image")) {
+    boxStage.addEventListener("click", () => {
+      if (boxIsOpening) {
         return;
       }
 
-      const boxStage = document.querySelector(".box-stage");
+      boxTapCount++;
 
-      if (!boxWasTapped) {
-        boxWasTapped = true;
-        boxStage.classList.add("box-shake");
-        boxMessage.textContent = "again… it has something for you 🤍";
+      if (boxTapCount === 1) {
+        boxStage.classList.remove("shake");
 
-        window.setTimeout(() => {
-          boxStage.classList.remove("box-shake");
+        void boxStage.offsetWidth;
+
+        boxStage.classList.add("shake");
+
+        boxHint.textContent =
+          "tap again… ✨";
+
+        setTimeout(() => {
+          boxStage.classList.remove("shake");
         }, 750);
 
         return;
       }
 
-      boxStage.classList.add("box-opening");
-      boxMessage.textContent = "";
+      if (boxTapCount === 2) {
+        boxIsOpening = true;
 
-      window.setTimeout(() => {
-        memoryOverlay.classList.remove("show");
-        librarySection.classList.add("show");
-        document.body.classList.add("library-mode");
+        boxStage.classList.add("opening");
 
-        window.setTimeout(() => {
+        boxHint.textContent =
+          "";
+
+        setTimeout(() => {
+          closedBox.classList.remove("active");
+          openBox.classList.add("active");
+        }, 350);
+
+        setTimeout(() => {
+          boxSection.classList.remove("show");
+
+          librarySection.classList.add("show");
+
+          document.body.classList.add("library-mode");
+
           librarySection.scrollIntoView({
             behavior: "smooth",
             block: "start"
           });
-        }, 120);
-      }, 1200);
+        }, 1800);
+      }
     });
 
     /*
-      الصور موجودة بجانب third-page.html مباشرة.
-      لذلك لا نستخدم memories/ ولا أي مجلد.
+      الصور الموجودة بجانب third-page.html.
     */
     const photoNames = [
       "memory8.jpg",
@@ -1224,23 +1504,48 @@
     ];
 
     photoNames.forEach((fileName, index) => {
-      const frame = document.createElement("div");
-      frame.className = "wall-photo";
+      const frame =
+        document.createElement("div");
 
-      frame.style.setProperty("--tilt", tilts[index] || "0deg");
-      frame.style.setProperty("--depth", `${(index % 4) * 8}px`);
+      frame.className =
+        "wall-photo";
 
-      const glow = document.createElement("div");
-      glow.className = "photo-light";
+      frame.style.setProperty(
+        "--tilt",
+        tilts[index] || "0deg"
+      );
 
-      const image = document.createElement("img");
-      image.src = fileName;
-      image.alt = `memory ${index + 1}`;
-      image.loading = index < 4 ? "eager" : "lazy";
+      frame.style.setProperty(
+        "--depth",
+        `${(index % 4) * 8}px`
+      );
+
+      const glow =
+        document.createElement("div");
+
+      glow.className =
+        "photo-light";
+
+      const image =
+        document.createElement("img");
+
+      image.src =
+        fileName;
+
+      image.alt =
+        `memory ${index + 1}`;
+
+      image.loading =
+        index < 4 ? "eager" : "lazy";
 
       image.addEventListener("error", () => {
-        console.error("Image not found:", fileName);
-        frame.style.display = "none";
+        console.error(
+          "Image not found:",
+          fileName
+        );
+
+        frame.style.display =
+          "none";
       });
 
       frame.appendChild(glow);
@@ -1248,7 +1553,9 @@
       wallPhotos.appendChild(frame);
 
       frame.addEventListener("click", () => {
-        modalImage.src = fileName;
+        modalImage.src =
+          fileName;
+
         photoModal.classList.add("show");
       });
     });
