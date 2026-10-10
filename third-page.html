@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>A Little Question 🤍</title>
+  <title>Our Little World 🤍</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,12 +17,10 @@
 
   <style>
     :root {
-      --background: #10091c;
-      --background-dark: #08050f;
-      --card: rgba(35, 20, 54, 0.74);
-      --card-border: rgba(255, 255, 255, 0.16);
+      --bg: #10091c;
+      --bg-dark: #08050f;
       --white: #fff7ff;
-      --soft-white: #eadcf2;
+      --soft: #eadcf2;
       --muted: #bcaac7;
       --pink: #f9a8d4;
       --rose: #fb7185;
@@ -35,12 +33,13 @@
       box-sizing: border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
     }
 
     body {
-      margin: 0;
       min-height: 100vh;
       overflow-x: hidden;
       color: var(--white);
@@ -52,46 +51,11 @@
         ),
         radial-gradient(
           circle at 85% 80%,
-          rgba(251, 113, 133, 0.19),
+          rgba(251, 113, 133, 0.18),
           transparent 30%
         ),
-        linear-gradient(135deg, #090611, var(--background));
+        linear-gradient(135deg, #090611, var(--bg));
       font-family: "DM Sans", sans-serif;
-    }
-
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      pointer-events: none;
-      border-radius: 50%;
-      filter: blur(2px);
-      opacity: 0.55;
-    }
-
-    body::before {
-      top: 12%;
-      left: 11%;
-      width: 8px;
-      height: 8px;
-      background: var(--pink);
-      box-shadow:
-        110px 90px 0 rgba(255, 255, 255, 0.7),
-        250px 30px 0 rgba(192, 132, 252, 0.7),
-        390px 160px 0 rgba(147, 197, 253, 0.7),
-        70px 330px 0 rgba(251, 113, 133, 0.7);
-    }
-
-    body::after {
-      right: 10%;
-      bottom: 14%;
-      width: 6px;
-      height: 6px;
-      background: var(--purple);
-      box-shadow:
-        -140px -70px 0 rgba(255, 255, 255, 0.65),
-        -260px -180px 0 rgba(249, 168, 212, 0.75),
-        -70px -250px 0 rgba(147, 197, 253, 0.65);
     }
 
     button {
@@ -99,12 +63,10 @@
     }
 
     .page {
-      position: relative;
-      z-index: 1;
-      width: min(100% - 32px, 780px);
+      width: min(100% - 22px, 760px);
       min-height: 100vh;
       margin: auto;
-      padding: 24px 0 80px;
+      padding: 12px 0 80px;
     }
 
     .question-section {
@@ -116,26 +78,26 @@
     .question-card {
       position: relative;
       width: 100%;
-      padding: 48px 30px 42px;
       overflow: hidden;
+      padding: 45px 24px 40px;
       text-align: center;
-      border: 1px solid var(--card-border);
-      border-radius: 32px;
-      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 30px;
+      background: rgba(35, 20, 54, 0.76);
       box-shadow:
-        0 28px 80px rgba(0, 0, 0, 0.38),
-        inset 0 1px 0 rgba(255, 255, 255, 0.09);
+        0 25px 75px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(18px);
-      animation: cardAppear 0.8s ease both;
+      animation: cardIn 0.8s ease both;
     }
 
     .question-card::before {
       content: "";
       position: absolute;
-      top: -100px;
+      top: -120px;
       left: 50%;
-      width: 280px;
-      height: 200px;
+      width: 300px;
+      height: 220px;
       transform: translateX(-50%);
       border-radius: 50%;
       background: rgba(249, 168, 212, 0.15);
@@ -147,20 +109,19 @@
       position: relative;
       z-index: 1;
       display: inline-block;
-      margin-bottom: 20px;
       color: var(--pink);
-      font-size: 35px;
-      filter: drop-shadow(0 0 15px rgba(249, 168, 212, 0.55));
+      font-size: 38px;
+      filter: drop-shadow(0 0 15px rgba(249, 168, 212, 0.6));
       animation: heartbeat 2.2s ease-in-out infinite;
     }
 
     .eyebrow {
       position: relative;
       z-index: 1;
-      margin: 0 0 13px;
+      margin: 16px 0 12px;
       color: var(--blue);
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 3px;
       text-transform: uppercase;
     }
@@ -171,9 +132,8 @@
       margin: 0;
       color: var(--white);
       font-family: "Playfair Display", serif;
-      font-size: clamp(34px, 8vw, 58px);
-      line-height: 1.15;
-      letter-spacing: -1px;
+      font-size: clamp(36px, 8vw, 62px);
+      line-height: 1.12;
     }
 
     .question-mark {
@@ -183,9 +143,9 @@
     .subtitle {
       position: relative;
       z-index: 1;
-      max-width: 420px;
-      margin: 19px auto 0;
-      color: var(--soft-white);
+      max-width: 440px;
+      margin: 20px auto 0;
+      color: var(--soft);
       font-size: 14px;
       line-height: 1.8;
     }
@@ -193,7 +153,7 @@
     .small-note {
       position: relative;
       z-index: 1;
-      margin: 10px 0 0;
+      margin: 11px 0 0;
       color: var(--muted);
       font-size: 11px;
     }
@@ -201,20 +161,21 @@
     .buttons-area {
       position: relative;
       z-index: 2;
-      min-height: 110px;
+      min-height: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 14px;
-      margin-top: 30px;
+      margin-top: 28px;
     }
 
     .answer-button {
-      min-width: 142px;
-      padding: 13px 22px;
+      min-width: 140px;
+      padding: 13px 20px;
       border: 1px solid transparent;
       border-radius: 14px;
-      font: 700 14px "DM Sans", sans-serif;
+      font-size: 14px;
+      font-weight: 800;
       cursor: pointer;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
@@ -222,36 +183,30 @@
 
     .yes-button {
       color: #351026;
-      background: linear-gradient(135deg, #fbcfe8, #f9a8d4);
+      background: linear-gradient(135deg, #fbcfe8, var(--pink));
       box-shadow: 0 10px 25px rgba(249, 168, 212, 0.22);
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.25s ease;
+      transition: transform 0.2s ease, box-shadow 0.25s ease;
     }
 
     .yes-button:hover {
       transform: translateY(-3px);
-      box-shadow: 0 14px 30px rgba(249, 168, 212, 0.34);
+      box-shadow: 0 15px 32px rgba(249, 168, 212, 0.35);
     }
 
     .no-button {
-      color: var(--soft-white);
+      color: var(--soft);
       border-color: rgba(255, 255, 255, 0.18);
       background: rgba(255, 255, 255, 0.07);
       transition:
-        left 0.22s ease,
-        top 0.22s ease,
-        transform 0.22s ease;
-    }
-
-    .no-button:hover {
-      background: rgba(255, 255, 255, 0.11);
+        left 0.2s ease,
+        top 0.2s ease,
+        transform 0.2s ease;
     }
 
     .footer-note {
       position: relative;
       z-index: 1;
-      margin: 28px 0 0;
+      margin: 25px 0 0;
       color: #9f8baa;
       font-size: 10px;
     }
@@ -259,7 +214,7 @@
     .yay-screen {
       position: fixed;
       inset: 0;
-      z-index: 50;
+      z-index: 30;
       display: none;
       place-items: center;
       overflow: hidden;
@@ -267,10 +222,10 @@
         radial-gradient(
           circle at center,
           rgba(249, 168, 212, 0.16),
-          transparent 40%
+          transparent 42%
         ),
-        rgba(16, 9, 28, 0.94);
-      backdrop-filter: blur(8px);
+        rgba(16, 9, 28, 0.95);
+      backdrop-filter: blur(9px);
     }
 
     .yay-screen.show {
@@ -282,148 +237,100 @@
       z-index: 3;
       padding: 20px;
       text-align: center;
-      animation: yayEntrance 1.05s cubic-bezier(.2, .85, .3, 1.4) both;
+      animation: yayIn 1s cubic-bezier(.2, .85, .3, 1.4) both;
     }
 
     .yay-title {
       margin: 0;
-      color: #fff7ff;
+      color: var(--white);
       font-family: "Playfair Display", serif;
       font-size: clamp(58px, 17vw, 145px);
       line-height: 1;
-      letter-spacing: -3px;
+      letter-spacing: -4px;
       text-shadow:
-        0 0 12px rgba(249, 168, 212, 0.7),
-        0 0 36px rgba(192, 132, 252, 0.55);
-      animation: yayJump 1.1s ease-in-out infinite;
+        0 0 14px rgba(249, 168, 212, 0.75),
+        0 0 38px rgba(192, 132, 252, 0.55);
+      animation: yayBounce 1.05s ease-in-out infinite;
     }
 
     .yay-heart {
       display: inline-block;
       color: var(--pink);
-      font-size: 0.55em;
-      vertical-align: middle;
-      animation: tinyHeart 0.9s ease-in-out infinite alternate;
+      font-size: 0.52em;
+      animation: heartPop 0.8s ease-in-out infinite alternate;
     }
 
     .yay-subtitle {
       margin: 24px 0 0;
-      color: var(--soft-white);
+      color: var(--soft);
       font-size: clamp(14px, 3vw, 20px);
       letter-spacing: 1px;
-      animation: softAppear 1s ease 0.35s both;
-    }
-
-    .continue-hint {
-      margin: 22px 0 0;
-      color: var(--muted);
-      font-size: 11px;
-      animation: softAppear 1s ease 0.7s both;
     }
 
     .confetti {
       position: absolute;
-      top: -30px;
-      width: 10px;
+      top: -25px;
+      width: 9px;
       height: 18px;
       border-radius: 3px;
       opacity: 0;
       pointer-events: none;
-      animation: fall linear forwards;
+      animation: confettiFall 4s linear forwards;
     }
 
     .confetti:nth-child(1) {
       left: 5%;
-      background: #f9a8d4;
-      animation-delay: 0.05s;
-      animation-duration: 3.8s;
+      background: var(--pink);
     }
 
     .confetti:nth-child(2) {
-      left: 13%;
-      background: #c084fc;
-      animation-delay: 0.2s;
-      animation-duration: 4.4s;
+      left: 15%;
+      background: var(--purple);
+      animation-delay: 0.25s;
     }
 
     .confetti:nth-child(3) {
-      left: 23%;
-      background: #93c5fd;
-      animation-delay: 0.4s;
-      animation-duration: 3.6s;
+      left: 27%;
+      background: var(--blue);
+      animation-delay: 0.5s;
     }
 
     .confetti:nth-child(4) {
-      left: 34%;
-      background: #fb7185;
-      animation-delay: 0.1s;
-      animation-duration: 4.1s;
+      left: 40%;
+      background: var(--rose);
+      animation-delay: 0.15s;
     }
 
     .confetti:nth-child(5) {
-      left: 46%;
-      background: #fde68a;
-      animation-delay: 0.3s;
-      animation-duration: 3.7s;
+      left: 53%;
+      background: var(--gold);
+      animation-delay: 0.4s;
     }
 
     .confetti:nth-child(6) {
-      left: 58%;
-      background: #f9a8d4;
+      left: 66%;
+      background: var(--pink);
       animation-delay: 0.15s;
-      animation-duration: 4.2s;
     }
 
     .confetti:nth-child(7) {
-      left: 69%;
-      background: #c084fc;
+      left: 78%;
+      background: var(--purple);
       animation-delay: 0.35s;
-      animation-duration: 3.9s;
     }
 
     .confetti:nth-child(8) {
-      left: 80%;
-      background: #93c5fd;
-      animation-delay: 0.05s;
-      animation-duration: 4.5s;
-    }
-
-    .confetti:nth-child(9) {
       left: 91%;
-      background: #fb7185;
-      animation-delay: 0.25s;
-      animation-duration: 3.8s;
-    }
-
-    .floating-heart {
-      position: absolute;
-      z-index: 1;
-      color: var(--pink);
-      font-size: 30px;
-      opacity: 0;
-      pointer-events: none;
-      animation: floatHeart 3.8s ease-in forwards;
-    }
-
-    .floating-heart.one {
-      left: 17%;
-      bottom: 0;
-      animation-delay: 0.2s;
-    }
-
-    .floating-heart.two {
-      left: 77%;
-      bottom: 0;
-      color: var(--purple);
-      animation-delay: 0.65s;
+      background: var(--blue);
+      animation-delay: 0.6s;
     }
 
     .memory-section {
       display: none;
       min-height: 100vh;
-      padding: 70px 0 100px;
+      padding: 65px 0 100px;
       text-align: center;
-      animation: sectionAppear 0.9s ease both;
+      animation: sectionIn 0.8s ease both;
     }
 
     .memory-section.show {
@@ -434,7 +341,7 @@
       margin: 0 0 12px;
       color: var(--blue);
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 3px;
       text-transform: uppercase;
     }
@@ -443,11 +350,11 @@
       margin: 0;
       color: var(--white);
       font-family: "Playfair Display", serif;
-      font-size: clamp(32px, 7vw, 54px);
+      font-size: clamp(36px, 8vw, 60px);
     }
 
     .memory-subtitle {
-      margin: 12px auto 36px;
+      margin: 12px auto 35px;
       color: var(--muted);
       font-size: 13px;
     }
@@ -455,179 +362,153 @@
     .box-scene {
       position: relative;
       width: min(100%, 560px);
-      height: 390px;
+      height: 395px;
       display: grid;
       place-items: center;
       margin: auto;
-      perspective: 1100px;
+      perspective: 1000px;
     }
 
     .box-shadow {
       position: absolute;
-      bottom: 43px;
-      width: 280px;
-      height: 40px;
+      bottom: 48px;
+      width: 290px;
+      height: 42px;
       border-radius: 50%;
-      background: rgba(0, 0, 0, 0.5);
-      filter: blur(15px);
-      transition: transform 0.7s ease, opacity 0.7s ease;
+      background: rgba(0, 0, 0, 0.55);
+      filter: blur(16px);
     }
 
     .memory-box {
       position: relative;
-      width: 240px;
-      height: 170px;
+      width: 250px;
+      height: 180px;
       transform-style: preserve-3d;
+      transform: rotateX(10deg) rotateY(-13deg);
       cursor: pointer;
-      transition: transform 0.8s cubic-bezier(.2, .8, .2, 1);
-      transform: rotateX(8deg) rotateY(-12deg);
+      transition: transform 0.9s ease;
       touch-action: manipulation;
     }
 
     .memory-box:hover {
-      transform: rotateX(8deg) rotateY(-12deg) translateY(-7px);
+      transform: rotateX(10deg) rotateY(-13deg) translateY(-8px);
     }
 
     .memory-box.shake {
       animation: boxShake 0.7s ease both;
     }
 
-    .memory-box.open {
-      transform: rotateX(12deg) rotateY(-8deg) translateY(10px);
-    }
-
-    .box-base {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 240px;
-      height: 130px;
-      overflow: hidden;
-      border: 2px solid rgba(249, 168, 212, 0.7);
-      border-radius: 15px 15px 22px 22px;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(92, 48, 112, 0.95),
-          rgba(36, 17, 54, 0.98)
-        );
-      box-shadow:
-        inset 0 0 25px rgba(249, 168, 212, 0.13),
-        0 25px 38px rgba(0, 0, 0, 0.35);
-      transform: translateZ(0);
-    }
-
-    .box-base::before {
-      content: "";
-      position: absolute;
-      inset: 13px;
-      border: 1px solid rgba(249, 168, 212, 0.35);
-      border-radius: 10px;
-      pointer-events: none;
-    }
-
-    .box-label {
-      position: absolute;
-      top: 48px;
-      left: 0;
-      width: 100%;
-      color: var(--pink);
-      font-family: "Playfair Display", serif;
-      font-size: 20px;
-      letter-spacing: 1px;
-      text-shadow: 0 0 12px rgba(249, 168, 212, 0.6);
-    }
-
-    .box-lock {
-      position: absolute;
-      left: 50%;
-      bottom: 17px;
-      width: 28px;
-      height: 24px;
-      transform: translateX(-50%);
-      border: 2px solid var(--gold);
-      border-radius: 6px;
-      box-shadow: 0 0 13px rgba(253, 230, 138, 0.45);
-    }
-
-    .box-lock::before {
-      content: "";
-      position: absolute;
-      top: -13px;
-      left: 4px;
-      width: 16px;
-      height: 16px;
-      border: 2px solid var(--gold);
-      border-bottom: 0;
-      border-radius: 12px 12px 0 0;
-    }
-
-    .box-lid {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 240px;
-      height: 48px;
-      transform-origin: bottom center;
-      border: 2px solid rgba(249, 168, 212, 0.78);
-      border-radius: 15px 15px 8px 8px;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(130, 68, 145, 0.98),
-          rgba(65, 31, 82, 0.98)
-        );
-      box-shadow:
-        inset 0 0 20px rgba(249, 168, 212, 0.18),
-        0 8px 16px rgba(0, 0, 0, 0.25);
-      transform: translateZ(2px) rotateX(0deg);
-      transition: transform 1s cubic-bezier(.2, .8, .2, 1);
-      z-index: 3;
-    }
-
-    .box-lid::after {
-      content: "♡";
-      position: absolute;
-      top: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: var(--pink);
-      font-size: 23px;
-      text-shadow: 0 0 12px rgba(249, 168, 212, 0.7);
-    }
-
-    .memory-box.open .box-lid {
-      transform: translateY(-42px) translateZ(2px) rotateX(-125deg);
-    }
-
     .box-glow {
       position: absolute;
       left: 50%;
-      bottom: 65px;
-      width: 155px;
-      height: 90px;
+      bottom: 70px;
+      width: 180px;
+      height: 100px;
       transform: translateX(-50%);
       border-radius: 50%;
-      background: rgba(249, 168, 212, 0.35);
+      background: rgba(249, 168, 212, 0.38);
       filter: blur(30px);
       opacity: 0;
       transition: opacity 0.8s ease;
-      pointer-events: none;
     }
 
     .memory-box.open .box-glow {
       opacity: 1;
     }
 
-    .tap-hint {
+    .box-body {
       position: absolute;
+      left: 0;
       bottom: 0;
+      width: 250px;
+      height: 135px;
+      overflow: hidden;
+      border: 2px solid rgba(249, 168, 212, 0.78);
+      border-radius: 17px 17px 24px 24px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(124, 61, 143, 0.98),
+          rgba(31, 14, 47, 0.98)
+        );
+      box-shadow:
+        inset 0 0 26px rgba(249, 168, 212, 0.18),
+        0 25px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .box-body::before {
+      content: "";
+      position: absolute;
+      inset: 13px;
+      border: 1px solid rgba(249, 168, 212, 0.4);
+      border-radius: 11px;
+    }
+
+    .box-title {
+      position: absolute;
+      top: 43px;
+      width: 100%;
+      color: var(--pink);
+      font-family: "Playfair Display", serif;
+      font-size: 21px;
+      letter-spacing: 1px;
+      text-shadow: 0 0 13px rgba(249, 168, 212, 0.7);
+    }
+
+    .box-heart {
+      position: absolute;
+      left: 50%;
+      bottom: 13px;
+      transform: translateX(-50%);
+      color: var(--gold);
+      font-size: 25px;
+      filter: drop-shadow(0 0 9px rgba(253, 230, 138, 0.8));
+    }
+
+    .box-lid {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 250px;
+      height: 54px;
+      z-index: 3;
+      transform-origin: bottom center;
+      border: 2px solid rgba(249, 168, 212, 0.85);
+      border-radius: 17px 17px 8px 8px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(157, 82, 169, 0.98),
+          rgba(67, 29, 84, 0.98)
+        );
+      box-shadow:
+        inset 0 0 22px rgba(249, 168, 212, 0.22),
+        0 8px 18px rgba(0, 0, 0, 0.3);
+      transition: transform 1s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    .box-lid::after {
+      content: "♡";
+      position: absolute;
+      top: 10px;
       left: 50%;
       transform: translateX(-50%);
+      color: var(--pink);
+      font-size: 25px;
+      text-shadow: 0 0 14px rgba(249, 168, 212, 0.8);
+    }
+
+    .memory-box.open .box-lid {
+      transform: translateY(-42px) rotateX(-125deg);
+    }
+
+    .tap-hint {
+      position: absolute;
+      bottom: 4px;
       width: 100%;
       color: var(--muted);
       font-size: 11px;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.3s ease;
     }
 
     .memory-box.open ~ .tap-hint {
@@ -635,24 +516,23 @@
     }
 
     .gallery {
-      position: relative;
       display: none;
       width: 100%;
-      min-height: 440px;
-      margin: 34px auto 0;
+      min-height: 430px;
+      margin-top: 20px;
       perspective: 1100px;
       touch-action: pan-y;
     }
 
     .gallery.show {
       display: block;
-      animation: galleryAppear 0.9s ease both;
+      animation: galleryIn 0.8s ease both;
     }
 
     .gallery-track {
       position: relative;
       width: 100%;
-      height: 390px;
+      height: 380px;
       transform-style: preserve-3d;
     }
 
@@ -666,16 +546,14 @@
       border-radius: 15px;
       background: #fffaff;
       box-shadow:
-        0 18px 38px rgba(0, 0, 0, 0.35),
+        0 18px 38px rgba(0, 0, 0, 0.38),
         0 0 18px rgba(249, 168, 212, 0.16);
-      transform-style: preserve-3d;
       cursor: pointer;
       user-select: none;
       transition:
         transform 0.65s cubic-bezier(.2, .8, .2, 1),
         opacity 0.65s ease,
         filter 0.65s ease;
-      touch-action: pan-y;
     }
 
     .photo-card img {
@@ -689,51 +567,79 @@
 
     .photo-card.center {
       z-index: 5;
-      transform: translate(-50%, -50%) translateZ(120px) rotateY(0deg) rotateZ(0deg) scale(1);
+      transform:
+        translate(-50%, -50%)
+        translateZ(120px)
+        rotateZ(0deg)
+        scale(1);
       opacity: 1;
-      filter: none;
     }
 
     .photo-card.left {
       z-index: 3;
-      transform: translate(-50%, -50%) translateX(-52%) translateZ(-30px) rotateY(32deg) rotateZ(-8deg) scale(0.78);
-      opacity: 0.78;
-      filter: saturate(0.82) brightness(0.82);
+      transform:
+        translate(-50%, -50%)
+        translateX(-52%)
+        translateZ(-30px)
+        rotateY(32deg)
+        rotateZ(-8deg)
+        scale(0.78);
+      opacity: 0.76;
+      filter: brightness(0.82);
     }
 
     .photo-card.right {
       z-index: 3;
-      transform: translate(-50%, -50%) translateX(52%) translateZ(-30px) rotateY(-32deg) rotateZ(8deg) scale(0.78);
-      opacity: 0.78;
-      filter: saturate(0.82) brightness(0.82);
+      transform:
+        translate(-50%, -50%)
+        translateX(52%)
+        translateZ(-30px)
+        rotateY(-32deg)
+        rotateZ(8deg)
+        scale(0.78);
+      opacity: 0.76;
+      filter: brightness(0.82);
     }
 
     .photo-card.far-left {
       z-index: 1;
-      transform: translate(-50%, -50%) translateX(-83%) translateZ(-120px) rotateY(45deg) rotateZ(-13deg) scale(0.58);
-      opacity: 0.23;
-      filter: blur(1px) brightness(0.6);
+      transform:
+        translate(-50%, -50%)
+        translateX(-83%)
+        translateZ(-120px)
+        rotateY(45deg)
+        rotateZ(-13deg)
+        scale(0.58);
+      opacity: 0.2;
     }
 
     .photo-card.far-right {
       z-index: 1;
-      transform: translate(-50%, -50%) translateX(83%) translateZ(-120px) rotateY(-45deg) rotateZ(13deg) scale(0.58);
-      opacity: 0.23;
-      filter: blur(1px) brightness(0.6);
+      transform:
+        translate(-50%, -50%)
+        translateX(83%)
+        translateZ(-120px)
+        rotateY(-45deg)
+        rotateZ(13deg)
+        scale(0.58);
+      opacity: 0.2;
     }
 
     .photo-card.hidden-photo {
       z-index: 0;
-      transform: translate(-50%, -50%) translateZ(-220px) scale(0.3);
       opacity: 0;
       pointer-events: none;
+      transform:
+        translate(-50%, -50%)
+        translateZ(-220px)
+        scale(0.3);
     }
 
     .gallery-dots {
       display: flex;
       justify-content: center;
       gap: 6px;
-      margin-top: 8px;
+      margin-top: 5px;
     }
 
     .gallery-dot {
@@ -741,25 +647,25 @@
       height: 6px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.25);
-      transition: transform 0.3s ease, background 0.3s ease;
+      transition: transform 0.25s ease, background 0.25s ease;
     }
 
     .gallery-dot.active {
-      transform: scale(1.45);
+      transform: scale(1.5);
       background: var(--pink);
-      box-shadow: 0 0 10px rgba(249, 168, 212, 0.7);
+      box-shadow: 0 0 10px rgba(249, 168, 212, 0.8);
     }
 
     .gallery-help {
-      margin: 17px 0 0;
+      margin: 16px 0 0;
       color: var(--muted);
       font-size: 11px;
     }
 
-    @keyframes cardAppear {
+    @keyframes cardIn {
       from {
         opacity: 0;
-        transform: translateY(18px) scale(0.98);
+        transform: translateY(20px) scale(0.98);
       }
 
       to {
@@ -791,7 +697,7 @@
       }
     }
 
-    @keyframes yayEntrance {
+    @keyframes yayIn {
       0% {
         opacity: 0;
         transform: scale(0.2) translateY(40px) rotate(-8deg);
@@ -802,7 +708,7 @@
         transform: scale(1.16) translateY(-15px) rotate(3deg);
       }
 
-      78% {
+      80% {
         transform: scale(0.94) translateY(4px) rotate(-1deg);
       }
 
@@ -812,7 +718,7 @@
       }
     }
 
-    @keyframes yayJump {
+    @keyframes yayBounce {
       0%,
       100% {
         transform: translateY(0) rotate(0);
@@ -827,7 +733,7 @@
       }
     }
 
-    @keyframes tinyHeart {
+    @keyframes heartPop {
       from {
         transform: scale(1) rotate(-8deg);
       }
@@ -837,19 +743,7 @@
       }
     }
 
-    @keyframes softAppear {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fall {
+    @keyframes confettiFall {
       0% {
         opacity: 0;
         transform: translateY(-30px) rotate(0deg);
@@ -861,27 +755,11 @@
 
       100% {
         opacity: 0;
-        transform: translateY(110vh) rotate(760deg);
+        transform: translateY(110vh) rotate(750deg);
       }
     }
 
-    @keyframes floatHeart {
-      0% {
-        opacity: 0;
-        transform: translateY(20px) scale(0.6) rotate(-15deg);
-      }
-
-      15% {
-        opacity: 0.9;
-      }
-
-      100% {
-        opacity: 0;
-        transform: translateY(-90vh) scale(1.3) rotate(20deg);
-      }
-    }
-
-    @keyframes sectionAppear {
+    @keyframes sectionIn {
       from {
         opacity: 0;
         transform: translateY(25px);
@@ -896,30 +774,30 @@
     @keyframes boxShake {
       0%,
       100% {
-        transform: rotateX(8deg) rotateY(-12deg) translateX(0);
+        transform: rotateX(10deg) rotateY(-13deg) translateX(0);
       }
 
       20% {
-        transform: rotateX(8deg) rotateY(-12deg) translateX(-13px) rotateZ(-3deg);
+        transform: rotateX(10deg) rotateY(-13deg) translateX(-14px) rotateZ(-3deg);
       }
 
       40% {
-        transform: rotateX(8deg) rotateY(-12deg) translateX(13px) rotateZ(3deg);
+        transform: rotateX(10deg) rotateY(-13deg) translateX(14px) rotateZ(3deg);
       }
 
       60% {
-        transform: rotateX(8deg) rotateY(-12deg) translateX(-8px) rotateZ(-2deg);
+        transform: rotateX(10deg) rotateY(-13deg) translateX(-8px) rotateZ(-2deg);
       }
 
       80% {
-        transform: rotateX(8deg) rotateY(-12deg) translateX(7px) rotateZ(2deg);
+        transform: rotateX(10deg) rotateY(-13deg) translateX(7px) rotateZ(2deg);
       }
     }
 
-    @keyframes galleryAppear {
+    @keyframes galleryIn {
       from {
         opacity: 0;
-        transform: translateY(35px) scale(0.94);
+        transform: translateY(30px) scale(0.94);
       }
 
       to {
@@ -929,42 +807,18 @@
     }
 
     @media (max-width: 600px) {
-      .page {
-        width: min(100% - 20px, 780px);
-        padding-top: 10px;
-      }
-
       .question-card {
-        padding: 40px 20px 34px;
-        border-radius: 27px;
-      }
-
-      .subtitle {
-        font-size: 13px;
-      }
-
-      .buttons-area {
-        min-height: 125px;
-        gap: 10px;
+        padding: 40px 19px 34px;
       }
 
       .answer-button {
         min-width: 128px;
-        padding: 12px 15px;
+        padding: 12px 14px;
         font-size: 13px;
       }
 
       .box-scene {
-        height: 350px;
         transform: scale(0.9);
-      }
-
-      .gallery {
-        min-height: 350px;
-      }
-
-      .gallery-track {
-        height: 315px;
       }
 
       .photo-card {
@@ -972,29 +826,23 @@
       }
 
       .photo-card.left {
-        transform: translate(-50%, -50%) translateX(-43%) translateZ(-30px) rotateY(32deg) rotateZ(-8deg) scale(0.72);
+        transform:
+          translate(-50%, -50%)
+          translateX(-43%)
+          translateZ(-30px)
+          rotateY(32deg)
+          rotateZ(-8deg)
+          scale(0.72);
       }
 
       .photo-card.right {
-        transform: translate(-50%, -50%) translateX(43%) translateZ(-30px) rotateY(-32deg) rotateZ(8deg) scale(0.72);
-      }
-
-      .photo-card.far-left {
-        transform: translate(-50%, -50%) translateX(-72%) translateZ(-120px) rotateY(45deg) rotateZ(-13deg) scale(0.5);
-      }
-
-      .photo-card.far-right {
-        transform: translate(-50%, -50%) translateX(72%) translateZ(-120px) rotateY(-45deg) rotateZ(13deg) scale(0.5);
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        transform:
+          translate(-50%, -50%)
+          translateX(43%)
+          translateZ(-30px)
+          rotateY(-32deg)
+          rotateZ(8deg)
+          scale(0.72);
       }
     }
   </style>
@@ -1070,12 +918,14 @@
 
           <div class="box-glow"></div>
 
-          <div class="box-base">
-            <div class="box-label">
+          <div class="box-body">
+            <div class="box-title">
               OUR MEMORIES
             </div>
 
-            <div class="box-lock"></div>
+            <div class="box-heart">
+              ♡
+            </div>
           </div>
 
           <div class="box-lid"></div>
@@ -1114,10 +964,6 @@
     <div class="confetti"></div>
     <div class="confetti"></div>
     <div class="confetti"></div>
-    <div class="confetti"></div>
-
-    <div class="floating-heart one">♡</div>
-    <div class="floating-heart two">♡</div>
 
     <div class="yay-content">
 
@@ -1129,10 +975,6 @@
         you just made my heart smile
       </p>
 
-      <p class="continue-hint">
-        something special is waiting for you…
-      </p>
-
     </div>
 
   </section>
@@ -1140,6 +982,7 @@
   <script>
     const noButton = document.querySelector(".no-button");
     const yesButton = document.querySelector(".yes-button");
+
     const questionSection = document.getElementById("questionSection");
     const yayScreen = document.getElementById("yayScreen");
     const memorySection = document.getElementById("memorySection");
@@ -1151,89 +994,126 @@
     const galleryDots = document.getElementById("galleryDots");
 
     let noButtonMoved = false;
+    let lastNoMove = 0;
     let yesClicked = false;
     let boxTapCount = 0;
 
-    function getSafeNoPosition(pointerX, pointerY) {
-      const buttonWidth = noButton.offsetWidth;
-      const buttonHeight = noButton.offsetHeight;
-      const padding = 14;
+    function getNoPosition(pointerX, pointerY) {
+      const width = noButton.offsetWidth;
+      const height = noButton.offsetHeight;
+      const padding = 16;
 
-      const maxX = Math.max(
-        padding,
-        window.innerWidth - buttonWidth - padding
-      );
+      const minX = padding;
+      const minY = padding;
+      const maxX = window.innerWidth - width - padding;
+      const maxY = window.innerHeight - height - padding;
 
-      const maxY = Math.max(
-        padding,
-        window.innerHeight - buttonHeight - padding
-      );
+      let bestX = minX;
+      let bestY = minY;
+      let bestDistance = 0;
 
-      let bestPosition = {
-        x: padding,
-        y: padding,
-        distance: 0
-      };
-
-      for (let attempt = 0; attempt < 80; attempt++) {
-        const x = Math.floor(
-          padding + Math.random() * Math.max(1, maxX - padding)
-        );
-
-        const y = Math.floor(
-          padding + Math.random() * Math.max(1, maxY - padding)
-        );
-
-        const centerX = x + buttonWidth / 2;
-        const centerY = y + buttonHeight / 2;
+      for (let i = 0; i < 100; i++) {
+        const x = minX + Math.random() * Math.max(1, maxX - minX);
+        const y = minY + Math.random() * Math.max(1, maxY - minY);
 
         const distance = Math.hypot(
-          centerX - pointerX,
-          centerY - pointerY
+          x + width / 2 - pointerX,
+          y + height / 2 - pointerY
         );
 
-        if (distance > bestPosition.distance) {
-          bestPosition = {
-            x,
-            y,
-            distance
-          };
+        if (distance > bestDistance) {
+          bestDistance = distance;
+          bestX = x;
+          bestY = y;
         }
 
-        if (distance > 240) {
+        if (distance > 230) {
           break;
         }
       }
 
-      return bestPosition;
+      return {
+        x: Math.round(bestX),
+        y: Math.round(bestY)
+      };
     }
 
     function moveNoButton(event) {
+      const now = Date.now();
+
+      if (now - lastNoMove < 180) {
+        return;
+      }
+
+      lastNoMove = now;
+
       if (event) {
         event.preventDefault();
       }
 
-      const pointerX = event?.clientX ?? window.innerWidth / 2;
-      const pointerY = event?.clientY ?? window.innerHeight / 2;
+      const pointerX =
+        typeof event?.clientX === "number"
+          ? event.clientX
+          : window.innerWidth / 2;
 
-      const position = getSafeNoPosition(pointerX, pointerY);
+      const pointerY =
+        typeof event?.clientY === "number"
+          ? event.clientY
+          : window.innerHeight / 2;
+
+      const position = getNoPosition(pointerX, pointerY);
 
       noButtonMoved = true;
+
       noButton.style.position = "fixed";
       noButton.style.left = `${position.x}px`;
       noButton.style.top = `${position.y}px`;
-      noButton.style.zIndex = "100";
+      noButton.style.display = "block";
+      noButton.style.visibility = "visible";
+      noButton.style.opacity = "1";
+      noButton.style.zIndex = "9999";
     }
 
-    noButton.addEventListener("pointerenter", moveNoButton);
-    noButton.addEventListener("pointerdown", moveNoButton);
-
-    noButton.addEventListener("touchstart", moveNoButton, {
+    noButton.addEventListener("pointerdown", moveNoButton, {
       passive: false
     });
 
-    function showYayScreen() {
-      if (yesClicked) return;
+    noButton.addEventListener("pointerenter", event => {
+      if (event.pointerType === "mouse") {
+        moveNoButton(event);
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (!noButtonMoved) {
+        return;
+      }
+
+      const width = noButton.offsetWidth;
+      const height = noButton.offsetHeight;
+      const padding = 16;
+
+      const currentLeft = parseFloat(noButton.style.left) || padding;
+      const currentTop = parseFloat(noButton.style.top) || padding;
+
+      const safeLeft = Math.min(
+        Math.max(padding, currentLeft),
+        window.innerWidth - width - padding
+      );
+
+      const safeTop = Math.min(
+        Math.max(padding, currentTop),
+        window.innerHeight - height - padding
+      );
+
+      noButton.style.left = `${safeLeft}px`;
+      noButton.style.top = `${safeTop}px`;
+    });
+
+    yesButton.addEventListener("click", () => {
+      if (yesClicked) {
+        return;
+      }
 
       yesClicked = true;
       yayScreen.classList.add("show");
@@ -1247,28 +1127,7 @@
           top: 0,
           behavior: "smooth"
         });
-      }, 4700);
-    }
-
-    yesButton.addEventListener("click", showYayScreen);
-
-    window.addEventListener("resize", () => {
-      if (!noButtonMoved) return;
-
-      const currentRect = noButton.getBoundingClientRect();
-
-      const safeX = Math.min(
-        Math.max(14, currentRect.left),
-        window.innerWidth - noButton.offsetWidth - 14
-      );
-
-      const safeY = Math.min(
-        Math.max(14, currentRect.top),
-        window.innerHeight - noButton.offsetHeight - 14
-      );
-
-      noButton.style.left = `${safeX}px`;
-      noButton.style.top = `${safeY}px`;
+      }, 4200);
     });
 
     memoryBox.addEventListener("click", () => {
@@ -1324,28 +1183,34 @@
 
     let currentPhoto = 0;
     let startX = 0;
-    let isDragging = false;
+    let dragging = false;
 
     const photoCards = [];
 
     photoNames.forEach((fileName, index) => {
       const card = document.createElement("div");
-
       card.className = "photo-card";
       card.dataset.index = index;
 
       const image = document.createElement("img");
 
-      image.src = `memories/${fileName}`;
+      /*
+        مهم:
+        الصور بجانب ملف third-page.html مباشرة،
+        لذلك نستخدم fileName فقط بدون memories/.
+      */
+      image.src = fileName;
       image.alt = `memory ${index + 1}`;
-      image.loading = index === 0 ? "eager" : "lazy";
+
+      image.onerror = () => {
+        console.error("Image not found:", fileName);
+      };
 
       card.appendChild(image);
       galleryTrack.appendChild(card);
       photoCards.push(card);
 
       const dot = document.createElement("span");
-
       dot.className = "gallery-dot";
       dot.dataset.index = index;
 
@@ -1366,7 +1231,7 @@
       });
     });
 
-    function getPhotoPosition(index) {
+    function photoPosition(index) {
       const total = photoNames.length;
       let difference = index - currentPhoto;
 
@@ -1378,18 +1243,32 @@
         difference += total;
       }
 
-      if (difference === 0) return "center";
-      if (difference === -1) return "left";
-      if (difference === 1) return "right";
-      if (difference === -2) return "far-left";
-      if (difference === 2) return "far-right";
+      if (difference === 0) {
+        return "center";
+      }
+
+      if (difference === -1) {
+        return "left";
+      }
+
+      if (difference === 1) {
+        return "right";
+      }
+
+      if (difference === -2) {
+        return "far-left";
+      }
+
+      if (difference === 2) {
+        return "far-right";
+      }
 
       return "hidden-photo";
     }
 
     function updateGallery() {
       photoCards.forEach((card, index) => {
-        card.className = `photo-card ${getPhotoPosition(index)}`;
+        card.className = `photo-card ${photoPosition(index)}`;
       });
 
       document.querySelectorAll(".gallery-dot").forEach((dot, index) => {
@@ -1411,16 +1290,20 @@
 
     galleryTrack.addEventListener("pointerdown", event => {
       startX = event.clientX;
-      isDragging = true;
+      dragging = true;
     });
 
     galleryTrack.addEventListener("pointerup", event => {
-      if (!isDragging) return;
+      if (!dragging) {
+        return;
+      }
 
       const difference = event.clientX - startX;
-      isDragging = false;
+      dragging = false;
 
-      if (Math.abs(difference) < 35) return;
+      if (Math.abs(difference) < 35) {
+        return;
+      }
 
       if (difference < 0) {
         nextPhoto();
@@ -1430,7 +1313,7 @@
     });
 
     galleryTrack.addEventListener("pointercancel", () => {
-      isDragging = false;
+      dragging = false;
     });
 
     updateGallery();
