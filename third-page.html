@@ -26,20 +26,20 @@
       --rose: #fb7185;
       --purple: #c084fc;
       --blue: #93c5fd;
-      --gold: #fde68a;
+      --gold: #e9bd68;
+      --gold-light: #ffe3a3;
     }
 
     * {
       box-sizing: border-box;
     }
 
-    html,
-    body {
-      margin: 0;
-      min-height: 100%;
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
+      margin: 0;
       min-height: 100vh;
       overflow-x: hidden;
       color: var(--white);
@@ -51,11 +51,15 @@
         ),
         radial-gradient(
           circle at 85% 80%,
-          rgba(251, 113, 133, 0.18),
+          rgba(251, 113, 133, 0.2),
           transparent 30%
         ),
         linear-gradient(135deg, #090611, var(--bg));
       font-family: "DM Sans", sans-serif;
+    }
+
+    body.library-mode {
+      background: #160d0b;
     }
 
     button {
@@ -63,7 +67,7 @@
     }
 
     .page {
-      width: min(100% - 22px, 760px);
+      width: min(100% - 22px, 780px);
       min-height: 100vh;
       margin: auto;
       padding: 12px 0 80px;
@@ -79,7 +83,7 @@
       position: relative;
       width: 100%;
       overflow: hidden;
-      padding: 45px 24px 40px;
+      padding: 46px 24px 40px;
       text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.16);
       border-radius: 30px;
@@ -158,15 +162,20 @@
       font-size: 11px;
     }
 
+    /*
+      مهم:
+      دي المنطقة الثابتة التي يتحرك داخلها زر No.
+      الزر لن يخرج منها ولن يختفي خارج الشاشة.
+    */
     .buttons-area {
       position: relative;
       z-index: 2;
-      min-height: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin-top: 28px;
+      width: min(100%, 580px);
+      height: 190px;
+      margin: 28px auto 0;
+      overflow: hidden;
+      touch-action: none;
+      border-radius: 20px;
     }
 
     .answer-button {
@@ -182,6 +191,11 @@
     }
 
     .yes-button {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 2;
+      transform: translate(-108%, -50%);
       color: #351026;
       background: linear-gradient(135deg, #fbcfe8, var(--pink));
       box-shadow: 0 10px 25px rgba(249, 168, 212, 0.22);
@@ -189,14 +203,19 @@
     }
 
     .yes-button:hover {
-      transform: translateY(-3px);
+      transform: translate(-108%, calc(-50% - 3px));
       box-shadow: 0 15px 32px rgba(249, 168, 212, 0.35);
     }
 
     .no-button {
+      position: absolute;
+      left: 67%;
+      top: 50%;
+      z-index: 10;
+      transform: translate(-50%, -50%);
       color: var(--soft);
-      border-color: rgba(255, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
       transition:
         left 0.2s ease,
         top 0.2s ease,
@@ -206,7 +225,7 @@
     .footer-note {
       position: relative;
       z-index: 1;
-      margin: 25px 0 0;
+      margin: 21px 0 0;
       color: #9f8baa;
       font-size: 10px;
     }
@@ -214,17 +233,17 @@
     .yay-screen {
       position: fixed;
       inset: 0;
-      z-index: 30;
+      z-index: 50;
       display: none;
       place-items: center;
       overflow: hidden;
       background:
         radial-gradient(
           circle at center,
-          rgba(249, 168, 212, 0.16),
+          rgba(249, 168, 212, 0.18),
           transparent 42%
         ),
-        rgba(16, 9, 28, 0.95);
+        rgba(16, 9, 28, 0.96);
       backdrop-filter: blur(9px);
     }
 
@@ -303,7 +322,7 @@
 
     .confetti:nth-child(5) {
       left: 53%;
-      background: var(--gold);
+      background: var(--gold-light);
       animation-delay: 0.4s;
     }
 
@@ -325,341 +344,292 @@
       animation-delay: 0.6s;
     }
 
-    .memory-section {
+    /*
+      المكتبة القديمة.
+      الخلفية الكاملة للمشهد بعد فتح الصندوق.
+    */
+    .library-section {
+      position: relative;
       display: none;
       min-height: 100vh;
-      padding: 65px 0 100px;
+      margin: 0 -11px;
+      padding: 80px 16px 110px;
+      overflow: hidden;
       text-align: center;
-      animation: sectionIn 0.8s ease both;
+      background:
+        linear-gradient(
+          rgba(35, 16, 10, 0.24),
+          rgba(12, 5, 5, 0.82)
+        ),
+        url("vintagelib.png") center / cover fixed;
+      animation: libraryReveal 1.3s ease both;
     }
 
-    .memory-section.show {
+    .library-section.show {
       display: block;
     }
 
-    .memory-eyebrow {
-      margin: 0 0 12px;
-      color: var(--blue);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-
-    .memory-title {
-      margin: 0;
-      color: var(--white);
-      font-family: "Playfair Display", serif;
-      font-size: clamp(36px, 8vw, 60px);
-    }
-
-    .memory-subtitle {
-      margin: 12px auto 35px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .box-scene {
-      position: relative;
-      width: min(100%, 560px);
-      height: 395px;
-      display: grid;
-      place-items: center;
-      margin: auto;
-      perspective: 1000px;
-    }
-
-    .box-shadow {
-      position: absolute;
-      bottom: 48px;
-      width: 290px;
-      height: 42px;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, 0.55);
-      filter: blur(16px);
-    }
-
-    .memory-box {
-      position: relative;
-      width: 250px;
-      height: 180px;
-      transform-style: preserve-3d;
-      transform: rotateX(10deg) rotateY(-13deg);
-      cursor: pointer;
-      transition: transform 0.9s ease;
-      touch-action: manipulation;
-    }
-
-    .memory-box:hover {
-      transform: rotateX(10deg) rotateY(-13deg) translateY(-8px);
-    }
-
-    .memory-box.shake {
-      animation: boxShake 0.7s ease both;
-    }
-
-    .box-glow {
-      position: absolute;
-      left: 50%;
-      bottom: 70px;
-      width: 180px;
-      height: 100px;
-      transform: translateX(-50%);
-      border-radius: 50%;
-      background: rgba(249, 168, 212, 0.38);
-      filter: blur(30px);
-      opacity: 0;
-      transition: opacity 0.8s ease;
-    }
-
-    .memory-box.open .box-glow {
-      opacity: 1;
-    }
-
-    .box-body {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 250px;
-      height: 135px;
-      overflow: hidden;
-      border: 2px solid rgba(249, 168, 212, 0.78);
-      border-radius: 17px 17px 24px 24px;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(124, 61, 143, 0.98),
-          rgba(31, 14, 47, 0.98)
-        );
-      box-shadow:
-        inset 0 0 26px rgba(249, 168, 212, 0.18),
-        0 25px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .box-body::before {
+    .library-section::before {
       content: "";
       position: absolute;
-      inset: 13px;
-      border: 1px solid rgba(249, 168, 212, 0.4);
-      border-radius: 11px;
-    }
-
-    .box-title {
-      position: absolute;
-      top: 43px;
-      width: 100%;
-      color: var(--pink);
-      font-family: "Playfair Display", serif;
-      font-size: 21px;
-      letter-spacing: 1px;
-      text-shadow: 0 0 13px rgba(249, 168, 212, 0.7);
-    }
-
-    .box-heart {
-      position: absolute;
-      left: 50%;
-      bottom: 13px;
-      transform: translateX(-50%);
-      color: var(--gold);
-      font-size: 25px;
-      filter: drop-shadow(0 0 9px rgba(253, 230, 138, 0.8));
-    }
-
-    .box-lid {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 250px;
-      height: 54px;
-      z-index: 3;
-      transform-origin: bottom center;
-      border: 2px solid rgba(249, 168, 212, 0.85);
-      border-radius: 17px 17px 8px 8px;
+      inset: 0;
+      pointer-events: none;
       background:
+        radial-gradient(
+          ellipse at center 20%,
+          rgba(255, 212, 135, 0.34),
+          transparent 34%
+        ),
         linear-gradient(
-          135deg,
-          rgba(157, 82, 169, 0.98),
-          rgba(67, 29, 84, 0.98)
+          90deg,
+          rgba(21, 7, 4, 0.55),
+          transparent 24%,
+          transparent 76%,
+          rgba(21, 7, 4, 0.55)
         );
-      box-shadow:
-        inset 0 0 22px rgba(249, 168, 212, 0.22),
-        0 8px 18px rgba(0, 0, 0, 0.3);
-      transition: transform 1s cubic-bezier(.2, .8, .2, 1);
+      mix-blend-mode: screen;
     }
 
-    .box-lid::after {
-      content: "♡";
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: var(--pink);
-      font-size: 25px;
-      text-shadow: 0 0 14px rgba(249, 168, 212, 0.8);
+    .library-content {
+      position: relative;
+      z-index: 2;
+      width: min(100%, 1060px);
+      margin: auto;
     }
 
-    .memory-box.open .box-lid {
-      transform: translateY(-42px) rotateX(-125deg);
-    }
-
-    .tap-hint {
-      position: absolute;
-      bottom: 4px;
-      width: 100%;
-      color: var(--muted);
+    .library-eyebrow {
+      margin: 0 0 10px;
+      color: var(--gold-light);
       font-size: 11px;
-      transition: opacity 0.3s ease;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-shadow: 0 2px 8px #000;
     }
 
-    .memory-box.open ~ .tap-hint {
-      opacity: 0;
+    .library-title {
+      margin: 0;
+      color: #fff3d2;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(38px, 8vw, 68px);
+      text-shadow:
+        0 2px 3px #35170b,
+        0 0 20px rgba(255, 209, 125, 0.35);
     }
 
-    .gallery {
-      display: none;
-      width: 100%;
-      min-height: 430px;
-      margin-top: 20px;
-      perspective: 1100px;
-      touch-action: pan-y;
+    .library-subtitle {
+      margin: 12px auto 35px;
+      color: #ead9c1;
+      font-size: 13px;
+      text-shadow: 0 2px 7px #000;
     }
 
-    .gallery.show {
-      display: block;
-      animation: galleryIn 0.8s ease both;
-    }
-
-    .gallery-track {
+    .photo-wall {
       position: relative;
       width: 100%;
-      height: 380px;
-      transform-style: preserve-3d;
-    }
-
-    .photo-card {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: min(62vw, 270px);
-      aspect-ratio: 0.76;
-      padding: 9px;
+      min-height: 690px;
+      padding: 45px 8px;
+      border: 1px solid rgba(238, 194, 111, 0.4);
       border-radius: 15px;
-      background: #fffaff;
+      background:
+        linear-gradient(
+          rgba(50, 22, 12, 0.28),
+          rgba(28, 11, 7, 0.45)
+        ),
+        repeating-linear-gradient(
+          90deg,
+          rgba(255, 206, 130, 0.07) 0 2px,
+          transparent 2px 70px
+        );
       box-shadow:
-        0 18px 38px rgba(0, 0, 0, 0.38),
-        0 0 18px rgba(249, 168, 212, 0.16);
-      cursor: pointer;
-      user-select: none;
-      transition:
-        transform 0.65s cubic-bezier(.2, .8, .2, 1),
-        opacity 0.65s ease,
-        filter 0.65s ease;
+        inset 0 0 60px rgba(0, 0, 0, 0.5),
+        0 22px 60px rgba(0, 0, 0, 0.5);
+      perspective: 1300px;
     }
 
-    .photo-card img {
+    .photo-wall::before,
+    .photo-wall::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 16px;
+      background:
+        linear-gradient(
+          90deg,
+          #6d3b15,
+          #d6a24e,
+          #714016,
+          #c18b3c,
+          #4b250e
+        );
+      box-shadow:
+        0 0 12px rgba(243, 185, 83, 0.55),
+        inset 0 0 5px rgba(255, 231, 164, 0.5);
+    }
+
+    .photo-wall::before {
+      left: 0;
+    }
+
+    .photo-wall::after {
+      right: 0;
+    }
+
+    .wall-photos {
+      position: relative;
+      min-height: 590px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-items: center;
+      gap: 26px 19px;
+      padding: 20px 35px;
+    }
+
+    .wall-photo {
+      position: relative;
+      min-width: 0;
+      height: 205px;
+      padding: 13px;
+      border: 7px solid #b87a25;
+      border-image:
+        linear-gradient(
+          135deg,
+          #6b3a11,
+          #ffd879,
+          #9c5b16,
+          #ffe7a2,
+          #704014
+        ) 1;
+      background: #27130b;
+      box-shadow:
+        0 13px 22px rgba(0, 0, 0, 0.52),
+        inset 0 0 0 3px rgba(255, 226, 150, 0.25),
+        0 0 18px rgba(243, 185, 83, 0.15);
+      transform:
+        rotate(var(--tilt))
+        translateZ(var(--depth));
+      transition:
+        transform 0.45s ease,
+        box-shadow 0.45s ease,
+        z-index 0.45s ease;
+      cursor: pointer;
+    }
+
+    .wall-photo:nth-child(3n) {
+      height: 235px;
+    }
+
+    .wall-photo:nth-child(4n) {
+      height: 180px;
+    }
+
+    .wall-photo:hover {
+      z-index: 10;
+      transform:
+        rotate(0deg)
+        translateY(-12px)
+        translateZ(80px)
+        scale(1.08);
+      box-shadow:
+        0 22px 38px rgba(0, 0, 0, 0.65),
+        0 0 30px rgba(255, 213, 122, 0.5);
+    }
+
+    .wall-photo img {
       width: 100%;
       height: 100%;
       display: block;
-      object-fit: cover;
-      border-radius: 9px;
-      background: #eadcf2;
+      object-fit: contain;
+      background:
+        radial-gradient(
+          circle,
+          #f3dfbb,
+          #c8a16d
+        );
+      border: 2px solid rgba(255, 235, 173, 0.35);
     }
 
-    .photo-card.center {
-      z-index: 5;
-      transform:
-        translate(-50%, -50%)
-        translateZ(120px)
-        rotateZ(0deg)
-        scale(1);
-      opacity: 1;
-    }
-
-    .photo-card.left {
-      z-index: 3;
-      transform:
-        translate(-50%, -50%)
-        translateX(-52%)
-        translateZ(-30px)
-        rotateY(32deg)
-        rotateZ(-8deg)
-        scale(0.78);
-      opacity: 0.76;
-      filter: brightness(0.82);
-    }
-
-    .photo-card.right {
-      z-index: 3;
-      transform:
-        translate(-50%, -50%)
-        translateX(52%)
-        translateZ(-30px)
-        rotateY(-32deg)
-        rotateZ(8deg)
-        scale(0.78);
-      opacity: 0.76;
-      filter: brightness(0.82);
-    }
-
-    .photo-card.far-left {
-      z-index: 1;
-      transform:
-        translate(-50%, -50%)
-        translateX(-83%)
-        translateZ(-120px)
-        rotateY(45deg)
-        rotateZ(-13deg)
-        scale(0.58);
-      opacity: 0.2;
-    }
-
-    .photo-card.far-right {
-      z-index: 1;
-      transform:
-        translate(-50%, -50%)
-        translateX(83%)
-        translateZ(-120px)
-        rotateY(-45deg)
-        rotateZ(13deg)
-        scale(0.58);
-      opacity: 0.2;
-    }
-
-    .photo-card.hidden-photo {
-      z-index: 0;
-      opacity: 0;
-      pointer-events: none;
-      transform:
-        translate(-50%, -50%)
-        translateZ(-220px)
-        scale(0.3);
-    }
-
-    .gallery-dots {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      margin-top: 5px;
-    }
-
-    .gallery-dot {
-      width: 6px;
-      height: 6px;
+    .photo-light {
+      position: absolute;
+      inset: -35px;
+      z-index: -1;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.25);
-      transition: transform 0.25s ease, background 0.25s ease;
+      background: rgba(255, 205, 111, 0.15);
+      filter: blur(25px);
+      pointer-events: none;
     }
 
-    .gallery-dot.active {
-      transform: scale(1.5);
-      background: var(--pink);
-      box-shadow: 0 0 10px rgba(249, 168, 212, 0.8);
+    .library-floor {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 115px;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          rgba(122, 64, 26, 0.5) 0 4px,
+          transparent 4px 95px
+        ),
+        linear-gradient(
+          to top,
+          rgba(42, 16, 7, 0.95),
+          transparent
+        );
+      opacity: 0.75;
+      pointer-events: none;
     }
 
-    .gallery-help {
-      margin: 16px 0 0;
-      color: var(--muted);
-      font-size: 11px;
+    .photo-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      place-items: center;
+      padding: 24px;
+      background: rgba(12, 5, 4, 0.84);
+      backdrop-filter: blur(8px);
+    }
+
+    .photo-modal.show {
+      display: grid;
+    }
+
+    .photo-modal img {
+      max-width: min(92vw, 760px);
+      max-height: 86vh;
+      object-fit: contain;
+      padding: 12px;
+      border: 8px solid #c8923d;
+      border-image:
+        linear-gradient(
+          135deg,
+          #704014,
+          #ffe7a2,
+          #a66a1d,
+          #ffe7a2,
+          #704014
+        ) 1;
+      background: #2d160c;
+      box-shadow:
+        0 0 45px rgba(255, 214, 125, 0.35),
+        0 25px 70px rgba(0, 0, 0, 0.7);
+      animation: modalIn 0.45s ease both;
+    }
+
+    .close-modal {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255, 231, 164, 0.5);
+      border-radius: 50%;
+      color: #fff1cb;
+      background: rgba(46, 21, 10, 0.8);
+      font-size: 25px;
+      cursor: pointer;
     }
 
     @keyframes cardIn {
@@ -759,90 +729,96 @@
       }
     }
 
-    @keyframes sectionIn {
+    @keyframes libraryReveal {
       from {
         opacity: 0;
-        transform: translateY(25px);
+        transform: scale(1.08);
+        filter: brightness(0.2) blur(7px);
       }
 
       to {
         opacity: 1;
-        transform: translateY(0);
+        transform: scale(1);
+        filter: brightness(1) blur(0);
       }
     }
 
-    @keyframes boxShake {
-      0%,
-      100% {
-        transform: rotateX(10deg) rotateY(-13deg) translateX(0);
-      }
-
-      20% {
-        transform: rotateX(10deg) rotateY(-13deg) translateX(-14px) rotateZ(-3deg);
-      }
-
-      40% {
-        transform: rotateX(10deg) rotateY(-13deg) translateX(14px) rotateZ(3deg);
-      }
-
-      60% {
-        transform: rotateX(10deg) rotateY(-13deg) translateX(-8px) rotateZ(-2deg);
-      }
-
-      80% {
-        transform: rotateX(10deg) rotateY(-13deg) translateX(7px) rotateZ(2deg);
-      }
-    }
-
-    @keyframes galleryIn {
+    @keyframes modalIn {
       from {
         opacity: 0;
-        transform: translateY(30px) scale(0.94);
+        transform: scale(0.75) rotate(-3deg);
       }
 
       to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: scale(1) rotate(0);
       }
     }
 
-    @media (max-width: 600px) {
-      .question-card {
-        padding: 40px 19px 34px;
+    @media (max-width: 700px) {
+      .buttons-area {
+        height: 200px;
       }
 
+      .wall-photos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px 13px;
+        padding: 20px 24px;
+      }
+
+      .wall-photo {
+        height: 190px;
+      }
+
+      .wall-photo:nth-child(3n) {
+        height: 215px;
+      }
+
+      .wall-photo:nth-child(4n) {
+        height: 175px;
+      }
+
+      .photo-wall {
+        min-height: 980px;
+      }
+
+      .wall-photos {
+        min-height: 890px;
+      }
+    }
+
+    @media (max-width: 430px) {
       .answer-button {
-        min-width: 128px;
+        min-width: 125px;
         padding: 12px 14px;
         font-size: 13px;
       }
 
-      .box-scene {
-        transform: scale(0.9);
+      .yes-button {
+        left: 36%;
       }
 
-      .photo-card {
-        width: min(66vw, 235px);
+      .no-button {
+        left: 70%;
       }
 
-      .photo-card.left {
-        transform:
-          translate(-50%, -50%)
-          translateX(-43%)
-          translateZ(-30px)
-          rotateY(32deg)
-          rotateZ(-8deg)
-          scale(0.72);
+      .wall-photos {
+        padding: 20px 19px;
+        gap: 18px 9px;
       }
 
-      .photo-card.right {
-        transform:
-          translate(-50%, -50%)
-          translateX(43%)
-          translateZ(-30px)
-          rotateY(-32deg)
-          rotateZ(8deg)
-          scale(0.72);
+      .wall-photo {
+        padding: 9px;
+        border-width: 5px;
+        height: 170px;
+      }
+
+      .wall-photo:nth-child(3n) {
+        height: 195px;
+      }
+
+      .wall-photo:nth-child(4n) {
+        height: 155px;
       }
     }
   </style>
@@ -876,7 +852,7 @@
           choose honestly 🤍
         </p>
 
-        <div class="buttons-area">
+        <div class="buttons-area" id="buttonsArea">
 
           <button class="answer-button yes-button" type="button">
             Yes, I do 🤍
@@ -896,57 +872,29 @@
 
     </section>
 
-    <section class="memory-section" id="memorySection">
+    <section class="library-section" id="librarySection">
 
-      <p class="memory-eyebrow">
-        something I kept for us
-      </p>
+      <div class="library-content">
 
-      <h2 class="memory-title">
-        Our little world
-      </h2>
-
-      <p class="memory-subtitle">
-        tap the box… maybe there is something inside 🤍
-      </p>
-
-      <div class="box-scene">
-
-        <div class="box-shadow"></div>
-
-        <div class="memory-box" id="memoryBox">
-
-          <div class="box-glow"></div>
-
-          <div class="box-body">
-            <div class="box-title">
-              OUR MEMORIES
-            </div>
-
-            <div class="box-heart">
-              ♡
-            </div>
-          </div>
-
-          <div class="box-lid"></div>
-
-        </div>
-
-        <div class="tap-hint" id="tapHint">
-          tap once… then tap again ✨
-        </div>
-
-      </div>
-
-      <div class="gallery" id="gallery">
-
-        <div class="gallery-track" id="galleryTrack"></div>
-
-        <div class="gallery-dots" id="galleryDots"></div>
-
-        <p class="gallery-help">
-          swipe or tap the photos 🤍
+        <p class="library-eyebrow">
+          a place made of memories
         </p>
+
+        <h2 class="library-title">
+          Our Little Archive
+        </h2>
+
+        <p class="library-subtitle">
+          every little moment deserves a place to stay
+        </p>
+
+        <div class="photo-wall">
+
+          <div class="wall-photos" id="wallPhotos"></div>
+
+          <div class="library-floor"></div>
+
+        </div>
 
       </div>
 
@@ -979,101 +927,146 @@
 
   </section>
 
+  <section class="memory-overlay" id="memoryOverlay">
+
+    <div class="box-stage">
+
+      <div class="box-halo"></div>
+
+      <img
+        class="box-image box-closed"
+        src="sora1.png"
+        alt="closed memory box"
+      >
+
+      <img
+        class="box-image box-open"
+        src="sora2.png"
+        alt="open memory box"
+      >
+
+      <p class="box-message" id="boxMessage">
+        tap once… then tap again ✨
+      </p>
+
+    </div>
+
+  </section>
+
+  <div class="photo-modal" id="photoModal">
+
+    <button class="close-modal" id="closeModal" type="button">
+      ×
+    </button>
+
+    <img id="modalImage" src="" alt="selected memory">
+
+  </div>
+
   <script>
-    const noButton = document.querySelector(".no-button");
-    const yesButton = document.querySelector(".yes-button");
-
     const questionSection = document.getElementById("questionSection");
+    const buttonsArea = document.getElementById("buttonsArea");
+    const yesButton = document.querySelector(".yes-button");
+    const noButton = document.querySelector(".no-button");
+
     const yayScreen = document.getElementById("yayScreen");
-    const memorySection = document.getElementById("memorySection");
+    const memoryOverlay = document.getElementById("memoryOverlay");
+    const librarySection = document.getElementById("librarySection");
 
-    const memoryBox = document.getElementById("memoryBox");
-    const tapHint = document.getElementById("tapHint");
-    const gallery = document.getElementById("gallery");
-    const galleryTrack = document.getElementById("galleryTrack");
-    const galleryDots = document.getElementById("galleryDots");
+    const boxMessage = document.getElementById("boxMessage");
 
-    let noButtonMoved = false;
-    let lastNoMove = 0;
-    let yesClicked = false;
-    let boxTapCount = 0;
+    const wallPhotos = document.getElementById("wallPhotos");
+    const photoModal = document.getElementById("photoModal");
+    const modalImage = document.getElementById("modalImage");
+    const closeModal = document.getElementById("closeModal");
 
-    function getNoPosition(pointerX, pointerY) {
-      const width = noButton.offsetWidth;
-      const height = noButton.offsetHeight;
-      const padding = 16;
+    let noMoveLock = false;
+    let yesWasClicked = false;
+    let boxWasTapped = false;
 
-      const minX = padding;
-      const minY = padding;
-      const maxX = window.innerWidth - width - padding;
-      const maxY = window.innerHeight - height - padding;
-
-      let bestX = minX;
-      let bestY = minY;
-      let bestDistance = 0;
-
-      for (let i = 0; i < 100; i++) {
-        const x = minX + Math.random() * Math.max(1, maxX - minX);
-        const y = minY + Math.random() * Math.max(1, maxY - minY);
-
-        const distance = Math.hypot(
-          x + width / 2 - pointerX,
-          y + height / 2 - pointerY
-        );
-
-        if (distance > bestDistance) {
-          bestDistance = distance;
-          bestX = x;
-          bestY = y;
-        }
-
-        if (distance > 230) {
-          break;
-        }
-      }
-
-      return {
-        x: Math.round(bestX),
-        y: Math.round(bestY)
-      };
-    }
-
+    /*
+      زر No:
+      لا نستخدم fixed نهائيًا.
+      الزر يتحرك فقط داخل buttons-area.
+    */
     function moveNoButton(event) {
-      const now = Date.now();
-
-      if (now - lastNoMove < 180) {
+      if (noMoveLock) {
         return;
       }
 
-      lastNoMove = now;
+      noMoveLock = true;
 
       if (event) {
         event.preventDefault();
       }
 
+      const areaRect = buttonsArea.getBoundingClientRect();
+
+      const buttonWidth = noButton.offsetWidth;
+      const buttonHeight = noButton.offsetHeight;
+
+      const padding = 8;
+
+      const maxX = buttonsArea.clientWidth - buttonWidth - padding;
+      const maxY = buttonsArea.clientHeight - buttonHeight - padding;
+
       const pointerX =
         typeof event?.clientX === "number"
           ? event.clientX
-          : window.innerWidth / 2;
+          : areaRect.left + areaRect.width / 2;
 
       const pointerY =
         typeof event?.clientY === "number"
           ? event.clientY
-          : window.innerHeight / 2;
+          : areaRect.top + areaRect.height / 2;
 
-      const position = getNoPosition(pointerX, pointerY);
+      let selectedX = padding;
+      let selectedY = padding;
+      let selectedDistance = -1;
 
-      noButtonMoved = true;
+      for (let attempt = 0; attempt < 120; attempt++) {
+        const x = padding + Math.random() * Math.max(1, maxX - padding);
+        const y = padding + Math.random() * Math.max(1, maxY - padding);
 
-      noButton.style.position = "fixed";
-      noButton.style.left = `${position.x}px`;
-      noButton.style.top = `${position.y}px`;
+        const centerX = areaRect.left + x + buttonWidth / 2;
+        const centerY = areaRect.top + y + buttonHeight / 2;
+
+        const distance = Math.hypot(
+          centerX - pointerX,
+          centerY - pointerY
+        );
+
+        if (distance > selectedDistance) {
+          selectedDistance = distance;
+          selectedX = x;
+          selectedY = y;
+        }
+
+        if (distance > 180) {
+          break;
+        }
+      }
+
+      noButton.style.left = `${Math.round(selectedX)}px`;
+      noButton.style.top = `${Math.round(selectedY)}px`;
+      noButton.style.transform = "none";
+
+      /*
+        تأكيد أنه يظل ظاهرًا.
+      */
       noButton.style.display = "block";
       noButton.style.visibility = "visible";
       noButton.style.opacity = "1";
-      noButton.style.zIndex = "9999";
+
+      window.setTimeout(() => {
+        noMoveLock = false;
+      }, 220);
     }
 
+    /*
+      pointerdown يعمل مع اللمس والماوس.
+      لا نضيف touchstart حتى لا يتحرك مرتين في نفس اللمسة.
+    */
     noButton.addEventListener("pointerdown", moveNoButton, {
       passive: false
     });
@@ -1084,78 +1077,102 @@
       }
     });
 
+    /*
+      منع الزر من الخروج بعد تغيير حجم الشاشة.
+    */
     window.addEventListener("resize", () => {
-      if (!noButtonMoved) {
+      const areaWidth = buttonsArea.clientWidth;
+      const areaHeight = buttonsArea.clientHeight;
+
+      const buttonWidth = noButton.offsetWidth;
+      const buttonHeight = noButton.offsetHeight;
+
+      const currentLeft = parseFloat(noButton.style.left);
+
+      const currentTop = parseFloat(noButton.style.top);
+
+      if (!Number.isFinite(currentLeft) || !Number.isFinite(currentTop)) {
         return;
       }
 
-      const width = noButton.offsetWidth;
-      const height = noButton.offsetHeight;
-      const padding = 16;
-
-      const currentLeft = parseFloat(noButton.style.left) || padding;
-      const currentTop = parseFloat(noButton.style.top) || padding;
-
       const safeLeft = Math.min(
-        Math.max(padding, currentLeft),
-        window.innerWidth - width - padding
+        Math.max(8, currentLeft),
+        areaWidth - buttonWidth - 8
       );
 
       const safeTop = Math.min(
-        Math.max(padding, currentTop),
-        window.innerHeight - height - padding
+        Math.max(8, currentTop),
+        areaHeight - buttonHeight - 8
       );
 
       noButton.style.left = `${safeLeft}px`;
       noButton.style.top = `${safeTop}px`;
     });
 
+    /*
+      Yes:
+      تظهر YAAAY ثم نعرض صندوق الذكريات.
+    */
     yesButton.addEventListener("click", () => {
-      if (yesClicked) {
+      if (yesWasClicked) {
         return;
       }
 
-      yesClicked = true;
+      yesWasClicked = true;
       yayScreen.classList.add("show");
 
-      setTimeout(() => {
+      window.setTimeout(() => {
         yayScreen.classList.remove("show");
         questionSection.style.display = "none";
-        memorySection.classList.add("show");
-
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-      }, 4200);
+        memoryOverlay.classList.add("show");
+      }, 4000);
     });
 
-    memoryBox.addEventListener("click", () => {
-      boxTapCount++;
-
-      if (boxTapCount === 1) {
-        memoryBox.classList.remove("shake");
-
-        void memoryBox.offsetWidth;
-
-        memoryBox.classList.add("shake");
-        tapHint.textContent = "again… I think it wants to open 🤍";
+    /*
+      الصندوق:
+      أول ضغطة = يهتز.
+      ثاني ضغطة = sora1 تختفي و sora2 تظهر.
+    */
+    memoryOverlay.addEventListener("click", event => {
+      if (event.target.closest(".box-image")) {
+        return;
       }
 
-      if (boxTapCount >= 2) {
-        memoryBox.classList.add("open");
-        gallery.classList.add("show");
-        tapHint.textContent = "";
+      const boxStage = document.querySelector(".box-stage");
 
-        setTimeout(() => {
-          gallery.scrollIntoView({
+      if (!boxWasTapped) {
+        boxWasTapped = true;
+        boxStage.classList.add("box-shake");
+        boxMessage.textContent = "again… it has something for you 🤍";
+
+        window.setTimeout(() => {
+          boxStage.classList.remove("box-shake");
+        }, 750);
+
+        return;
+      }
+
+      boxStage.classList.add("box-opening");
+      boxMessage.textContent = "";
+
+      window.setTimeout(() => {
+        memoryOverlay.classList.remove("show");
+        librarySection.classList.add("show");
+        document.body.classList.add("library-mode");
+
+        window.setTimeout(() => {
+          librarySection.scrollIntoView({
             behavior: "smooth",
-            block: "center"
+            block: "start"
           });
-        }, 600);
-      }
+        }, 120);
+      }, 1200);
     });
 
+    /*
+      الصور موجودة بجانب third-page.html مباشرة.
+      لذلك لا نستخدم memories/ ولا أي مجلد.
+    */
     const photoNames = [
       "memory8.jpg",
       "memory2.png",
@@ -1181,142 +1198,72 @@
       "memory17.jpg"
     ];
 
-    let currentPhoto = 0;
-    let startX = 0;
-    let dragging = false;
-
-    const photoCards = [];
+    const tilts = [
+      "-2deg",
+      "1deg",
+      "-1deg",
+      "2deg",
+      "-2deg",
+      "1.5deg",
+      "-1.5deg",
+      "2deg",
+      "-1deg",
+      "1deg",
+      "-2deg",
+      "1deg",
+      "-1deg",
+      "2deg",
+      "-1.5deg",
+      "1.5deg",
+      "-2deg",
+      "1deg",
+      "-1deg",
+      "2deg",
+      "-1deg",
+      "1deg"
+    ];
 
     photoNames.forEach((fileName, index) => {
-      const card = document.createElement("div");
-      card.className = "photo-card";
-      card.dataset.index = index;
+      const frame = document.createElement("div");
+      frame.className = "wall-photo";
+
+      frame.style.setProperty("--tilt", tilts[index] || "0deg");
+      frame.style.setProperty("--depth", `${(index % 4) * 8}px`);
+
+      const glow = document.createElement("div");
+      glow.className = "photo-light";
 
       const image = document.createElement("img");
-
-      /*
-        مهم:
-        الصور بجانب ملف third-page.html مباشرة،
-        لذلك نستخدم fileName فقط بدون memories/.
-      */
       image.src = fileName;
       image.alt = `memory ${index + 1}`;
+      image.loading = index < 4 ? "eager" : "lazy";
 
-      image.onerror = () => {
+      image.addEventListener("error", () => {
         console.error("Image not found:", fileName);
-      };
-
-      card.appendChild(image);
-      galleryTrack.appendChild(card);
-      photoCards.push(card);
-
-      const dot = document.createElement("span");
-      dot.className = "gallery-dot";
-      dot.dataset.index = index;
-
-      dot.addEventListener("click", () => {
-        currentPhoto = index;
-        updateGallery();
+        frame.style.display = "none";
       });
 
-      galleryDots.appendChild(dot);
+      frame.appendChild(glow);
+      frame.appendChild(image);
+      wallPhotos.appendChild(frame);
 
-      card.addEventListener("click", () => {
-        const clickedIndex = Number(card.dataset.index);
-
-        if (clickedIndex !== currentPhoto) {
-          currentPhoto = clickedIndex;
-          updateGallery();
-        }
+      frame.addEventListener("click", () => {
+        modalImage.src = fileName;
+        photoModal.classList.add("show");
       });
     });
 
-    function photoPosition(index) {
-      const total = photoNames.length;
-      let difference = index - currentPhoto;
-
-      if (difference > total / 2) {
-        difference -= total;
-      }
-
-      if (difference < -total / 2) {
-        difference += total;
-      }
-
-      if (difference === 0) {
-        return "center";
-      }
-
-      if (difference === -1) {
-        return "left";
-      }
-
-      if (difference === 1) {
-        return "right";
-      }
-
-      if (difference === -2) {
-        return "far-left";
-      }
-
-      if (difference === 2) {
-        return "far-right";
-      }
-
-      return "hidden-photo";
-    }
-
-    function updateGallery() {
-      photoCards.forEach((card, index) => {
-        card.className = `photo-card ${photoPosition(index)}`;
-      });
-
-      document.querySelectorAll(".gallery-dot").forEach((dot, index) => {
-        dot.classList.toggle("active", index === currentPhoto);
-      });
-    }
-
-    function nextPhoto() {
-      currentPhoto = (currentPhoto + 1) % photoNames.length;
-      updateGallery();
-    }
-
-    function previousPhoto() {
-      currentPhoto =
-        (currentPhoto - 1 + photoNames.length) % photoNames.length;
-
-      updateGallery();
-    }
-
-    galleryTrack.addEventListener("pointerdown", event => {
-      startX = event.clientX;
-      dragging = true;
+    closeModal.addEventListener("click", () => {
+      photoModal.classList.remove("show");
+      modalImage.src = "";
     });
 
-    galleryTrack.addEventListener("pointerup", event => {
-      if (!dragging) {
-        return;
-      }
-
-      const difference = event.clientX - startX;
-      dragging = false;
-
-      if (Math.abs(difference) < 35) {
-        return;
-      }
-
-      if (difference < 0) {
-        nextPhoto();
-      } else {
-        previousPhoto();
+    photoModal.addEventListener("click", event => {
+      if (event.target === photoModal) {
+        photoModal.classList.remove("show");
+        modalImage.src = "";
       }
     });
-
-    galleryTrack.addEventListener("pointercancel", () => {
-      dragging = false;
-    });
-
-    updateGallery();
   </script>
 
 </body>
