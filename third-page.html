@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>A Little Question 🤍</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --background: #10091c;
+      --card: rgba(35, 20, 54, 0.72);
+      --card-border: rgba(255, 255, 255, 0.16);
+      --white: #fff7ff;
+      --soft-white: #eadcf2;
+      --muted: #bcaac7;
+      --pink: #f9a8d4;
+      --rose: #fb7185;
+      --purple: #c084fc;
+      --blue: #93c5fd;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      color: var(--white);
+      background:
+        radial-gradient(
+          circle at 15% 20%,
+          rgba(192, 132, 252, 0.25),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 85% 80%,
+          rgba(251, 113, 133, 0.19),
+          transparent 30%
+        ),
+        linear-gradient(135deg, #090611, var(--background));
+      font-family: "DM Sans", sans-serif;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      pointer-events: none;
+      border-radius: 50%;
+      filter: blur(2px);
+      opacity: 0.55;
+    }
+
+    body::before {
+      top: 12%;
+      left: 11%;
+      width: 8px;
+      height: 8px;
+      background: var(--pink);
+      box-shadow:
+        110px 90px 0 rgba(255, 255, 255, 0.7),
+        250px 30px 0 rgba(192, 132, 252, 0.7),
+        390px 160px 0 rgba(147, 197, 253, 0.7),
+        70px 330px 0 rgba(251, 113, 133, 0.7);
+    }
+
+    body::after {
+      right: 10%;
+      bottom: 14%;
+      width: 6px;
+      height: 6px;
+      background: var(--purple);
+      box-shadow:
+        -140px -70px 0 rgba(255, 255, 255, 0.65),
+        -260px -180px 0 rgba(249, 168, 212, 0.75),
+        -70px -250px 0 rgba(147, 197, 253, 0.65);
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(100% - 32px, 650px);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      margin: auto;
+      padding: 24px 0;
+    }
+
+    .question-card {
+      position: relative;
+      width: 100%;
+      padding: 48px 30px 42px;
+      overflow: hidden;
+      text-align: center;
+      border: 1px solid var(--card-border);
+      border-radius: 32px;
+      background: var(--card);
+      box-shadow:
+        0 28px 80px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.09);
+      backdrop-filter: blur(18px);
+      animation: cardAppear 0.8s ease both;
+    }
+
+    .question-card::before {
+      content: "";
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      width: 280px;
+      height: 200px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: rgba(249, 168, 212, 0.15);
+      filter: blur(35px);
+      pointer-events: none;
+    }
+
+    .heart {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--pink);
+      font-size: 35px;
+      filter: drop-shadow(0 0 15px rgba(249, 168, 212, 0.55));
+      animation: heartbeat 2.2s ease-in-out infinite;
+    }
+
+    .eyebrow {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 13px;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: var(--white);
+      font-family: "Playfair Display", serif;
+      font-size: clamp(34px, 8vw, 58px);
+      line-height: 1.15;
+      letter-spacing: -1px;
+    }
+
+    .question-mark {
+      color: var(--pink);
+    }
+
+    .subtitle {
+      position: relative;
+      z-index: 1;
+      max-width: 420px;
+      margin: 19px auto 0;
+      color: var(--soft-white);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .small-note {
+      position: relative;
+      z-index: 1;
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .buttons-area {
+      position: relative;
+      z-index: 2;
+      min-height: 92px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .answer-button {
+      min-width: 142px;
+      padding: 13px 22px;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      font: 700 14px "DM Sans", sans-serif;
+      cursor: pointer;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+    }
+
+    .yes-button {
+      color: #351026;
+      background: linear-gradient(135deg, #fbcfe8, #f9a8d4);
+      box-shadow: 0 10px 25px rgba(249, 168, 212, 0.22);
+    }
+
+    .yes-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(249, 168, 212, 0.34);
+    }
+
+    .no-button {
+      color: var(--soft-white);
+      border-color: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .no-button:hover {
+      background: rgba(255, 255, 255, 0.11);
+    }
+
+    .footer-note {
+      position: relative;
+      z-index: 1;
+      margin: 28px 0 0;
+      color: #9f8baa;
+      font-size: 10px;
+    }
+
+    @keyframes cardAppear {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes heartbeat {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      15% {
+        transform: scale(1.12);
+      }
+
+      30% {
+        transform: scale(1);
+      }
+
+      45% {
+        transform: scale(1.08);
+      }
+
+      60% {
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .page {
+        width: min(100% - 20px, 650px);
+      }
+
+      .question-card {
+        padding: 40px 20px 34px;
+        border-radius: 27px;
+      }
+
+      .subtitle {
+        font-size: 13px;
+      }
+
+      .buttons-area {
+        gap: 10px;
+      }
+
+      .answer-button {
+        min-width: 128px;
+        padding: 12px 15px;
+        font-size: 13px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <section class="question-card">
+
+      <div class="heart">♡</div>
+
+      <p class="eyebrow">
+        just one little question
+      </p>
+
+      <h1>
+        Do you still<br>
+        love me<span class="question-mark">?</span>
+      </h1>
+
+      <p class="subtitle">
+        No pressure, no perfect answer…
+        I just wanted to ask something from my heart.
+      </p>
+
+      <p class="small-note">
+        choose honestly 🤍
+      </p>
+
+      <div class="buttons-area">
+
+        <button class="answer-button yes-button" type="button">
+          Yes, I do 🤍
+        </button>
+
+        <button class="answer-button no-button" type="button">
+          No
+        </button>
+
+      </div>
+
+      <p class="footer-note">
+        some questions are too important to leave unasked
+      </p>
+
+    </section>
+
+  </main>
+
+</body>
+
+</html>
