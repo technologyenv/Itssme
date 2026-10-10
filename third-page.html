@@ -18,6 +18,7 @@
   <style>
     :root {
       --background: #10091c;
+      --background-dark: #08050f;
       --card: rgba(35, 20, 54, 0.74);
       --card-border: rgba(255, 255, 255, 0.16);
       --white: #fff7ff;
@@ -27,16 +28,21 @@
       --rose: #fb7185;
       --purple: #c084fc;
       --blue: #93c5fd;
+      --gold: #fde68a;
     }
 
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
-      overflow: hidden;
+      overflow-x: hidden;
       color: var(--white);
       background:
         radial-gradient(
@@ -88,15 +94,23 @@
         -70px -250px 0 rgba(147, 197, 253, 0.65);
     }
 
+    button {
+      font-family: inherit;
+    }
+
     .page {
       position: relative;
       z-index: 1;
-      width: min(100% - 32px, 650px);
+      width: min(100% - 32px, 780px);
+      min-height: 100vh;
+      margin: auto;
+      padding: 24px 0 80px;
+    }
+
+    .question-section {
       min-height: 100vh;
       display: grid;
       place-items: center;
-      margin: auto;
-      padding: 24px 0;
     }
 
     .question-card {
@@ -204,16 +218,15 @@
       cursor: pointer;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.25s ease,
-        background 0.25s ease;
     }
 
     .yes-button {
       color: #351026;
       background: linear-gradient(135deg, #fbcfe8, #f9a8d4);
       box-shadow: 0 10px 25px rgba(249, 168, 212, 0.22);
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.25s ease;
     }
 
     .yes-button:hover {
@@ -226,9 +239,9 @@
       border-color: rgba(255, 255, 255, 0.18);
       background: rgba(255, 255, 255, 0.07);
       transition:
-        left 0.18s ease,
-        top 0.18s ease,
-        transform 0.18s ease;
+        left 0.22s ease,
+        top 0.22s ease,
+        transform 0.22s ease;
     }
 
     .no-button:hover {
@@ -256,7 +269,7 @@
           rgba(249, 168, 212, 0.16),
           transparent 40%
         ),
-        rgba(16, 9, 28, 0.92);
+        rgba(16, 9, 28, 0.94);
       backdrop-filter: blur(8px);
     }
 
@@ -267,6 +280,7 @@
     .yay-content {
       position: relative;
       z-index: 3;
+      padding: 20px;
       text-align: center;
       animation: yayEntrance 1.05s cubic-bezier(.2, .85, .3, 1.4) both;
     }
@@ -300,6 +314,13 @@
       animation: softAppear 1s ease 0.35s both;
     }
 
+    .continue-hint {
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      animation: softAppear 1s ease 0.7s both;
+    }
+
     .confetti {
       position: absolute;
       top: -30px;
@@ -307,6 +328,7 @@
       height: 18px;
       border-radius: 3px;
       opacity: 0;
+      pointer-events: none;
       animation: fall linear forwards;
     }
 
@@ -379,20 +401,359 @@
       color: var(--pink);
       font-size: 30px;
       opacity: 0;
+      pointer-events: none;
       animation: floatHeart 3.8s ease-in forwards;
     }
 
-    .floating-heart:nth-of-type(10) {
+    .floating-heart.one {
       left: 17%;
       bottom: 0;
       animation-delay: 0.2s;
     }
 
-    .floating-heart:nth-of-type(11) {
+    .floating-heart.two {
       left: 77%;
       bottom: 0;
       color: var(--purple);
       animation-delay: 0.65s;
+    }
+
+    .memory-section {
+      display: none;
+      min-height: 100vh;
+      padding: 70px 0 100px;
+      text-align: center;
+      animation: sectionAppear 0.9s ease both;
+    }
+
+    .memory-section.show {
+      display: block;
+    }
+
+    .memory-eyebrow {
+      margin: 0 0 12px;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .memory-title {
+      margin: 0;
+      color: var(--white);
+      font-family: "Playfair Display", serif;
+      font-size: clamp(32px, 7vw, 54px);
+    }
+
+    .memory-subtitle {
+      margin: 12px auto 36px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .box-scene {
+      position: relative;
+      width: min(100%, 560px);
+      height: 390px;
+      display: grid;
+      place-items: center;
+      margin: auto;
+      perspective: 1100px;
+    }
+
+    .box-shadow {
+      position: absolute;
+      bottom: 43px;
+      width: 280px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.5);
+      filter: blur(15px);
+      transition: transform 0.7s ease, opacity 0.7s ease;
+    }
+
+    .memory-box {
+      position: relative;
+      width: 240px;
+      height: 170px;
+      transform-style: preserve-3d;
+      cursor: pointer;
+      transition: transform 0.8s cubic-bezier(.2, .8, .2, 1);
+      transform: rotateX(8deg) rotateY(-12deg);
+      touch-action: manipulation;
+    }
+
+    .memory-box:hover {
+      transform: rotateX(8deg) rotateY(-12deg) translateY(-7px);
+    }
+
+    .memory-box.shake {
+      animation: boxShake 0.7s ease both;
+    }
+
+    .memory-box.open {
+      transform: rotateX(12deg) rotateY(-8deg) translateY(10px);
+    }
+
+    .box-base {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 240px;
+      height: 130px;
+      overflow: hidden;
+      border: 2px solid rgba(249, 168, 212, 0.7);
+      border-radius: 15px 15px 22px 22px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(92, 48, 112, 0.95),
+          rgba(36, 17, 54, 0.98)
+        );
+      box-shadow:
+        inset 0 0 25px rgba(249, 168, 212, 0.13),
+        0 25px 38px rgba(0, 0, 0, 0.35);
+      transform: translateZ(0);
+    }
+
+    .box-base::before {
+      content: "";
+      position: absolute;
+      inset: 13px;
+      border: 1px solid rgba(249, 168, 212, 0.35);
+      border-radius: 10px;
+      pointer-events: none;
+    }
+
+    .box-label {
+      position: absolute;
+      top: 48px;
+      left: 0;
+      width: 100%;
+      color: var(--pink);
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      letter-spacing: 1px;
+      text-shadow: 0 0 12px rgba(249, 168, 212, 0.6);
+    }
+
+    .box-lock {
+      position: absolute;
+      left: 50%;
+      bottom: 17px;
+      width: 28px;
+      height: 24px;
+      transform: translateX(-50%);
+      border: 2px solid var(--gold);
+      border-radius: 6px;
+      box-shadow: 0 0 13px rgba(253, 230, 138, 0.45);
+    }
+
+    .box-lock::before {
+      content: "";
+      position: absolute;
+      top: -13px;
+      left: 4px;
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--gold);
+      border-bottom: 0;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .box-lid {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 240px;
+      height: 48px;
+      transform-origin: bottom center;
+      border: 2px solid rgba(249, 168, 212, 0.78);
+      border-radius: 15px 15px 8px 8px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(130, 68, 145, 0.98),
+          rgba(65, 31, 82, 0.98)
+        );
+      box-shadow:
+        inset 0 0 20px rgba(249, 168, 212, 0.18),
+        0 8px 16px rgba(0, 0, 0, 0.25);
+      transform: translateZ(2px) rotateX(0deg);
+      transition: transform 1s cubic-bezier(.2, .8, .2, 1);
+      z-index: 3;
+    }
+
+    .box-lid::after {
+      content: "♡";
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--pink);
+      font-size: 23px;
+      text-shadow: 0 0 12px rgba(249, 168, 212, 0.7);
+    }
+
+    .memory-box.open .box-lid {
+      transform: translateY(-42px) translateZ(2px) rotateX(-125deg);
+    }
+
+    .box-glow {
+      position: absolute;
+      left: 50%;
+      bottom: 65px;
+      width: 155px;
+      height: 90px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: rgba(249, 168, 212, 0.35);
+      filter: blur(30px);
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      pointer-events: none;
+    }
+
+    .memory-box.open .box-glow {
+      opacity: 1;
+    }
+
+    .tap-hint {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      color: var(--muted);
+      font-size: 11px;
+      transition: opacity 0.4s ease;
+    }
+
+    .memory-box.open ~ .tap-hint {
+      opacity: 0;
+    }
+
+    .gallery {
+      position: relative;
+      display: none;
+      width: 100%;
+      min-height: 440px;
+      margin: 34px auto 0;
+      perspective: 1100px;
+      touch-action: pan-y;
+    }
+
+    .gallery.show {
+      display: block;
+      animation: galleryAppear 0.9s ease both;
+    }
+
+    .gallery-track {
+      position: relative;
+      width: 100%;
+      height: 390px;
+      transform-style: preserve-3d;
+    }
+
+    .photo-card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: min(62vw, 270px);
+      aspect-ratio: 0.76;
+      padding: 9px;
+      border-radius: 15px;
+      background: #fffaff;
+      box-shadow:
+        0 18px 38px rgba(0, 0, 0, 0.35),
+        0 0 18px rgba(249, 168, 212, 0.16);
+      transform-style: preserve-3d;
+      cursor: pointer;
+      user-select: none;
+      transition:
+        transform 0.65s cubic-bezier(.2, .8, .2, 1),
+        opacity 0.65s ease,
+        filter 0.65s ease;
+      touch-action: pan-y;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      border-radius: 9px;
+      background: #eadcf2;
+    }
+
+    .photo-card.center {
+      z-index: 5;
+      transform: translate(-50%, -50%) translateZ(120px) rotateY(0deg) rotateZ(0deg) scale(1);
+      opacity: 1;
+      filter: none;
+    }
+
+    .photo-card.left {
+      z-index: 3;
+      transform: translate(-50%, -50%) translateX(-52%) translateZ(-30px) rotateY(32deg) rotateZ(-8deg) scale(0.78);
+      opacity: 0.78;
+      filter: saturate(0.82) brightness(0.82);
+    }
+
+    .photo-card.right {
+      z-index: 3;
+      transform: translate(-50%, -50%) translateX(52%) translateZ(-30px) rotateY(-32deg) rotateZ(8deg) scale(0.78);
+      opacity: 0.78;
+      filter: saturate(0.82) brightness(0.82);
+    }
+
+    .photo-card.far-left {
+      z-index: 1;
+      transform: translate(-50%, -50%) translateX(-83%) translateZ(-120px) rotateY(45deg) rotateZ(-13deg) scale(0.58);
+      opacity: 0.23;
+      filter: blur(1px) brightness(0.6);
+    }
+
+    .photo-card.far-right {
+      z-index: 1;
+      transform: translate(-50%, -50%) translateX(83%) translateZ(-120px) rotateY(-45deg) rotateZ(13deg) scale(0.58);
+      opacity: 0.23;
+      filter: blur(1px) brightness(0.6);
+    }
+
+    .photo-card.hidden-photo {
+      z-index: 0;
+      transform: translate(-50%, -50%) translateZ(-220px) scale(0.3);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .gallery-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .gallery-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .gallery-dot.active {
+      transform: scale(1.45);
+      background: var(--pink);
+      box-shadow: 0 0 10px rgba(249, 168, 212, 0.7);
+    }
+
+    .gallery-help {
+      margin: 17px 0 0;
+      color: var(--muted);
+      font-size: 11px;
     }
 
     @keyframes cardAppear {
@@ -520,9 +881,57 @@
       }
     }
 
-    @media (max-width: 520px) {
+    @keyframes sectionAppear {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes boxShake {
+      0%,
+      100% {
+        transform: rotateX(8deg) rotateY(-12deg) translateX(0);
+      }
+
+      20% {
+        transform: rotateX(8deg) rotateY(-12deg) translateX(-13px) rotateZ(-3deg);
+      }
+
+      40% {
+        transform: rotateX(8deg) rotateY(-12deg) translateX(13px) rotateZ(3deg);
+      }
+
+      60% {
+        transform: rotateX(8deg) rotateY(-12deg) translateX(-8px) rotateZ(-2deg);
+      }
+
+      80% {
+        transform: rotateX(8deg) rotateY(-12deg) translateX(7px) rotateZ(2deg);
+      }
+    }
+
+    @keyframes galleryAppear {
+      from {
+        opacity: 0;
+        transform: translateY(35px) scale(0.94);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @media (max-width: 600px) {
       .page {
-        width: min(100% - 20px, 650px);
+        width: min(100% - 20px, 780px);
+        padding-top: 10px;
       }
 
       .question-card {
@@ -544,6 +953,39 @@
         padding: 12px 15px;
         font-size: 13px;
       }
+
+      .box-scene {
+        height: 350px;
+        transform: scale(0.9);
+      }
+
+      .gallery {
+        min-height: 350px;
+      }
+
+      .gallery-track {
+        height: 315px;
+      }
+
+      .photo-card {
+        width: min(66vw, 235px);
+      }
+
+      .photo-card.left {
+        transform: translate(-50%, -50%) translateX(-43%) translateZ(-30px) rotateY(32deg) rotateZ(-8deg) scale(0.72);
+      }
+
+      .photo-card.right {
+        transform: translate(-50%, -50%) translateX(43%) translateZ(-30px) rotateY(-32deg) rotateZ(8deg) scale(0.72);
+      }
+
+      .photo-card.far-left {
+        transform: translate(-50%, -50%) translateX(-72%) translateZ(-120px) rotateY(45deg) rotateZ(-13deg) scale(0.5);
+      }
+
+      .photo-card.far-right {
+        transform: translate(-50%, -50%) translateX(72%) translateZ(-120px) rotateY(-45deg) rotateZ(13deg) scale(0.5);
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -562,43 +1004,101 @@
 
   <main class="page">
 
-    <section class="question-card">
+    <section class="question-section" id="questionSection">
 
-      <div class="heart">♡</div>
+      <div class="question-card">
 
-      <p class="eyebrow">
-        just one little question
-      </p>
+        <div class="heart">♡</div>
 
-      <h1>
-        Do you still<br>
-        love me<span class="question-mark">?</span>
-      </h1>
+        <p class="eyebrow">
+          just one little question
+        </p>
 
-      <p class="subtitle">
-        No pressure, no perfect answer…
-        I just wanted to ask something from my heart.
-      </p>
+        <h1>
+          Do you still<br>
+          love me<span class="question-mark">?</span>
+        </h1>
 
-      <p class="small-note">
-        choose honestly 🤍
-      </p>
+        <p class="subtitle">
+          No pressure, no perfect answer…
+          I just wanted to ask something from my heart.
+        </p>
 
-      <div class="buttons-area">
+        <p class="small-note">
+          choose honestly 🤍
+        </p>
 
-        <button class="answer-button yes-button" type="button">
-          Yes, I do 🤍
-        </button>
+        <div class="buttons-area">
 
-        <button class="answer-button no-button" type="button">
-          No
-        </button>
+          <button class="answer-button yes-button" type="button">
+            Yes, I do 🤍
+          </button>
+
+          <button class="answer-button no-button" type="button">
+            No
+          </button>
+
+        </div>
+
+        <p class="footer-note">
+          some questions are too important to leave unasked
+        </p>
 
       </div>
 
-      <p class="footer-note">
-        some questions are too important to leave unasked
+    </section>
+
+    <section class="memory-section" id="memorySection">
+
+      <p class="memory-eyebrow">
+        something I kept for us
       </p>
+
+      <h2 class="memory-title">
+        Our little world
+      </h2>
+
+      <p class="memory-subtitle">
+        tap the box… maybe there is something inside 🤍
+      </p>
+
+      <div class="box-scene">
+
+        <div class="box-shadow"></div>
+
+        <div class="memory-box" id="memoryBox">
+
+          <div class="box-glow"></div>
+
+          <div class="box-base">
+            <div class="box-label">
+              OUR MEMORIES
+            </div>
+
+            <div class="box-lock"></div>
+          </div>
+
+          <div class="box-lid"></div>
+
+        </div>
+
+        <div class="tap-hint" id="tapHint">
+          tap once… then tap again ✨
+        </div>
+
+      </div>
+
+      <div class="gallery" id="gallery">
+
+        <div class="gallery-track" id="galleryTrack"></div>
+
+        <div class="gallery-dots" id="galleryDots"></div>
+
+        <p class="gallery-help">
+          swipe or tap the photos 🤍
+        </p>
+
+      </div>
 
     </section>
 
@@ -616,8 +1116,8 @@
     <div class="confetti"></div>
     <div class="confetti"></div>
 
-    <div class="floating-heart">♡</div>
-    <div class="floating-heart">♡</div>
+    <div class="floating-heart one">♡</div>
+    <div class="floating-heart two">♡</div>
 
     <div class="yay-content">
 
@@ -629,6 +1129,10 @@
         you just made my heart smile
       </p>
 
+      <p class="continue-hint">
+        something special is waiting for you…
+      </p>
+
     </div>
 
   </section>
@@ -636,52 +1140,72 @@
   <script>
     const noButton = document.querySelector(".no-button");
     const yesButton = document.querySelector(".yes-button");
-    const buttonsArea = document.querySelector(".buttons-area");
+    const questionSection = document.getElementById("questionSection");
     const yayScreen = document.getElementById("yayScreen");
+    const memorySection = document.getElementById("memorySection");
+
+    const memoryBox = document.getElementById("memoryBox");
+    const tapHint = document.getElementById("tapHint");
+    const gallery = document.getElementById("gallery");
+    const galleryTrack = document.getElementById("galleryTrack");
+    const galleryDots = document.getElementById("galleryDots");
 
     let noButtonMoved = false;
+    let yesClicked = false;
+    let boxTapCount = 0;
 
-    function getRandomPosition(pointerX, pointerY) {
+    function getSafeNoPosition(pointerX, pointerY) {
       const buttonWidth = noButton.offsetWidth;
       const buttonHeight = noButton.offsetHeight;
-
       const padding = 14;
 
-      const minX = padding;
-      const minY = padding;
+      const maxX = Math.max(
+        padding,
+        window.innerWidth - buttonWidth - padding
+      );
 
-      const maxX = window.innerWidth - buttonWidth - padding;
-      const maxY = window.innerHeight - buttonHeight - padding;
+      const maxY = Math.max(
+        padding,
+        window.innerHeight - buttonHeight - padding
+      );
 
-      let randomX;
-      let randomY;
-      let attempts = 0;
+      let bestPosition = {
+        x: padding,
+        y: padding,
+        distance: 0
+      };
 
-      do {
-        randomX = Math.floor(
-          minX + Math.random() * Math.max(1, maxX - minX)
+      for (let attempt = 0; attempt < 80; attempt++) {
+        const x = Math.floor(
+          padding + Math.random() * Math.max(1, maxX - padding)
         );
 
-        randomY = Math.floor(
-          minY + Math.random() * Math.max(1, maxY - minY)
+        const y = Math.floor(
+          padding + Math.random() * Math.max(1, maxY - padding)
         );
 
-        attempts++;
+        const centerX = x + buttonWidth / 2;
+        const centerY = y + buttonHeight / 2;
 
         const distance = Math.hypot(
-          randomX + buttonWidth / 2 - pointerX,
-          randomY + buttonHeight / 2 - pointerY
+          centerX - pointerX,
+          centerY - pointerY
         );
 
-        if (distance > 150 || attempts > 30) {
+        if (distance > bestPosition.distance) {
+          bestPosition = {
+            x,
+            y,
+            distance
+          };
+        }
+
+        if (distance > 240) {
           break;
         }
-      } while (true);
+      }
 
-      return {
-        x: randomX,
-        y: randomY
-      };
+      return bestPosition;
     }
 
     function moveNoButton(event) {
@@ -692,10 +1216,9 @@
       const pointerX = event?.clientX ?? window.innerWidth / 2;
       const pointerY = event?.clientY ?? window.innerHeight / 2;
 
-      const position = getRandomPosition(pointerX, pointerY);
+      const position = getSafeNoPosition(pointerX, pointerY);
 
       noButtonMoved = true;
-
       noButton.style.position = "fixed";
       noButton.style.left = `${position.x}px`;
       noButton.style.top = `${position.y}px`;
@@ -709,9 +1232,25 @@
       passive: false
     });
 
-    yesButton.addEventListener("click", () => {
+    function showYayScreen() {
+      if (yesClicked) return;
+
+      yesClicked = true;
       yayScreen.classList.add("show");
-    });
+
+      setTimeout(() => {
+        yayScreen.classList.remove("show");
+        questionSection.style.display = "none";
+        memorySection.classList.add("show");
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }, 4700);
+    }
+
+    yesButton.addEventListener("click", showYayScreen);
 
     window.addEventListener("resize", () => {
       if (!noButtonMoved) return;
@@ -731,6 +1270,170 @@
       noButton.style.left = `${safeX}px`;
       noButton.style.top = `${safeY}px`;
     });
+
+    memoryBox.addEventListener("click", () => {
+      boxTapCount++;
+
+      if (boxTapCount === 1) {
+        memoryBox.classList.remove("shake");
+
+        void memoryBox.offsetWidth;
+
+        memoryBox.classList.add("shake");
+        tapHint.textContent = "again… I think it wants to open 🤍";
+      }
+
+      if (boxTapCount >= 2) {
+        memoryBox.classList.add("open");
+        gallery.classList.add("show");
+        tapHint.textContent = "";
+
+        setTimeout(() => {
+          gallery.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+        }, 600);
+      }
+    });
+
+    const photoNames = [
+      "memory8.jpg",
+      "memory2.png",
+      "memory19.jpg",
+      "memory5.jpg",
+      "memory11.jpg",
+      "memory3.png",
+      "memory22.jpg",
+      "memory1.jpg",
+      "memory16.jpg",
+      "memory7.jpg",
+      "memory20.jpg",
+      "memory4.jpg",
+      "memory13.jpg",
+      "memory9.jpg",
+      "memory23.jpg",
+      "memory6.jpg",
+      "memory18.jpg",
+      "memory10.jpg",
+      "memory21.jpg",
+      "memory12.jpg",
+      "memory15.jpg",
+      "memory17.jpg"
+    ];
+
+    let currentPhoto = 0;
+    let startX = 0;
+    let isDragging = false;
+
+    const photoCards = [];
+
+    photoNames.forEach((fileName, index) => {
+      const card = document.createElement("div");
+
+      card.className = "photo-card";
+      card.dataset.index = index;
+
+      const image = document.createElement("img");
+
+      image.src = `memories/${fileName}`;
+      image.alt = `memory ${index + 1}`;
+      image.loading = index === 0 ? "eager" : "lazy";
+
+      card.appendChild(image);
+      galleryTrack.appendChild(card);
+      photoCards.push(card);
+
+      const dot = document.createElement("span");
+
+      dot.className = "gallery-dot";
+      dot.dataset.index = index;
+
+      dot.addEventListener("click", () => {
+        currentPhoto = index;
+        updateGallery();
+      });
+
+      galleryDots.appendChild(dot);
+
+      card.addEventListener("click", () => {
+        const clickedIndex = Number(card.dataset.index);
+
+        if (clickedIndex !== currentPhoto) {
+          currentPhoto = clickedIndex;
+          updateGallery();
+        }
+      });
+    });
+
+    function getPhotoPosition(index) {
+      const total = photoNames.length;
+      let difference = index - currentPhoto;
+
+      if (difference > total / 2) {
+        difference -= total;
+      }
+
+      if (difference < -total / 2) {
+        difference += total;
+      }
+
+      if (difference === 0) return "center";
+      if (difference === -1) return "left";
+      if (difference === 1) return "right";
+      if (difference === -2) return "far-left";
+      if (difference === 2) return "far-right";
+
+      return "hidden-photo";
+    }
+
+    function updateGallery() {
+      photoCards.forEach((card, index) => {
+        card.className = `photo-card ${getPhotoPosition(index)}`;
+      });
+
+      document.querySelectorAll(".gallery-dot").forEach((dot, index) => {
+        dot.classList.toggle("active", index === currentPhoto);
+      });
+    }
+
+    function nextPhoto() {
+      currentPhoto = (currentPhoto + 1) % photoNames.length;
+      updateGallery();
+    }
+
+    function previousPhoto() {
+      currentPhoto =
+        (currentPhoto - 1 + photoNames.length) % photoNames.length;
+
+      updateGallery();
+    }
+
+    galleryTrack.addEventListener("pointerdown", event => {
+      startX = event.clientX;
+      isDragging = true;
+    });
+
+    galleryTrack.addEventListener("pointerup", event => {
+      if (!isDragging) return;
+
+      const difference = event.clientX - startX;
+      isDragging = false;
+
+      if (Math.abs(difference) < 35) return;
+
+      if (difference < 0) {
+        nextPhoto();
+      } else {
+        previousPhoto();
+      }
+    });
+
+    galleryTrack.addEventListener("pointercancel", () => {
+      isDragging = false;
+    });
+
+    updateGallery();
   </script>
 
 </body>
