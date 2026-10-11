@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Our Little World 🤍</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +26,6 @@
       --blue: #93c5fd;
       --gold: #e9bd68;
       --gold-light: #ffe3a3;
-      --dark-card: rgba(35, 20, 54, 0.78);
     }
 
     * {
@@ -76,7 +74,7 @@
       width: min(100% - 22px, 780px);
       min-height: 100vh;
       margin: auto;
-      padding: 12px 0 90px;
+      padding: 12px 0 100px;
     }
 
     /* =========================
@@ -97,7 +95,7 @@
       text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.16);
       border-radius: 30px;
-      background: var(--dark-card);
+      background: rgba(35, 20, 54, 0.78);
       box-shadow:
         0 25px 75px rgba(0, 0, 0, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -248,7 +246,7 @@
     }
 
     /* =========================
-       ARE YOU SURE SCREEN
+       RAIN SCENE
     ========================== */
 
     .rain-screen {
@@ -324,7 +322,6 @@
       color: white;
       background: rgba(0, 0, 0, 0.25);
       font-size: 26px;
-      line-height: 1;
       cursor: pointer;
       backdrop-filter: blur(6px);
     }
@@ -386,7 +383,7 @@
     }
 
     /* =========================
-       YAY
+       YAY SCREEN
     ========================== */
 
     .yay-screen {
@@ -504,7 +501,7 @@
     }
 
     /* =========================
-       MESSAGE BEFORE BOX
+       MESSAGE
     ========================== */
 
     .love-message-section {
@@ -859,12 +856,10 @@
     }
 
     /* =========================
-       TEXT AFTER LIBRARY
+       AFTER LIBRARY MESSAGE
     ========================== */
 
     .after-library-message {
-      position: relative;
-      z-index: 3;
       display: none;
       width: min(100%, 760px);
       margin: 70px auto 0;
@@ -903,12 +898,12 @@
     }
 
     /* =========================
-       LOVE CALCULATOR
+       LOVE GAME
     ========================== */
 
     .love-game {
       display: none;
-      width: min(100%, 760px);
+      width: min(100%, 800px);
       margin: 60px auto 0;
       padding: 42px 22px;
       text-align: center;
@@ -1001,21 +996,241 @@
       box-shadow: 0 10px 25px rgba(249, 168, 212, 0.22);
     }
 
-    .love-result {
-      min-height: 92px;
-      margin: 28px 0 0;
-      color: var(--pink);
-      font-family: "Playfair Display", serif;
-      font-size: clamp(32px, 8vw, 66px);
-      line-height: 1.1;
+    .heart-result-area {
+      width: min(100%, 650px);
+      min-height: 285px;
+      margin: 36px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(7px, 2.5vw, 24px);
+      perspective: 1000px;
     }
 
-    .love-result small {
-      display: block;
-      margin-top: 10px;
+    .love-heart-card {
+      position: relative;
+      flex: 0 1 220px;
+      width: 220px;
+      height: 190px;
+      display: grid;
+      place-items: center;
+      transform-style: preserve-3d;
+      filter: drop-shadow(0 20px 18px rgba(0, 0, 0, 0.34));
+      animation: heartFloat 3.2s ease-in-out infinite;
+    }
+
+    .love-heart-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      clip-path: polygon(
+        50% 95%,
+        8% 54%,
+        4% 38%,
+        7% 23%,
+        18% 10%,
+        32% 7%,
+        50% 23%,
+        68% 7%,
+        82% 10%,
+        93% 23%,
+        96% 38%,
+        92% 54%
+      );
+      background:
+        linear-gradient(
+          135deg,
+          #ffc5e2 0%,
+          #fb77b2 28%,
+          #cb397f 65%,
+          #7e1f51 100%
+        );
+      box-shadow:
+        inset 10px 8px 18px rgba(255, 255, 255, 0.3),
+        inset -14px -14px 22px rgba(72, 7, 40, 0.32);
+    }
+
+    .love-heart-card::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      z-index: 2;
+      clip-path: polygon(
+        50% 95%,
+        8% 54%,
+        4% 38%,
+        7% 23%,
+        18% 10%,
+        32% 7%,
+        50% 23%,
+        68% 7%,
+        82% 10%,
+        93% 23%,
+        96% 38%,
+        92% 54%
+      );
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.18),
+          transparent 35%,
+          rgba(69, 5, 37, 0.22)
+        );
+      pointer-events: none;
+    }
+
+    .left-heart {
+      transform: rotateY(12deg) rotateZ(-5deg);
+    }
+
+    .right-heart {
+      transform: rotateY(-12deg) rotateZ(5deg);
+      animation-delay: -1.6s;
+    }
+
+    .heart-inside {
+      position: relative;
+      z-index: 5;
+      width: 150px;
+      height: 130px;
+      display: grid;
+      place-items: center;
+      transform: translateY(9px);
+      pointer-events: none;
+    }
+
+    .heart-name {
+      max-width: 125px;
+      color: #fff7ff;
+      font-size: clamp(14px, 3vw, 20px);
+      font-weight: 800;
+      line-height: 1.1;
+      text-align: center;
+      text-shadow:
+        0 2px 4px rgba(70, 5, 35, 0.8),
+        0 0 12px rgba(255, 255, 255, 0.35);
+      overflow-wrap: anywhere;
+    }
+
+    .heart-shine {
+      position: absolute;
+      top: 29px;
+      left: 61px;
+      z-index: 6;
+      width: 26px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.65);
+      filter: blur(2px);
+      transform: rotate(-35deg);
+      pointer-events: none;
+    }
+
+    .heart-connection {
+      position: relative;
+      z-index: 8;
+      flex: 0 0 88px;
+      min-height: 105px;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      text-align: center;
+    }
+
+    .connection-line {
+      position: absolute;
+      top: 50%;
+      right: -12px;
+      left: -12px;
+      z-index: -1;
+      height: 2px;
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 196, 225, 0.8),
+          transparent
+        );
+      box-shadow: 0 0 11px rgba(249, 168, 212, 0.75);
+    }
+
+    .connection-number {
+      position: relative;
+      min-width: 78px;
+      padding: 9px 5px;
+      border: 1px solid rgba(255, 231, 246, 0.55);
+      border-radius: 50%;
+      color: #fff7ff;
+      background:
+        radial-gradient(
+          circle,
+          rgba(255, 153, 206, 0.95),
+          rgba(161, 44, 105, 0.94)
+        );
+      box-shadow:
+        0 0 19px rgba(249, 168, 212, 0.55),
+        inset 0 2px 5px rgba(255, 255, 255, 0.35);
+      font-family: "Playfair Display", serif;
+      font-size: 21px;
+      font-weight: 700;
+    }
+
+    .connection-label {
+      margin-top: 7px;
+      color: #f9c9e3;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 0 2px 7px #000;
+    }
+
+    .love-result-text {
+      min-height: 55px;
+      margin: 13px auto 0;
       color: var(--soft);
+      font-family: "Playfair Display", serif;
+      font-size: clamp(17px, 4vw, 25px);
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .love-result-text small {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
       font-family: "DM Sans", sans-serif;
-      font-size: 13px;
+      font-size: 12px;
+    }
+
+    /* =========================
+       FINAL LETTER
+    ========================== */
+
+    .final-love-letter {
+      width: min(100%, 760px);
+      margin: 70px auto 0;
+      padding: 45px 25px 20px;
+      color: #eadcf2;
+      text-align: center;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(18px, 4vw, 27px);
+      line-height: 1.8;
+    }
+
+    .final-love-letter p {
+      margin: 0 auto 28px;
+    }
+
+    .final-love-letter strong {
+      color: var(--pink);
+    }
+
+    .final-love-letter .final-signature {
+      color: #fff2fa;
+      font-size: 1.1em;
+      text-shadow: 0 0 18px rgba(249, 168, 212, 0.3);
     }
 
     /* =========================
@@ -1245,6 +1460,17 @@
       }
     }
 
+    @keyframes heartFloat {
+      0%,
+      100% {
+        translate: 0 0;
+      }
+
+      50% {
+        translate: 0 -8px;
+      }
+    }
+
     @keyframes modalIn {
       from {
         opacity: 0;
@@ -1289,11 +1515,7 @@
       }
     }
 
-    @media (max-width: 520px) {
-      .buttons-area {
-        width: 100%;
-      }
-
+    @media (max-width: 560px) {
       .answer-button {
         min-width: 126px;
         padding: 12px 14px;
@@ -1315,6 +1537,46 @@
       .love-plus {
         display: none;
       }
+
+      .heart-result-area {
+        gap: 0;
+      }
+
+      .love-heart-card {
+        flex-basis: 145px;
+        width: 145px;
+        height: 155px;
+      }
+
+      .heart-inside {
+        width: 105px;
+        height: 105px;
+      }
+
+      .heart-name {
+        max-width: 90px;
+        font-size: 13px;
+      }
+
+      .heart-shine {
+        top: 23px;
+        left: 42px;
+        width: 18px;
+      }
+
+      .heart-connection {
+        flex-basis: 65px;
+      }
+
+      .connection-number {
+        min-width: 61px;
+        font-size: 17px;
+      }
+
+      .connection-label {
+        font-size: 8px;
+        letter-spacing: 1px;
+      }
     }
 
     @media (max-width: 380px) {
@@ -1330,6 +1592,21 @@
 
       .no-button {
         left: 72%;
+      }
+
+      .love-heart-card {
+        flex-basis: 130px;
+        width: 130px;
+        height: 145px;
+      }
+
+      .heart-connection {
+        flex-basis: 58px;
+      }
+
+      .connection-number {
+        min-width: 55px;
+        font-size: 15px;
       }
     }
   </style>
@@ -1365,7 +1642,7 @@
           choose honestly 🤍
         </p>
 
-        <div class="buttons-area" id="buttonsArea">
+        <div class="buttons-area">
 
           <div class="yes-holder">
             <button class="answer-button yes-button" type="button">
@@ -1446,7 +1723,7 @@
 
     </section>
 
-    <!-- MESSAGE BEFORE BOX -->
+    <!-- LOVE MESSAGE -->
 
     <section class="love-message-section" id="loveMessageSection">
 
@@ -1596,7 +1873,7 @@
           </h2>
 
           <p class="love-game-description">
-            Write two names and let the little heart decide ✨
+            Write two names and let the little hearts decide ✨
           </p>
 
           <form class="love-form" id="loveForm">
@@ -1630,14 +1907,99 @@
             id="loveSubmit"
             type="button"
           >
-            Calculate love 🤍
+            Reveal the feeling 🤍
           </button>
 
+          <div class="heart-result-area">
+
+            <div class="love-heart-card left-heart">
+
+              <div class="heart-shine"></div>
+
+              <div class="heart-inside">
+                <span class="heart-name" id="heartNameOne">
+                  ?
+                </span>
+              </div>
+
+            </div>
+
+            <div class="heart-connection">
+
+              <div class="connection-line"></div>
+
+              <div class="connection-number" id="lovePercent">
+                ♡
+              </div>
+
+              <div class="connection-label">
+                love
+              </div>
+
+            </div>
+
+            <div class="love-heart-card right-heart">
+
+              <div class="heart-shine"></div>
+
+              <div class="heart-inside">
+                <span class="heart-name" id="heartNameTwo">
+                  ?
+                </span>
+              </div>
+
+            </div>
+
+          </div>
+
           <div
-            class="love-result"
-            id="loveResult"
+            class="love-result-text"
+            id="loveResultText"
             aria-live="polite"
           ></div>
+
+        </section>
+
+        <!-- FINAL LOVE LETTER -->
+
+        <section class="final-love-letter">
+
+          <p>
+            Our story began unexpectedly.
+            Somehow, our hearts chose each other before we even understood what was happening.
+            And then we felt it — love.
+          </p>
+
+          <p>
+            But love is not just a word.
+            It is a feeling that stays with you in the quiet moments,
+            a warmth that makes ordinary days feel special,
+            and a home you find in another person’s presence.
+          </p>
+
+          <p>
+            My love for you is not just a word.
+            It is a whole world hidden inside one little sentence:
+            <strong>I love you.</strong>
+          </p>
+
+          <p>
+            I found you, and that feels like one of the sweetest pieces of luck in my life.
+            Maybe people call it coincidence,
+            but I believe it was something more.
+            It was fate gently bringing two hearts together
+            at exactly the moment they needed to meet.
+          </p>
+
+          <p>
+            And if life gave me the chance to choose again,
+            I would still choose you.
+          </p>
+
+          <p class="final-signature">
+            You are not just someone I love.
+            You are one of the most beautiful things that ever happened to me. 🤍
+          </p>
 
         </section>
 
@@ -1680,9 +2042,6 @@
   <script>
     const questionSection =
       document.getElementById("questionSection");
-
-    const buttonsArea =
-      document.getElementById("buttonsArea");
 
     const yesButton =
       document.querySelector(".yes-button");
@@ -1741,8 +2100,17 @@
     const nameTwo =
       document.getElementById("nameTwo");
 
-    const loveResult =
-      document.getElementById("loveResult");
+    const heartNameOne =
+      document.getElementById("heartNameOne");
+
+    const heartNameTwo =
+      document.getElementById("heartNameTwo");
+
+    const lovePercent =
+      document.getElementById("lovePercent");
+
+    const loveResultText =
+      document.getElementById("loveResultText");
 
     const wallPhotos =
       document.getElementById("wallPhotos");
@@ -1757,94 +2125,58 @@
       document.getElementById("closeModal");
 
     let noStage = 0;
-    let noMoving = false;
     let yesClicked = false;
     let boxTapCount = 0;
     let boxIsOpening = false;
 
     /*
-      نقل المستخدم إلى مشهد المطر.
-      noStage:
-      0 = No
-      1 = again بعد الرجوع
-      2 = مقفول
-    */
-    function openRainScene() {
-      rainScreen.classList.add("show");
-
-      rainSong.currentTime = 0;
-
-      const playPromise =
-        rainSong.play();
-
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          /*
-            بعض المتصفحات قد تمنع الصوت مؤقتًا.
-            المشهد نفسه يعمل، والملف سيظل جاهزًا.
-          */
-        });
-      }
-    }
-
-    function closeRainScene() {
-      rainScreen.classList.remove("show");
-
-      rainSong.pause();
-      rainSong.currentTime = 0;
-    }
-
-    /*
-      No:
-      أول ضغطة = Are you sure?
-      بعد الرجوع = Again?
-      بعدها = قفل نهائي.
+      No أول مرة:
+      يفتح مشهد Are you sure.
     */
     noButton.addEventListener("click", () => {
-      if (noStage === 2) {
-        return;
-      }
-
       if (noStage === 0) {
         noStage = 1;
-        openRainScene();
+        rainScreen.classList.add("show");
+
+        rainSong.currentTime = 0;
+
+        const playPromise =
+          rainSong.play();
+
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {});
+        }
+
         return;
       }
 
       if (noStage === 1) {
         noStage = 2;
-
-        noButton.classList.add("locked");
         noButton.textContent = "🔒 No";
+        noButton.classList.add("locked");
         noButton.setAttribute("aria-disabled", "true");
-
-        return;
       }
     });
 
     /*
-      عند الرجوع من مشهد المطر:
-      زر No يرجع بكلمة again 😔?
+      الرجوع يعيد النص إلى again 😔?
     */
     rainBack.addEventListener("click", () => {
-      closeRainScene();
+      rainScreen.classList.remove("show");
+
+      rainSong.pause();
+      rainSong.currentTime = 0;
 
       noButton.textContent = "again 😔?";
       noButton.classList.remove("locked");
-
       noButton.style.left = "70%";
       noButton.style.top = "50%";
-      noButton.style.transform = "translate(-50%, -50%)";
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+      noButton.style.transform =
+        "translate(-50%, -50%)";
     });
 
     /*
-      زر Yes:
-      YAAAY ثم الرسالة ثم البوكس.
+      Yes ثم YAAAY ثم الكلام والبوكس.
     */
     yesButton.addEventListener("click", () => {
       if (yesClicked) {
@@ -1873,8 +2205,8 @@
 
     /*
       البوكس:
-      tap الأولى = اهتزاز.
-      tap الثانية = الصورة المفتوحة.
+      tap الأولى تهز.
+      tap الثانية تفتح الصورة.
     */
     boxStage.addEventListener("click", () => {
       if (boxIsOpening) {
@@ -1928,8 +2260,7 @@
     });
 
     /*
-      الصور.
-      لو أسماء الصور عندك مختلفة، عدلي الأسماء هنا فقط.
+      صور الذكريات.
     */
     const photoNames = [
       "memory8.jpg",
@@ -2039,9 +2370,7 @@
     });
 
     /*
-      لعبة الحب.
-      normalizeName يجعل المقارنة لا تتأثر
-      بالكابيتال أو المسافات أو بعض اختلافات الأسماء.
+      تطبيع الأسماء للمقارنة.
     */
     function normalizeName(value) {
       return value
@@ -2055,32 +2384,28 @@
         .replace(/ئ/g, "ي");
     }
 
+    /*
+      هذه التركيبات تعطي 100%.
+    */
     function isPerfectMatch(first, second) {
+      const one =
+        normalizeName(first);
+
+      const two =
+        normalizeName(second);
+
       const pair =
-        new Set([
-          normalizeName(first),
-          normalizeName(second)
-        ]);
+        [one, two].sort().join("|");
 
-      const perfectPairs = [
-        new Set(["yomna", "tarek"]),
-        new Set(["youmna", "tarek"]),
-        new Set(["yuni", "z0741"]),
-        new Set(["يوني", "زحلطارق"]),
-        new Set(["يوني", "طارق"]),
-        new Set(["يمنى", "طارق"]),
-        new Set(["طارق", "يمنى"])
-      ];
+      const perfectPairs = new Set([
+        ["tarek", "yomna"].sort().join("|"),
+        ["tarek", "youmna"].sort().join("|"),
+        ["yuni", "z0741"].sort().join("|"),
+        ["يوني", "طارق"].map(normalizeName).sort().join("|"),
+        ["يمنى", "طارق"].map(normalizeName).sort().join("|")
+      ]);
 
-      return perfectPairs.some(perfectPair => {
-        if (perfectPair.size !== pair.size) {
-          return false;
-        }
-
-        return [...perfectPair].every(name => {
-          return pair.has(name);
-        });
-      });
+      return perfectPairs.has(pair);
     }
 
     function calculateStablePercent(first, second) {
@@ -2108,7 +2433,7 @@
         nameTwo.value.trim();
 
       if (!first || !second) {
-        loveResult.innerHTML =
+        loveResultText.innerHTML =
           "<small>Please write both names first 🤍</small>";
 
         return;
@@ -2119,25 +2444,43 @@
           ? 100
           : calculateStablePercent(first, second);
 
+      heartNameOne.textContent =
+        first;
+
+      heartNameTwo.textContent =
+        second;
+
+      lovePercent.textContent =
+        `${percent}%`;
+
       if (percent === 100) {
-        loveResult.innerHTML =
-          `100% ♡<small>Some hearts simply know the way back to each other.</small>`;
+        loveResultText.innerHTML =
+          "Some hearts simply know the way back to each other. 🤍";
+      } else if (percent >= 80) {
+        loveResultText.innerHTML =
+          "There is something beautiful growing between these two hearts. ✨";
+      } else if (percent >= 60) {
+        loveResultText.innerHTML =
+          "A sweet connection with room for more beautiful memories. ♡";
       } else {
-        loveResult.innerHTML =
-          `${percent}% ♡<small>Every beautiful story starts with a little softness.</small>`;
+        loveResultText.innerHTML =
+          "Every beautiful story begins with one honest feeling. 🤍";
       }
     }
 
-    loveSubmit.addEventListener("click", showLoveResult);
+    loveSubmit.addEventListener(
+      "click",
+      showLoveResult
+    );
 
-    loveForm.addEventListener("submit", event => {
-      event.preventDefault();
-      showLoveResult();
-    });
+    loveForm.addEventListener(
+      "submit",
+      event => {
+        event.preventDefault();
+        showLoveResult();
+      }
+    );
 
-    /*
-      الصورة المكبرة.
-    */
     closeModal.addEventListener("click", () => {
       photoModal.classList.remove("show");
       modalImage.src = "";
