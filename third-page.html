@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Our Little World 🤍</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +25,6 @@
       --rose: #fb7185;
       --purple: #c084fc;
       --blue: #93c5fd;
-      --gold: #e9bd68;
       --gold-light: #ffe3a3;
     }
 
@@ -78,7 +78,7 @@
     }
 
     /* =========================
-       FIRST SCREEN
+       QUESTION SCREEN
     ========================== */
 
     .question-section {
@@ -177,7 +177,6 @@
       height: 84px;
       margin: 28px auto 0;
       overflow: hidden;
-      touch-action: none;
     }
 
     .answer-button {
@@ -246,7 +245,7 @@
     }
 
     /* =========================
-       RAIN SCENE
+       RAIN SCREEN
     ========================== */
 
     .rain-screen {
@@ -272,13 +271,13 @@
       content: "";
       position: absolute;
       inset: 0;
-      pointer-events: none;
       background:
         radial-gradient(
           circle at 50% 40%,
           transparent 0 24%,
           rgba(0, 0, 0, 0.2) 80%
         );
+      pointer-events: none;
     }
 
     .rain-content {
@@ -373,13 +372,13 @@
       left: 0;
       z-index: 4;
       height: 30%;
-      pointer-events: none;
       background:
         linear-gradient(
           to top,
           rgba(2, 5, 12, 0.76),
           transparent
         );
+      pointer-events: none;
     }
 
     /* =========================
@@ -501,7 +500,7 @@
     }
 
     /* =========================
-       MESSAGE
+       LOVE MESSAGE
     ========================== */
 
     .love-message-section {
@@ -572,9 +571,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      display: block;
       object-fit: contain;
-      object-position: center;
       opacity: 0;
       pointer-events: none;
       user-select: none;
@@ -647,7 +644,6 @@
       content: "";
       position: absolute;
       inset: 0;
-      pointer-events: none;
       background:
         radial-gradient(
           ellipse at center 20%,
@@ -661,7 +657,7 @@
           transparent 76%,
           rgba(21, 7, 4, 0.55)
         );
-      mix-blend-mode: screen;
+      pointer-events: none;
     }
 
     .library-content {
@@ -856,7 +852,7 @@
     }
 
     /* =========================
-       AFTER LIBRARY MESSAGE
+       LIBRARY MESSAGE
     ========================== */
 
     .after-library-message {
@@ -1205,7 +1201,7 @@
     }
 
     /* =========================
-       FINAL LETTER
+       FINAL LOVE LETTER
     ========================== */
 
     .final-love-letter {
@@ -1234,7 +1230,7 @@
     }
 
     /* =========================
-       PHOTO MODAL
+       MODAL
     ========================== */
 
     .photo-modal {
@@ -1616,7 +1612,7 @@
 
   <main class="page">
 
-    <!-- FIRST SCREEN -->
+    <!-- QUESTION -->
 
     <section class="question-section" id="questionSection">
 
@@ -1645,12 +1641,20 @@
         <div class="buttons-area">
 
           <div class="yes-holder">
-            <button class="answer-button yes-button" type="button">
+
+            <button
+              class="answer-button yes-button"
+              type="button"
+            >
               Yes, I do 🤍
             </button>
+
           </div>
 
-          <button class="answer-button no-button" type="button">
+          <button
+            class="answer-button no-button"
+            type="button"
+          >
             No
           </button>
 
@@ -1664,7 +1668,7 @@
 
     </section>
 
-    <!-- RAIN SCENE -->
+    <!-- RAIN -->
 
     <section class="rain-screen" id="rainScreen">
 
@@ -1696,7 +1700,7 @@
 
     </section>
 
-    <!-- YAY SCREEN -->
+    <!-- YAY -->
 
     <section class="yay-screen" id="yayScreen">
 
@@ -1723,9 +1727,12 @@
 
     </section>
 
-    <!-- LOVE MESSAGE -->
+    <!-- MESSAGE BEFORE BOX -->
 
-    <section class="love-message-section" id="loveMessageSection">
+    <section
+      class="love-message-section"
+      id="loveMessageSection"
+    >
 
       <p class="message-kicker">
         from my heart to yours
@@ -1825,13 +1832,16 @@
 
         <div class="photo-wall">
 
-          <div class="wall-photos" id="wallPhotos"></div>
+          <div
+            class="wall-photos"
+            id="wallPhotos"
+          ></div>
 
           <div class="library-floor"></div>
 
         </div>
 
-        <!-- MESSAGE AFTER LIBRARY -->
+        <!-- AFTER LIBRARY MESSAGE -->
 
         <section
           class="after-library-message"
@@ -1917,9 +1927,14 @@
               <div class="heart-shine"></div>
 
               <div class="heart-inside">
-                <span class="heart-name" id="heartNameOne">
+
+                <span
+                  class="heart-name"
+                  id="heartNameOne"
+                >
                   ?
                 </span>
+
               </div>
 
             </div>
@@ -1928,7 +1943,10 @@
 
               <div class="connection-line"></div>
 
-              <div class="connection-number" id="lovePercent">
+              <div
+                class="connection-number"
+                id="lovePercent"
+              >
                 ♡
               </div>
 
@@ -1943,9 +1961,14 @@
               <div class="heart-shine"></div>
 
               <div class="heart-inside">
-                <span class="heart-name" id="heartNameTwo">
+
+                <span
+                  class="heart-name"
+                  id="heartNameTwo"
+                >
                   ?
                 </span>
+
               </div>
 
             </div>
@@ -1960,7 +1983,7 @@
 
         </section>
 
-        <!-- FINAL LOVE LETTER -->
+        <!-- FINAL LETTER -->
 
         <section class="final-love-letter">
 
@@ -2009,7 +2032,7 @@
 
   </main>
 
-  <!-- AUDIO -->
+  <!-- AUDIO FILES -->
 
   <audio
     id="rainSong"
@@ -2018,9 +2041,18 @@
     preload="auto"
   ></audio>
 
+  <audio
+    id="loveSong"
+    src="songa.wav"
+    preload="auto"
+  ></audio>
+
   <!-- PHOTO MODAL -->
 
-  <div class="photo-modal" id="photoModal">
+  <div
+    class="photo-modal"
+    id="photoModal"
+  >
 
     <button
       class="close-modal"
@@ -2057,6 +2089,9 @@
 
     const rainSong =
       document.getElementById("rainSong");
+
+    const loveSong =
+      document.getElementById("loveSong");
 
     const yayScreen =
       document.getElementById("yayScreen");
@@ -2130,21 +2165,28 @@
     let boxIsOpening = false;
 
     /*
-      No أول مرة:
-      يفتح مشهد Are you sure.
+      زر No:
+      أول ضغطة تفتح المطر.
+      بعد الرجوع تصبح again.
+      الضغطة التالية تقفل الزر.
     */
     noButton.addEventListener("click", () => {
       if (noStage === 0) {
         noStage = 1;
+
         rainScreen.classList.add("show");
 
         rainSong.currentTime = 0;
 
-        const playPromise =
+        const rainPlay =
           rainSong.play();
 
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {});
+        if (rainPlay !== undefined) {
+          rainPlay.catch(() => {
+            console.log(
+              "Rain audio was blocked by the browser."
+            );
+          });
         }
 
         return;
@@ -2152,14 +2194,21 @@
 
       if (noStage === 1) {
         noStage = 2;
-        noButton.textContent = "🔒 No";
+
+        noButton.textContent =
+          "🔒 No";
+
         noButton.classList.add("locked");
-        noButton.setAttribute("aria-disabled", "true");
+
+        noButton.setAttribute(
+          "aria-disabled",
+          "true"
+        );
       }
     });
 
     /*
-      الرجوع يعيد النص إلى again 😔?
+      الرجوع من المطر.
     */
     rainBack.addEventListener("click", () => {
       rainScreen.classList.remove("show");
@@ -2167,16 +2216,25 @@
       rainSong.pause();
       rainSong.currentTime = 0;
 
-      noButton.textContent = "again 😔?";
+      noButton.textContent =
+        "again 😔?";
+
       noButton.classList.remove("locked");
-      noButton.style.left = "70%";
-      noButton.style.top = "50%";
+
+      noButton.style.left =
+        "70%";
+
+      noButton.style.top =
+        "50%";
+
       noButton.style.transform =
         "translate(-50%, -50%)";
     });
 
     /*
-      Yes ثم YAAAY ثم الكلام والبوكس.
+      زر Yes:
+      تظهر YAAAY لمدة 4 ثوانٍ.
+      بعد اختفائها تبدأ songa.wav.
     */
     yesButton.addEventListener("click", () => {
       if (yesClicked) {
@@ -2196,6 +2254,23 @@
         loveMessageSection.classList.add("show");
         boxSection.classList.add("show");
 
+        /*
+          تشغيل الأغنية بعد اختفاء YAAAY.
+          currentTime = 0 يجعلها تبدأ من البداية.
+        */
+        loveSong.currentTime = 0;
+
+        const lovePlay =
+          loveSong.play();
+
+        if (lovePlay !== undefined) {
+          lovePlay.catch(() => {
+            console.log(
+              "Love audio was blocked by the browser."
+            );
+          });
+        }
+
         window.scrollTo({
           top: 0,
           behavior: "smooth"
@@ -2205,8 +2280,8 @@
 
     /*
       البوكس:
-      tap الأولى تهز.
-      tap الثانية تفتح الصورة.
+      الضغطة الأولى تهز البوكس.
+      الضغطة الثانية تفتحه.
     */
     boxStage.addEventListener("click", () => {
       if (boxIsOpening) {
@@ -2221,6 +2296,7 @@
         void boxStage.offsetWidth;
 
         boxStage.classList.add("shake");
+
         boxHint.textContent =
           "tap again… ✨";
 
@@ -2233,8 +2309,11 @@
 
       if (boxTapCount === 2) {
         boxIsOpening = true;
+
         boxStage.classList.add("opening");
-        boxHint.textContent = "";
+
+        boxHint.textContent =
+          "";
 
         setTimeout(() => {
           closedBox.classList.remove("active");
@@ -2243,8 +2322,12 @@
 
         setTimeout(() => {
           boxSection.classList.remove("show");
+
           librarySection.classList.add("show");
-          document.body.classList.add("library-mode");
+
+          document.body.classList.add(
+            "library-mode"
+          );
 
           setTimeout(() => {
             afterLibraryMessage.classList.add("show");
@@ -2345,7 +2428,9 @@
         `memory ${index + 1}`;
 
       image.loading =
-        index < 4 ? "eager" : "lazy";
+        index < 4
+          ? "eager"
+          : "lazy";
 
       image.addEventListener("error", () => {
         console.error(
@@ -2370,7 +2455,7 @@
     });
 
     /*
-      تطبيع الأسماء للمقارنة.
+      تنظيف الاسم قبل المقارنة.
     */
     function normalizeName(value) {
       return value
@@ -2385,7 +2470,7 @@
     }
 
     /*
-      هذه التركيبات تعطي 100%.
+      الأسماء التي تظهر 100%.
     */
     function isPerfectMatch(first, second) {
       const one =
@@ -2395,14 +2480,32 @@
         normalizeName(second);
 
       const pair =
-        [one, two].sort().join("|");
+        [one, two]
+          .sort()
+          .join("|");
 
       const perfectPairs = new Set([
-        ["tarek", "yomna"].sort().join("|"),
-        ["tarek", "youmna"].sort().join("|"),
-        ["yuni", "z0741"].sort().join("|"),
-        ["يوني", "طارق"].map(normalizeName).sort().join("|"),
-        ["يمنى", "طارق"].map(normalizeName).sort().join("|")
+        ["tarek", "yomna"]
+          .sort()
+          .join("|"),
+
+        ["tarek", "youmna"]
+          .sort()
+          .join("|"),
+
+        ["yuni", "z0741"]
+          .sort()
+          .join("|"),
+
+        ["يوني", "طارق"]
+          .map(normalizeName)
+          .sort()
+          .join("|"),
+
+        ["يمنى", "طارق"]
+          .map(normalizeName)
+          .sort()
+          .join("|")
       ]);
 
       return perfectPairs.has(pair);
@@ -2416,15 +2519,24 @@
 
       let hash = 0;
 
-      for (let index = 0; index < combined.length; index++) {
+      for (
+        let index = 0;
+        index < combined.length;
+        index++
+      ) {
         hash =
-          (hash * 31 + combined.charCodeAt(index)) %
-          100000;
+          (
+            hash * 31 +
+            combined.charCodeAt(index)
+          ) % 100000;
       }
 
       return 45 + (hash % 55);
     }
 
+    /*
+      حساب النسبة داخل القلبين.
+    */
     function showLoveResult() {
       const first =
         nameOne.value.trim();
@@ -2481,6 +2593,9 @@
       }
     );
 
+    /*
+      تكبير الصور.
+    */
     closeModal.addEventListener("click", () => {
       photoModal.classList.remove("show");
       modalImage.src = "";
